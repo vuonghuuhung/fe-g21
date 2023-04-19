@@ -1,8 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import SharedLayout from "./pages/SharedLayout";
+import Home from "./pages/Home";
+import Error from "./pages/Error";
+import ProtectedRoute from "./pages/ProtectRoute";
+import Login from "./pages/Login";
+import Registry from "./pages/Registry";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
-  return <h1 className="text-3xl font-bold underline">Hello world! Hung</h1>;
+  const [user, setUser] = useState(null)
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<SharedLayout />}>
+          <Route index element={<Home />} />
+          <Route path='login' element={<Login setUser={setUser} />} />
+          <Route
+            path='dashboard'
+            element={
+              <ProtectedRoute user={user}>
+                <Dashboard user={user} />
+              </ProtectedRoute>
+            } />
+          <Route path='*' element={<Error />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
