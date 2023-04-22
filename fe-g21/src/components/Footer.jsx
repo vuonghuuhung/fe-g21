@@ -1,8 +1,8 @@
 import { BsFacebook } from "react-icons/bs";
-import { AiOutlineInstagram } from "react-icons/ai"
-import { FaTiktok } from "react-icons/fa"
-import { BsTwitter } from "react-icons/bs"
-import {MdArrowUpward} from "react-icons/md"
+import { AiOutlineInstagram } from "react-icons/ai";
+import { FaTiktok } from "react-icons/fa";
+import { BsTwitter } from "react-icons/bs";
+import { MdArrowUpward } from "react-icons/md";
 
 const Footer = () => {
   return (
@@ -12,11 +12,19 @@ const Footer = () => {
         <h4 className="text-xl pb-2">Newsletter Title</h4>
         <p className="">Get the scoop on new products, guidance, and more</p>
         <form action="" method="post" className="">
-          <input type="email" placeholder="Enter your email"
+          <input
+            type="email"
+            placeholder="Enter your email"
             className="py-2 block mt-6 mb-5 bg-blue-400 border-0 border-b-2  
           border-gray-300 placeholder:text-white w-4/5 focus:border-yellow-200 
-          focus:outline-none focus:border-2 rounded" required />
-          <input type="submit" value="Signup" className="font-medium py-2 pr-2 active:bg-blue-500 rounded" />
+          focus:outline-none focus:border-2 rounded"
+            required
+          />
+          <input
+            type="submit"
+            value="Signup"
+            className="font-medium py-2 pr-2 active:bg-blue-500 rounded"
+          />
         </form>
       </div>
       <div className="bg-blue-400 grid grid-rows-2 grid-cols-2 gap-y-6 w-full">
