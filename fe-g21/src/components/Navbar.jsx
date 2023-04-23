@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
+    <>
     <header className="fixed w-full font-OpenSan bg-white flex flex-row justify-between items-center px-20 min-h-[104px]">
       <div className="basis-1/4 text-sm font-semibold">
         <img
@@ -179,6 +180,8 @@ const Navbar = () => {
         </NavLink>
       </div>
     </header>
+    <div className="min-h-[104px]"></div>
+    </>
   );
 };
 
