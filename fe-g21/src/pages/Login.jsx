@@ -55,7 +55,7 @@ const Login = () => {
         />
       </div>
       <p className="decoration-1 underline flex justify-center my-5">
-        <Link to="?">Create account</Link>
+        <Link to="/registry">Create account</Link>
       </p>
     </div>
   );

@@ -17,7 +17,7 @@ function App() {
         <Route path='/' element={<SharedLayout />}>
           <Route index element={<Home />} />
           <Route path='login' element={<Login setUser={setUser} />} />
-          <Route path='Registry' element={<Registry setUser={setUser}/>} />
+          <Route path='registry' element={<Registry setUser={setUser}/>} />
           <Route
             path='dashboard'
             element={
