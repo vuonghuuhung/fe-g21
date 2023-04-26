@@ -3,7 +3,6 @@ import { AiOutlineInstagram, AiFillCaretUp } from "react-icons/ai"
 import { FaTiktok } from "react-icons/fa"
 import { BsTwitter } from "react-icons/bs"
 import { MdArrowUpward } from "react-icons/md"
-import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (

@@ -41,7 +41,7 @@ function SelectDropdown({ list }) {
 }
 
 const Options = ({ options, productTitle }) => {
-  if (options.colors != undefined) {
+  if (options.colors !== undefined) {
     return (
       <div className="w-full">
         {options.colors.map((color, index) => {
@@ -57,7 +57,7 @@ const Options = ({ options, productTitle }) => {
                     name={"color-picker" + productTitle}
                     style={{
                       background:
-                        color.backgroundSrc != undefined
+                        color.backgroundSrc !== undefined
                           ? `url(${color.backgroundSrc})`
                           : `${color.backgroundCode}`,
                     }}
@@ -72,7 +72,7 @@ const Options = ({ options, productTitle }) => {
       </div>
     );
   }
-  if (options.types != undefined) {
+  if (options.types !== undefined) {
     return <SelectDropdown list={options.types} />;
   }
 };
@@ -82,7 +82,7 @@ const ProductCard = ({ product }) => {
   const productCardRef = useRef();
 
   const handleMouseEnter = () => {
-    product.onHoverImg != undefined
+    product.onHoverImg !== undefined
       ? setCurrentImage(product.onHoverImg)
       : setCurrentImage(product.imgSrc);
   };
@@ -128,7 +128,7 @@ const ProductCard = ({ product }) => {
           <span>${product.price}</span>
         </div>
       </div>
-      {product.options != undefined ? (
+      {product.options !== undefined ? (
         <Options options={product.options} productTitle={product.title} />
       ) : null}
     </div>
