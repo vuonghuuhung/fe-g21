@@ -1,8 +1,12 @@
-import { register } from "swiper/element/bundle";
 import topPicks from "../mocks/top-pick";
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper';
+import 'swiper/css';
+import ProductCard from "../components/ProductCard";
+// import 'swiper/css/navigation';
+
 const Home = () => {
-  register();
 
   return (
     <>
@@ -27,13 +31,13 @@ const Home = () => {
         </div>
       </section>
       <section>
-        <div className="bg-[#b3e5b4] py-20 px-16">
-          <div className="flex flex-row items-center">
+        <div className="bg-[#b3e5b4] py-20">
+          <div className="flex flex-row items-center px-16">
             <h1 className="text-4xl font-semibold text-black w-full pb-2">
               Poketo’s Top Picks. Most-loved stationery and more from the Poketo
               community
             </h1>
-            <div className="bg-[#0085ca] p-4 rounded-full mr-5">
+            <div className="bg-[#0085ca] p-4 rounded-full mr-5 swiper-button-prev cursor-pointer">
               <svg
                 width="18"
                 height="18"
@@ -46,7 +50,7 @@ const Home = () => {
                 ></path>
               </svg>
             </div>
-            <div className="bg-[#0085ca] p-4 rounded-full">
+            <div className="bg-[#0085ca] p-4 rounded-full swiper-button-next cursor-pointer">
               <svg
                 width="18"
                 height="18"
@@ -63,13 +67,29 @@ const Home = () => {
             </div>
           </div>
           <div className="pt-10">
-            <swiper-container>
-              {topPicks.map((product) => (
-                <swiper-slide>
-                  <div className="bg-slate-600 h-96 w-80"></div>
-                </swiper-slide>
-              ))}
-            </swiper-container>
+            <Swiper
+              modules={[Pagination, Navigation]}
+              navigation={{ 
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              }}
+              loop={true}
+              slidesPerView={5.5}
+              longSwipesMs={1000}
+            >
+              {/* <div className="swiper-button-prev"></div> */}
+              {topPicks.map((product, index) => 
+                <SwiperSlide key={index}>
+                  <ProductCard product={product}/>
+                </SwiperSlide>
+              )}
+              {topPicks.map((product, index) => 
+                <SwiperSlide key={index}>
+                  <ProductCard product={product}/>
+                </SwiperSlide>
+              )}
+              {/* <div className="swiper-button-next"></div> */}
+            </Swiper>
           </div>
         </div>
       </section>
@@ -105,7 +125,7 @@ const Home = () => {
                 Turn Over a New Page
               </h1>
               <p className="text-black">
-                Staying organized this spring is super simple with our range of
+                Staying organized this spring is super simple with our range ofxc
                 colorful calendars and unique planners.
               </p>
               <button className="bg-[#0085ca] text-white py-4 px-5 rounded-full mt-7 hover:bg-[#0085cab8]">
