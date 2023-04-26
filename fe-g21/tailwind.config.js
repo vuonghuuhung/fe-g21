@@ -6,6 +6,7 @@ module.exports = {
       OpenSan: ['Open Sans', 'sans-serif']
     },
     extend: {},
+
   },
   plugins: [],
 };
