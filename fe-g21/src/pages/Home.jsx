@@ -1,13 +1,12 @@
 import topPicks from "../mocks/top-pick";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper';
-import 'swiper/css';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper";
+import "swiper/css";
 import ProductCard from "../components/ProductCard";
-// import 'swiper/css/navigation';
+import { NextPointer, PrevPointer } from "../components/svg/Icon";
 
 const Home = () => {
-
   return (
     <>
       <section>
@@ -38,56 +37,34 @@ const Home = () => {
               community
             </h1>
             <div className="bg-[#0085ca] p-4 rounded-full mr-5 swiper-button-prev cursor-pointer">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9.95401 16.5159L9.23818 17.2318C9.04051 17.4294 8.72003 17.4294 8.52236 17.2318L0.648253 9.35765C0.450582 9.15998 0.450582 8.83949 0.648253 8.64182L8.52236 0.767719C8.72003 0.570047 9.04051 0.570047 9.23818 0.767719L9.95401 1.48355C10.1517 1.68122 10.1517 2.0017 9.95401 2.19937L4.16768 7.98758L16.9938 7.9874C17.2734 7.9874 17.5 8.21402 17.5 8.49357V9.5059C17.5 9.78545 17.2734 10.0121 16.9938 10.0121L4.16363 10.0122L9.95401 15.8001C10.1517 15.9978 10.1517 16.3183 9.95401 16.5159Z"
-                  fill="white"
-                ></path>
-              </svg>
+              <PrevPointer />
             </div>
             <div className="bg-[#0085ca] p-4 rounded-full swiper-button-next cursor-pointer">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="rotate-180"
-              >
-                <path
-                  d="M9.95401 16.5159L9.23818 17.2318C9.04051 17.4294 8.72003 17.4294 8.52236 17.2318L0.648253 9.35765C0.450582 9.15998 0.450582 8.83949 0.648253 8.64182L8.52236 0.767719C8.72003 0.570047 9.04051 0.570047 9.23818 0.767719L9.95401 1.48355C10.1517 1.68122 10.1517 2.0017 9.95401 2.19937L4.16768 7.98758L16.9938 7.9874C17.2734 7.9874 17.5 8.21402 17.5 8.49357V9.5059C17.5 9.78545 17.2734 10.0121 16.9938 10.0121L4.16363 10.0122L9.95401 15.8001C10.1517 15.9978 10.1517 16.3183 9.95401 16.5159Z"
-                  fill="white"
-                ></path>
-              </svg>
+              <NextPointer />
             </div>
           </div>
           <div className="pt-10">
             <Swiper
               modules={[Pagination, Navigation]}
-              navigation={{ 
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+              navigation={{
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
               }}
               loop={true}
               slidesPerView={5.5}
               longSwipesMs={1000}
             >
               {/* <div className="swiper-button-prev"></div> */}
-              {topPicks.map((product, index) => 
+              {topPicks.map((product, index) => (
                 <SwiperSlide key={index}>
-                  <ProductCard product={product}/>
+                  <ProductCard product={product} />
                 </SwiperSlide>
-              )}
-              {topPicks.map((product, index) => 
+              ))}
+              {topPicks.map((product, index) => (
                 <SwiperSlide key={index}>
-                  <ProductCard product={product}/>
+                  <ProductCard product={product} />
                 </SwiperSlide>
-              )}
+              ))}
               {/* <div className="swiper-button-next"></div> */}
             </Swiper>
           </div>
@@ -125,8 +102,8 @@ const Home = () => {
                 Turn Over a New Page
               </h1>
               <p className="text-black">
-                Staying organized this spring is super simple with our range ofxc
-                colorful calendars and unique planners.
+                Staying organized this spring is super simple with our range
+                ofxc colorful calendars and unique planners.
               </p>
               <button className="bg-[#0085ca] text-white py-4 px-5 rounded-full mt-7 hover:bg-[#0085cab8]">
                 Shop Calendars & Planners

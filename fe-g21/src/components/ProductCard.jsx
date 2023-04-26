@@ -1,81 +1,5 @@
 import { useRef, useState } from "react";
-
-function SelectDropdown({ list }) {
-  const [selectedValue, setSelectedValue] = useState("");
-
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
-
-  return (
-    <div className="py-4 relative flex w-[90%] m-auto cursor-pointer">
-      <select
-        className="ring-2 ring-blue-500 border rounded-full appearance-none form-select px-4 py-3 pl-3 w-full border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer"
-        onChange={handleChange}
-        value={selectedValue}
-      >
-        <option value="">Set of {list.length}</option>
-        {list.map((item) => {
-          return <option value={item}>{item}</option>;
-        })}
-      </select>
-      <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none cursor-pointer">
-        <svg
-          width="12"
-          height="8"
-          viewBox="0 0 12 8"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon-arrow-down"
-        >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M11.3033 2.51037C11.4986 2.31511 11.4986 1.99852 11.3033 1.80326L10.5962 1.09615C10.401 0.900892 10.0844 0.900892 9.88913 1.09615L6.00075 4.98453L2.11095 1.09615C1.91569 0.900891 1.59911 0.900892 1.40385 1.09615L0.69674 1.80326C0.501478 1.99852 0.501477 2.3151 0.696739 2.51037L4.58653 6.39875L4.58583 6.39945L5.64649 7.46011C5.84175 7.65538 6.15833 7.65538 6.35359 7.46011L11.3033 2.51037Z"
-            fill="#0085ca"
-          ></path>
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-const Options = ({ options, productTitle }) => {
-  if (options.colors !== undefined) {
-    return (
-      <div className="w-full">
-        {options.colors.map((color, index) => {
-          console.log(index);
-          if (index <= 6) {
-            return (
-              <label key={Math.random()} htmlFor={color.colorName}>
-                <div className="inline-block -ml-2 min-h-[1.5rem] pl-[1.5rem] pt-3">
-                  <input
-                    value={color.colorName}
-                    className="inline-block p-3 bg-cover bg-center bg-no-repeat hover:border-slate-600 hover:border-2 -ml-[0.5rem] cursor-pointer appearance-none border-2 rounded-full transition-all checked:border-slate-900 checked:border-2"
-                    type="radio"
-                    name={"color-picker" + productTitle}
-                    style={{
-                      background:
-                        color.backgroundSrc !== undefined
-                          ? `url(${color.backgroundSrc})`
-                          : `${color.backgroundCode}`,
-                    }}
-                  />
-                </div>
-              </label>
-            );
-          } else {
-            return null;
-          }
-        })}
-      </div>
-    );
-  }
-  if (options.types !== undefined) {
-    return <SelectDropdown list={options.types} />;
-  }
-};
+import ProductOptions from "./ProductOptions";
 
 const ProductCard = ({ product }) => {
   const [currentImage, setCurrentImage] = useState(product.imgSrc);
@@ -129,7 +53,10 @@ const ProductCard = ({ product }) => {
         </div>
       </div>
       {product.options !== undefined ? (
-        <Options options={product.options} productTitle={product.title} />
+        <ProductOptions
+          options={product.options}
+          productTitle={product.title}
+        />
       ) : null}
     </div>
   );
