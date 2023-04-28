@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineEye } from "react-icons/ai";
 import { CiTrash } from "react-icons/ci"
-import cart from "../mockData/cartData";
+import cart from "../mocks/cartData";
 
 const Cart = () => {
 
