@@ -6,7 +6,7 @@ const Navbar = () => {
       <NavLink className="px-2 py-1 text-white bg-blue-300 rounded-md" to="/">
         Poketo
       </NavLink>
-      <NavLink
+      {/* <NavLink
         className="px-2 py-1 text-white bg-blue-300 rounded-md"
         to="/shopp-all"
       >
@@ -47,7 +47,7 @@ const Navbar = () => {
         to="/cart"
       >
         Cart
-      </NavLink>
+      </NavLink> */}
     </nav>
   );
 };
