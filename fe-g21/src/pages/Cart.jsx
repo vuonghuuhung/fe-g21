@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AiFillExclamationCircle } from "react-icons/ai";
-import { AiOutlineMinus, AiOutlinePlus, AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEye } from "react-icons/ai";
 import { CiTrash } from "react-icons/ci"
 import cart from "../mocks/cartData";
 
@@ -11,7 +11,7 @@ const Cart = () => {
     const [total, setTotal] = useState (0);
     const updateProduct = (e) => {
         cart1.forEach (product => {
-            if (product.id == e.target.id){
+            if (product.id === e.target.id){
                 product.amount = e.target.value;
             }
         })
