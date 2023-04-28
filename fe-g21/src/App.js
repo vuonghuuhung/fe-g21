@@ -7,6 +7,7 @@ import ProtectedRoute from "./pages/ProtectRoute";
 import Login from "./pages/Login";
 import Registry from "./pages/Registry";
 import Dashboard from "./pages/Dashboard";
+import Cart from "./pages/Cart"
 
 function App() {
   const [user, setUser] = useState(null)
@@ -17,7 +18,8 @@ function App() {
         <Route path='/' element={<SharedLayout />}>
           <Route index element={<Home />} />
           <Route path='login' element={<Login setUser={setUser} />} />
-          <Route path='registry' element={<Registry setUser={setUser} />} />
+          <Route path='registry' element={<Registry setUser={setUser}/>} />
+          <Route path='cart' element={<Cart setUser={setUser}/>} />
           <Route
             path='dashboard'
             element={
