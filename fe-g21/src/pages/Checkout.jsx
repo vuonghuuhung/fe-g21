@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlineShoppingCart, AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import { HiArrowRight } from "react-icons/hi"
-import cart from "../mockData/cartData";
+import cart from "../mocks/cartData";
 import Select from 'react-select';
 import { useEffect } from "react";
 

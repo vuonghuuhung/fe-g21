@@ -22,6 +22,10 @@ module.exports = {
         3: '3',
       }
     },
+    fontFamily: {
+      OpenSan: ['Open Sans', 'sans-serif']
+    },
+    extend: {},
 
   },
   plugins: [],
