@@ -6,6 +6,7 @@ const topPicks = [
     avgRate: 4.7,
     totalRates: 37,
     price: 48,
+    categoryId: 1,
     options: {
       colors: [
         {
@@ -32,6 +33,7 @@ const topPicks = [
     onHoverImg:
       "https://cdn.shopify.com/s/files/1/0001/5211/products/New-Stationery-lifestyle_5c00770b-2428-4f2a-8392-95fade20f28b.jpg?v=1627498808&width=720",
     title: "Spectrum Mini Planner",
+    categoryId: 1,
     avgRate: 4.0,
     totalRates: 2,
     price: 24,
@@ -42,6 +44,7 @@ const topPicks = [
     onHoverImg:
       "https://cdn.shopify.com/s/files/1/0001/5211/products/PK-D-PDP-Wallet-Dome-ATF-05-2x.jpg?v=1666990517&width=720",
     title: "Dome Wallets",
+    categoryId: 3,
     avgRate: 3.0,
     totalRates: 2,
     price: 38,
@@ -90,6 +93,7 @@ const topPicks = [
     onHoverImg:
       "https://cdn.shopify.com/s/files/1/0001/5211/products/Concept-Planner-In-Use-03_c646cc66-95dc-4000-ae6f-5a82ff13d23e.jpg?v=1672867255&width=720",
     title: "Concept PLanner",
+    categoryId: 1,
     avgRate: 5.0,
     totalRates: 13,
     price: 36,
@@ -137,6 +141,7 @@ const topPicks = [
     onHoverImg:
       "https://cdn.shopify.com/s/files/1/0001/5211/products/Poketo-Colorblock-Cap-Pens-003.jpg?v=1648844023&width=720",
     title: "Colorblock Cap Pen",
+    categoryId: 2,
     avgRate: 5.0,
     totalRates: 3,
     price: "Starting at $10",
@@ -155,6 +160,7 @@ const topPicks = [
     onHoverImg:
       "https://cdn.shopify.com/s/files/1/0001/5211/products/Sticky-Rolls-Checklist-02.jpg?v=1636585952&width=720",
     title: "Checklist Sticky Role",
+    categoryId: 2,
     avgRate: 5.0,
     totalRates: 3,
     price: "Starting at $10",
@@ -166,6 +172,7 @@ const topPicks = [
     onHoverImg:
       "https://cdn.shopify.com/s/files/1/0001/5211/products/double-wall-cups-002.jpg?v=1623267800&width=720",
     title: "Double Wall Groovy Cup",
+    categoryId: 3,
     avgRate: 4.8,
     totalRates: 6,
     price: 28,
@@ -199,6 +206,7 @@ const topPicks = [
     onHoverImg:
       "https://cdn.shopify.com/s/files/1/0001/5211/products/Poketo-bamboo-serveware-plates.jpg?v=1649804214&width=720",
     title: "Bamboo Servers Set",
+    categoryId: 3,
     avgRate: 0,
     totalRates: 0,
     price: 24,

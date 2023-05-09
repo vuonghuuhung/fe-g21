@@ -52,7 +52,7 @@ const Home = () => {
               }}
               loop={true}
               slidesPerView={5.5}
-              longSwipesMs={1000}
+              longSwipesMs={200}
             >
               {/* <div className="swiper-button-prev"></div> */}
               {topPicks.map((product, index) => (
