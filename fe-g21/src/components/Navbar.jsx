@@ -98,55 +98,81 @@ const Navbar = () => {
         </div>
         {isInputOnFocus ? null : (
           <nav className="basis-2/4 gap-10 flex justify-start text-sm font-semibold">
-            <span
-              {...shopAllTriggers}
-              className="group flex h-[104px] items-center"
+            <Link to="product-list" products={topPicks} categoryName="Shop All">
+              <span
+                {...shopAllTriggers}
+                className="group flex h-[104px] items-center"
+              >
+                Shop All
+                <MenuListItem
+                  className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
+                  open={isShopAllOpen}
+                  products={topPicks}
+                />
+              </span>
+            </Link>
+            <Link
+              to="product-list"
+              products={topPicks}
+              categoryName="Best Sellers"
             >
-              Shop All
-              <MenuListItem
-                className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
-                open={isShopAllOpen}
-                products={topPicks}
-              />
-            </span>
-            <span {...bestTriggers} className="flex h-[104px] items-center">
-              Best Sellers
-              <MenuListItem
-                className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
-                open={isBestOpen}
-                products={topPicks}
-              />
-            </span>
-            <span {...noteTriggers} className="flex h-[104px] items-center">
-              Notebooks & Planners
-              <MenuListItem
-                className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
-                open={isNoteOpen}
-                products={topPicks.filter(
-                  (product) => product.categoryId === 1
-                )}
-              />
-            </span>
-            <span {...deskTriggers} className="flex h-[104px] items-center">
-              Desk Supplies
-              <MenuListItem
-                className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
-                open={isDeskOpen}
-                products={topPicks.filter(
-                  (product) => product.categoryId === 2
-                )}
-              />
-            </span>
-            <span {...homeTriggers} className="flex h-[104px] items-center">
-              Home & Lifestyle
-              <MenuListItem
-                className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
-                open={isHomeSOpen}
-                products={topPicks.filter(
-                  (product) => product.categoryId === 3
-                )}
-              />
-            </span>
+              <span {...bestTriggers} className="flex h-[104px] items-center">
+                Best Sellers
+                <MenuListItem
+                  className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
+                  open={isBestOpen}
+                  products={topPicks}
+                />
+              </span>
+            </Link>
+            <Link
+              to="product-list"
+              products={topPicks.filter((product) => product.categoryId === 1)}
+              categoryName="Notebooks & Planners"
+            >
+              <span {...noteTriggers} className="flex h-[104px] items-center">
+                Notebooks & Planners
+                <MenuListItem
+                  className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
+                  open={isNoteOpen}
+                  products={topPicks.filter(
+                    (product) => product.categoryId === 1
+                  )}
+                />
+              </span>
+            </Link>
+            <Link
+              to="product-list"
+              products={topPicks.filter((product) => product.categoryId === 2)}
+              categoryName="Desk Supplies"
+            >
+              <span {...deskTriggers} className="flex h-[104px] items-center">
+                Desk Supplies
+                <MenuListItem
+                  className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
+                  open={isDeskOpen}
+                  products={topPicks.filter(
+                    (product) => product.categoryId === 2
+                  )}
+                />
+              </span>
+            </Link>
+            <Link
+              to="product-list"
+              products={topPicks.filter((product) => product.categoryId === 3)}
+              categoryName="Home & Lifestyle"
+            >
+              <span {...homeTriggers} className="flex h-[104px] items-center">
+                Home & Lifestyle
+                <MenuListItem
+                  className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
+                  open={isHomeSOpen}
+                  products={topPicks.filter(
+                    (product) => product.categoryId === 3
+                  )}
+                />
+              </span>
+            </Link>
           </nav>
         )}
         <div
@@ -155,7 +181,12 @@ const Navbar = () => {
           }
         >
           <form action="/" method="get">
-            <div className={"bg-slate-200 items-center flex w-full " + (isInputOnFocus ? "h-14" : "h-10")}>
+            <div
+              className={
+                "bg-slate-200 items-center flex w-full " +
+                (isInputOnFocus ? "h-14" : "h-10")
+              }
+            >
               <svg
                 class="modal__toggle-open inline-block mx-3"
                 width="16"
@@ -179,7 +210,7 @@ const Navbar = () => {
                 placeholder="Search..."
                 type="text"
                 onChange={(e) => {
-                  setFindingPhrase(e.target.value)
+                  setFindingPhrase(e.target.value);
                 }}
                 value={findingPhrase}
               />
@@ -225,7 +256,12 @@ const Navbar = () => {
           </NavLink>
         </div>
       </header>
-      <div className={"w-full bg-white transition-all ease-in-out duration-500 overflow-hidden " + (findingPhrase !== "" ? "h-[550px] px-20 py-20" : "h-0")}>
+      <div
+        className={
+          "w-full bg-white transition-all ease-in-out duration-500 overflow-hidden " +
+          (findingPhrase !== "" ? "h-[550px] px-20 py-20" : "h-0")
+        }
+      >
         <h1>Searching...</h1>
       </div>
     </>
