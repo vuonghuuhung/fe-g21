@@ -1,4 +1,4 @@
-export const ArrowDown = () => {
+export const ArrowDown = ({className = ""}) => {
   return (
     <svg
       width="12"
@@ -6,7 +6,7 @@ export const ArrowDown = () => {
       viewBox="0 0 12 8"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      class="icon-arrow-down inline-block mx-1"
+      class={"icon-arrow-down inline-block mx-1 transition-all duration-500 ease-in-out " + className}
     >
       <path
         fill-rule="evenodd"

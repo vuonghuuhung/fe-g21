@@ -1,48 +1,161 @@
 import { Link, NavLink } from "react-router-dom";
-import { ArrowDown } from "./svg/Icon";
+import { useState } from "react";
+import MenuListItem from "./MenuListItem";
+import topPicks from "../mocks/top-pick";
 
 const Navbar = () => {
+  // State for menu list
+  const [isShopAllOpen, setIsShopAllOpen] = useState(false);
+  const [isBestOpen, setIsBestOpen] = useState(false);
+  const [isNoteOpen, setIsNoteOpen] = useState(false);
+  const [isDeskOpen, setIsDeskOpen] = useState(false);
+  const [isHomeSOpen, setIsHomeSOpen] = useState(false);
+  const [isInputOnFocus, setIsInputOnFocus] = useState(false);
+  const [findingPhrase, setFindingPhrase] = useState("");
+
+  const shopAllTriggers = {
+    onMouseEnter: () => {
+      setIsShopAllOpen(true);
+    },
+    onMouseLeave: () => {
+      setIsShopAllOpen(false);
+    },
+  };
+
+  const bestTriggers = {
+    onMouseEnter: () => {
+      setIsBestOpen(true);
+    },
+    onMouseLeave: () => {
+      setIsBestOpen(false);
+    },
+  };
+
+  const noteTriggers = {
+    onMouseEnter: () => {
+      setIsNoteOpen(true);
+    },
+    onMouseLeave: () => {
+      setIsNoteOpen(false);
+    },
+  };
+
+  const deskTriggers = {
+    onMouseEnter: () => {
+      setIsDeskOpen(true);
+    },
+    onMouseLeave: () => {
+      setIsDeskOpen(false);
+    },
+  };
+
+  const homeTriggers = {
+    onMouseEnter: () => {
+      setIsHomeSOpen(true);
+    },
+    onMouseLeave: () => {
+      setIsHomeSOpen(false);
+    },
+  };
+
+  const inputFindTriggers = {
+    onFocus: () => {
+      setIsInputOnFocus(true);
+    },
+    onBlur: () => {
+      setIsInputOnFocus(false);
+      setFindingPhrase("");
+    },
+  };
+
   return (
     <>
-      <header className="fixed z-10 w-full font-OpenSan bg-white flex flex-row justify-between items-center px-20 min-h-[104px]">
+      <header className="relative z-10 w-full font-OpenSan bg-white flex flex-row justify-between items-center px-20 min-h-[104px]">
+        <div
+          className={
+            "absolute left-0 top-[104px] w-full -z-50 " +
+            (isBestOpen ||
+            isDeskOpen ||
+            isHomeSOpen ||
+            isShopAllOpen ||
+            isNoteOpen
+              ? "bg-[#0000004d] h-screen"
+              : "")
+          }
+        ></div>
         <div className="basis-1/4 text-sm font-semibold">
           <Link to="/">
             <img
-              className="max-w-[100px]"
+              className="max-w-[250px]"
               src="https://cdn.shopify.com/s/files/1/0001/5211/files/pk-logotype-dark.png?v=1674686921&width=500"
               alt="logo"
             />
           </Link>
-          <button className="pt-2">
+          {/* <button className="pt-2">
             Shop the family of brands
             <ArrowDown />
-          </button>
+          </button> */}
         </div>
-        <nav className="basis-2/4 gap-10 flex justify-start text-sm font-semibold">
-          <span>
-            Shop All
-            <ArrowDown />
-          </span>
-          <span>
-            Best Sellers
-            <ArrowDown />
-          </span>
-          <span>
-            Notebooks & Planners
-            <ArrowDown />
-          </span>
-          <span>
-            Desk Supplies
-            <ArrowDown />
-          </span>
-          <span>
-            Home & Lifestyle
-            <ArrowDown />
-          </span>
-        </nav>
-        <div className="basis-1/4 flex justify-center">
+        {isInputOnFocus ? null : (
+          <nav className="basis-2/4 gap-10 flex justify-start text-sm font-semibold">
+            <span
+              {...shopAllTriggers}
+              className="group flex h-[104px] items-center"
+            >
+              Shop All
+              <MenuListItem
+                className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
+                open={isShopAllOpen}
+                products={topPicks}
+              />
+            </span>
+            <span {...bestTriggers} className="flex h-[104px] items-center">
+              Best Sellers
+              <MenuListItem
+                className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
+                open={isBestOpen}
+                products={topPicks}
+              />
+            </span>
+            <span {...noteTriggers} className="flex h-[104px] items-center">
+              Notebooks & Planners
+              <MenuListItem
+                className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
+                open={isNoteOpen}
+                products={topPicks.filter(
+                  (product) => product.categoryId === 1
+                )}
+              />
+            </span>
+            <span {...deskTriggers} className="flex h-[104px] items-center">
+              Desk Supplies
+              <MenuListItem
+                className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
+                open={isDeskOpen}
+                products={topPicks.filter(
+                  (product) => product.categoryId === 2
+                )}
+              />
+            </span>
+            <span {...homeTriggers} className="flex h-[104px] items-center">
+              Home & Lifestyle
+              <MenuListItem
+                className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
+                open={isHomeSOpen}
+                products={topPicks.filter(
+                  (product) => product.categoryId === 3
+                )}
+              />
+            </span>
+          </nav>
+        )}
+        <div
+          className={
+            "basis-1/4 flex " + (isInputOnFocus ? "basis-3/4 justify-end" : "")
+          }
+        >
           <form action="/" method="get">
-            <div className="bg-slate-200 h-10 items-center flex w-full">
+            <div className={"bg-slate-200 items-center flex w-full " + (isInputOnFocus ? "h-14" : "h-10")}>
               <svg
                 class="modal__toggle-open inline-block mx-3"
                 width="16"
@@ -58,9 +171,17 @@ const Navbar = () => {
                 ></path>
               </svg>
               <input
-                className="bg-slate-200 text-sm font-semibold leading-3 pr-3.5 mr-4"
+                {...inputFindTriggers}
+                className={
+                  "bg-slate-200 font-semibold leading-3 pr-3.5 mr-4 focus:outline-none transition-all ease-in-out duration-500 " +
+                  (isInputOnFocus ? "w-[32rem] text-xl" : "w-full text-sm")
+                }
                 placeholder="Search..."
                 type="text"
+                onChange={(e) => {
+                  setFindingPhrase(e.target.value)
+                }}
+                value={findingPhrase}
               />
             </div>
           </form>
@@ -104,7 +225,9 @@ const Navbar = () => {
           </NavLink>
         </div>
       </header>
-      <div className="min-h-[104px]"></div>
+      <div className={"w-full bg-white transition-all ease-in-out duration-500 " + (findingPhrase !== "" ? "h-[550px] px-20 py-20" : "h-0")}>
+        <h1>Searching...</h1>
+      </div>
     </>
   );
 };
