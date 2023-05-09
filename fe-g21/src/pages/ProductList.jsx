@@ -1,11 +1,12 @@
-export default function ProductList({ products = null}) {
+export default function ProductList({ products = null, categoryName="Best Sellers"}) {
   const categorizedProducts = products !== null ? products : null;
+  console.log(products, categoryName);
 
   return (
     <>
       <div className="flex h-96 w-full bg-[url('https://cdn.shopify.com/s/files/1/0001/5211/collections/BestSellers-Category-Banner_2400x.jpg?v=1607034510')]">
         <h1 className="m-auto text-white text-8xl font-semibold">
-          Best Sellers
+          {categoryName}
         </h1>
       </div>
       <div class="bg-white">
