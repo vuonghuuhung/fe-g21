@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import ProductOptions from "./ProductOptions";
 
-const ProductCard = ({ product, className={} }) => {
+const ProductCard = ({ product }) => {
   const [currentImage, setCurrentImage] = useState(product.imgSrc);
   const productCardRef = useRef();
 
@@ -16,7 +16,7 @@ const ProductCard = ({ product, className={} }) => {
   };
 
   return (
-    <div className={"w-[85%] h-fit " + className}>
+    <div className={"w-[85%] h-fit"}>
       <div
         className="h-fit w-full object-cover sm:h-80 lg:h-96 block bg-cover bg-center bg-no-repeat transition-[background-image] duration-[0.3s] ease-in-out cursor-pointer"
         ref={productCardRef}
