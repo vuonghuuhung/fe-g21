@@ -225,7 +225,7 @@ const Navbar = () => {
           </NavLink>
         </div>
       </header>
-      <div className={"w-full bg-white transition-all ease-in-out duration-500 " + (findingPhrase !== "" ? "h-[550px] px-20 py-20" : "h-0")}>
+      <div className={"w-full bg-white transition-all ease-in-out duration-500 overflow-hidden " + (findingPhrase !== "" ? "h-[550px] px-20 py-20" : "h-0")}>
         <h1>Searching...</h1>
       </div>
     </>
