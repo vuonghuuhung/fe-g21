@@ -98,7 +98,7 @@ const Navbar = () => {
         </div>
         {isInputOnFocus ? null : (
           <nav className="basis-2/4 gap-10 flex justify-start text-sm font-semibold">
-            <Link to="product-list" products={topPicks} categoryName="Shop All">
+            <Link to={{ pathname: "/product-list", state: { products: topPicks, categoryName: "Shop All" } }}>
               <span
                 {...shopAllTriggers}
                 className="group flex h-[104px] items-center"
@@ -112,9 +112,7 @@ const Navbar = () => {
               </span>
             </Link>
             <Link
-              to="product-list"
-              products={topPicks}
-              categoryName="Best Sellers"
+              to={{ pathname: "/product-list", state: { products: topPicks, categoryName: "Best Sellers" } }}
             >
               <span {...bestTriggers} className="flex h-[104px] items-center">
                 Best Sellers
@@ -126,9 +124,9 @@ const Navbar = () => {
               </span>
             </Link>
             <Link
-              to="product-list"
-              products={topPicks.filter((product) => product.categoryId === 1)}
-              categoryName="Notebooks & Planners"
+              to={{ pathname: "/product-list", state: { products: topPicks.filter(
+                (product) => product.categoryId === 1
+              ), categoryName: "Notebooks & Planners" } }}
             >
               <span {...noteTriggers} className="flex h-[104px] items-center">
                 Notebooks & Planners
@@ -142,9 +140,9 @@ const Navbar = () => {
               </span>
             </Link>
             <Link
-              to="product-list"
-              products={topPicks.filter((product) => product.categoryId === 2)}
-              categoryName="Desk Supplies"
+              to={{ pathname: "/product-list", state: { products: topPicks.filter(
+                (product) => product.categoryId === 2
+              ), categoryName: "Desk Supplies" } }}
             >
               <span {...deskTriggers} className="flex h-[104px] items-center">
                 Desk Supplies
@@ -158,9 +156,9 @@ const Navbar = () => {
               </span>
             </Link>
             <Link
-              to="product-list"
-              products={topPicks.filter((product) => product.categoryId === 3)}
-              categoryName="Home & Lifestyle"
+              to={{ pathname: "/product-list", state: { products: topPicks.filter(
+                (product) => product.categoryId === 3
+              ), categoryName: "Home & Lifestyle" } }}
             >
               <span {...homeTriggers} className="flex h-[104px] items-center">
                 Home & Lifestyle
