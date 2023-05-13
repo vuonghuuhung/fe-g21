@@ -9,6 +9,7 @@ import Registry from "./pages/Registry";
 import Dashboard from "./pages/Dashboard";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import ProductList from "./pages/ProductList";
 
 function App() {
   const [user, setUser] = useState(null)
@@ -22,6 +23,7 @@ function App() {
           <Route path='registry' element={<Registry setUser={setUser}/>} />
           <Route path='cart' element={<Cart setUser={setUser}/>} />
           <Route path='checkout' element={<Checkout setUser={setUser}/>} />
+          <Route path='product-list' element={<ProductList />} />
           <Route
             path='dashboard'
             element={
