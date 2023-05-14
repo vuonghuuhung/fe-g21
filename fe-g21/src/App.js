@@ -12,23 +12,23 @@ import Checkout from "./pages/Checkout";
 import ProductList from "./pages/ProductList";
 
 function App() {
-  const [user, setUser] = useState(null)
+  const [isLogin, setIsLogin] = useState(false);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<SharedLayout />}>
           <Route index element={<Home />} />
-          <Route path='login' element={<Login setUser={setUser} />} />
-          <Route path='registry' element={<Registry setUser={setUser}/>} />
-          <Route path='cart' element={<Cart setUser={setUser}/>} />
-          <Route path='checkout' element={<Checkout setUser={setUser}/>} />
+          <Route path='login' element={<Login isLogin={isLogin} setIsLogin={setIsLogin} />} />
+          <Route path='registry' element={<Registry />} />
+          <Route path='cart' element={<Cart />} />
+          <Route path='checkout' element={<Checkout />} />
           <Route path='product-list' element={<ProductList />} />
           <Route
             path='dashboard'
             element={
-              <ProtectedRoute user={user}>
-                <Dashboard user={user} />
+              <ProtectedRoute isLogin={isLogin}>
+                <Dashboard />
               </ProtectedRoute>
             } />
           <Route path='*' element={<Error />} />
