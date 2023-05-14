@@ -3,13 +3,13 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaCartPlus, FaLinkedinIn, FaPinter
 const ProductDetail = () => {
     return (
         <section>
-            <div>
+            <div className="product-detail">
                 <div className="right-container">
-                <span className="name">Project Planner</span>
+                    <span className="name">Project Planner</span>
                         <span className="price"></span>
                         <span className="descrip">Description</span>
                         <div className="offer">
-                            <div className="quantity-buttons">
+                            <div className="quantity-button">
                                 <span >-</span>
                                 <span>4</span>
                                 <span>+</span>
