@@ -3,6 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import { login } from "../services/apis/auth"
 import { getProductList } from "../services/apis/product";
 import { getCities, getUrbans, getDistricts } from "../services/apis/address";
+import axios from "../services/utils/axios";
 
 const Login = ({ isLogin, setIsLogin }) => {
   
@@ -24,12 +25,22 @@ const Login = ({ isLogin, setIsLogin }) => {
       email,
       password
     });
-    if (await login(email, password)) {
-      setIsLogin(true);
-      return <Navigate to={"/dashboard "}/>
-    } else {
-      setError('Invalid username or password');
-    }
+    // if (await login(email, password)) {
+    //   setIsLogin(true);
+    //   return <Navigate to={"/dashboard "}/>
+    // } else {
+    //   setError('Invalid username or password');
+    // }
+    // axios.get('/sanctum/csrf-cookie')
+    // .then(response => {
+    //     console.log(response);
+        axios.post('/api/login', {
+            email: email,
+            password: password
+        }).then(response => {
+            console.log(response);
+        })
+    // });
   }
   
   return (
