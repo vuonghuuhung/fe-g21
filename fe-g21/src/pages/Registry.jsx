@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getCities, getDistricts, getUrbans } from "../services/apis/address";
+import { ArrowDown } from "../components/svg/Icon";
+import { registry } from "../services/apis/registry";
 
 const Registry = () => {
   const [email, setEmail] = useState("");
@@ -14,6 +16,8 @@ const Registry = () => {
   const [cities, setCities] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [urbans, setUrbans] = useState([]);
+  
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     fetchCities();
@@ -23,6 +27,7 @@ const Registry = () => {
     if (city) {
       fetchDistricts(city);
     }
+    // eslint-disable-next-line
   }, [city]);
 
   useEffect(() => {
@@ -43,7 +48,7 @@ const Registry = () => {
   const fetchDistricts = async (cityId) => {
     try {
       const response = await getDistricts(cityId);
-      setDistricts(prevState => prevState = response);
+      setDistricts((prevState) => (prevState = response));
       console.log(districts);
     } catch (error) {
       console.log(error);
@@ -69,14 +74,14 @@ const Registry = () => {
   const handleCityChange = (event) => {
     const selectedCity = event.target.value;
     setCity(selectedCity);
-    setDistrict('');
-    setUrban('');
+    setDistrict("");
+    setUrban("");
   };
 
   const handleDistrictChange = (event) => {
     const selectedDistrict = event.target.value;
     setDistrict(selectedDistrict);
-    setUrban('');
+    setUrban("");
   };
 
   const handleWardChange = (event) => {
@@ -84,10 +89,29 @@ const Registry = () => {
     setUrban(selectedUrban);
   };
 
-  const handleCreate = (e) => {
+  const handleCreate = async (e) => {
     e.preventDefault();
     console.log(validateEmail(email));
-    console.log({ firstName, lastName, email, password, phoneNumber });
+    try {
+      const response = await registry({
+        email: email,
+        password: password,
+        firstname: firstName,
+        lastname: lastName,
+        city_id: city,
+        district_id: district,
+        urban_id: urban,
+        phone: phoneNumber,
+      });
+      if (response) {
+        alert("User register successfully!");
+        navigate("/login");
+      } else {
+        alert("User register failed! Try again.");
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -101,7 +125,7 @@ const Registry = () => {
           type="text"
           name="FirstName"
           id="fname"
-          placeholder="First name"
+          placeholder="First Name"
           onChange={(e) => setFirstName(e.target.value)}
           className="bg-gray-100 rounded-none w-1/3 p-2 mb-8 focus:border-orange-300 focus:border-2 focus:outline-none"
         />
@@ -112,7 +136,7 @@ const Registry = () => {
           type="text"
           name="Lastname"
           id="lastname"
-          placeholder="Last name"
+          placeholder="Last Name"
           onChange={(e) => setLastName(e.target.value)}
           className="bg-gray-100 rounded-none	w-1/3 p-2 mb-8 focus:border-orange-300 focus:border-2 focus:outline-none"
         />
@@ -142,7 +166,7 @@ const Registry = () => {
       <div className="w-full flex justify-center">
         <input
           value={phoneNumber}
-          type="number"
+          type="tel"
           name="Phone"
           id="phone"
           placeholder="Phone Number"
@@ -150,9 +174,13 @@ const Registry = () => {
           className="bg-gray-100 rounded-none w-1/3 p-2 mb-8 focus:border-orange-300 focus:border-2 focus:outline-none"
         />
       </div>
-      <div>
-        <label>Thành phố:</label>
-        <select value={city} onChange={handleCityChange}>
+      <div className="w-1/3 flex m-auto relative">
+        {/* <label>Thành phố:</label> */}
+        <select
+          value={city}
+          onChange={handleCityChange}
+          className="bg-gray-100 rounded-none w-full p-2 mb-8 focus:outline-none"
+        >
           <option value="">-- Chọn thành phố --</option>
           {cities.map((city) => (
             <option key={city.id} value={city.id}>
@@ -160,35 +188,50 @@ const Registry = () => {
             </option>
           ))}
         </select>
+        <div className="absolute top-3 right-0 flex items-center px-2 pointer-events-none bg-gray-100">
+          <ArrowDown className="w-3 h-4 text-gray-400" />
+        </div>
       </div>
 
       {city && (
-        <div>
-          <label>Quận/Huyện:</label>
-          <select value={district} onChange={handleDistrictChange}>
+        <div className="w-1/3 flex m-auto relative">
+          {/* <label>Quận/Huyện:</label> */}
+          <select
+            value={district}
+            onChange={handleDistrictChange}
+            className="bg-gray-100 rounded-none w-full p-2 mb-8 focus:outline-none"
+          >
             <option value="">-- Chọn quận/huyện --</option>
-            {districts
-              .map((district) => (
-                <option key={district.id} value={district.id}>
-                  {district.name}
-                </option>
-              ))}
+            {districts.map((district) => (
+              <option key={district.id} value={district.id}>
+                {district.name}
+              </option>
+            ))}
           </select>
+          <div className="absolute top-3 right-0 flex items-center px-2 pointer-events-none bg-gray-100">
+            <ArrowDown className="w-3 h-4 text-gray-400" />
+          </div>
         </div>
       )}
 
       {district && (
-        <div>
-          <label>Xã/Phường:</label>
-          <select value={urban} onChange={handleWardChange}>
+        <div className="w-1/3 flex m-auto relative">
+          {/* <label>Xã/Phường:</label> */}
+          <select
+            value={urban}
+            onChange={handleWardChange}
+            className="bg-gray-100 rounded-none w-full p-2 mb-8 focus:outline-none"
+          >
             <option value="">-- Chọn xã/phường --</option>
-            {urbans
-              .map((ward) => (
-                <option key={ward.id} value={ward.id}>
-                  {ward.name}
-                </option>
-              ))}
+            {urbans.map((ward) => (
+              <option key={ward.id} value={ward.id}>
+                {ward.name}
+              </option>
+            ))}
           </select>
+          <div className="absolute top-3 right-0 flex items-center px-2 pointer-events-none bg-gray-100">
+            <ArrowDown className="w-3 h-4 text-gray-400" />
+          </div>
         </div>
       )}
       <div className="flex justify-center w-full">
