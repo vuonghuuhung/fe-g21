@@ -15,13 +15,12 @@ export default function MenuListItem({
 
   return (
     <>
-      <ArrowDown className={open ? "rotate-180" : ""} />
-      <div className={className + " " + (open ? "h-[550px]" : "h-0")}>
+      <ArrowDown className={"group-hover:rotate-180"} />
+      <div className={className + " h-0 group-hover:h-[550px]"}>
         {separatedProducts != null ? (
             <Swiper
               loop={false}
               slidesPerView={5}
-              longSwipesMs={200}
             >
               {/* <div className="swiper-button-prev"></div> */}
               {separatedProducts.map((product, index) => (
