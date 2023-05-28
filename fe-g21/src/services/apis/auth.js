@@ -2,6 +2,7 @@ import axios from '../utils/axios';
 
 const login = async (email, password) => {
     try {
+        await axios.get('/sanctum/csrf-cookie');
         const response = await axios.post('/api/login', { email, password });
         const data = response.data;
         if (data.success) {
