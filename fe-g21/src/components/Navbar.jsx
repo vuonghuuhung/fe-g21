@@ -5,58 +5,8 @@ import topPicks from "../mocks/top-pick";
 
 const Navbar = () => {
   // State for menu list
-  const [isShopAllOpen, setIsShopAllOpen] = useState(false);
-  const [isBestOpen, setIsBestOpen] = useState(false);
-  const [isNoteOpen, setIsNoteOpen] = useState(false);
-  const [isDeskOpen, setIsDeskOpen] = useState(false);
-  const [isHomeSOpen, setIsHomeSOpen] = useState(false);
   const [isInputOnFocus, setIsInputOnFocus] = useState(false);
   const [findingPhrase, setFindingPhrase] = useState("");
-
-  const shopAllTriggers = {
-    onMouseEnter: () => {
-      setIsShopAllOpen(true);
-    },
-    onMouseLeave: () => {
-      setIsShopAllOpen(false);
-    },
-  };
-
-  const bestTriggers = {
-    onMouseEnter: () => {
-      setIsBestOpen(true);
-    },
-    onMouseLeave: () => {
-      setIsBestOpen(false);
-    },
-  };
-
-  const noteTriggers = {
-    onMouseEnter: () => {
-      setIsNoteOpen(true);
-    },
-    onMouseLeave: () => {
-      setIsNoteOpen(false);
-    },
-  };
-
-  const deskTriggers = {
-    onMouseEnter: () => {
-      setIsDeskOpen(true);
-    },
-    onMouseLeave: () => {
-      setIsDeskOpen(false);
-    },
-  };
-
-  const homeTriggers = {
-    onMouseEnter: () => {
-      setIsHomeSOpen(true);
-    },
-    onMouseLeave: () => {
-      setIsHomeSOpen(false);
-    },
-  };
 
   const inputFindTriggers = {
     onFocus: () => {
@@ -88,7 +38,7 @@ const Navbar = () => {
           <nav className="basis-2/4 gap-10 flex justify-start text-sm font-semibold">
             <Link to="/product-list" state={{ products: topPicks, categoryName: "Shop All" }}>
               <span
-                {...shopAllTriggers}
+                
                 className="group flex h-[104px] items-center"
               >
                 Shop All
@@ -101,7 +51,7 @@ const Navbar = () => {
             <Link
               to="/product-list" state={{ products: topPicks, categoryName: "Best Sellers" }}
             >
-              <span {...bestTriggers} className="flex h-[104px] items-center group">
+              <span className="flex h-[104px] items-center group">
                 Best Sellers
                 <MenuListItem
                   className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
@@ -114,7 +64,7 @@ const Navbar = () => {
                 (product) => product.categoryId === 1
               ), categoryName: "Notebooks & Planners" }}
             >
-              <span {...noteTriggers} className="flex group h-[104px] items-center">
+              <span className="flex group h-[104px] items-center">
                 Notebooks & Planners
                 <MenuListItem
                   className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
@@ -129,7 +79,7 @@ const Navbar = () => {
                 (product) => product.categoryId === 2
               ), categoryName: "Desk Supplies" }}
             >
-              <span {...deskTriggers} className="flex group h-[104px] items-center">
+              <span className="flex group h-[104px] items-center">
                 Desk Supplies
                 <MenuListItem
                   className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
@@ -144,7 +94,7 @@ const Navbar = () => {
                 (product) => product.categoryId === 3
               ), categoryName: "Home & Lifestyle" }}
             >
-              <span {...homeTriggers} className="flex group h-[104px] items-center">
+              <span className="flex group h-[104px] items-center">
                 Home & Lifestyle
                 <MenuListItem
                   className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
