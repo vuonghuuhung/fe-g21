@@ -71,18 +71,6 @@ const Navbar = () => {
   return (
     <>
       <header className="relative z-10 w-full font-OpenSan bg-white flex flex-row justify-between items-center px-20 min-h-[104px]">
-        <div
-          className={
-            "absolute left-0 top-[104px] w-full -z-50 " +
-            (isBestOpen ||
-            isDeskOpen ||
-            isHomeSOpen ||
-            isShopAllOpen ||
-            isNoteOpen
-              ? "bg-[#0000004d] h-screen"
-              : "")
-          }
-        ></div>
         <div className="basis-1/4 text-sm font-semibold">
           <Link to="/">
             <img
@@ -106,7 +94,6 @@ const Navbar = () => {
                 Shop All
                 <MenuListItem
                   className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
-                  open={isShopAllOpen}
                   products={topPicks}
                 />
               </span>
@@ -114,11 +101,10 @@ const Navbar = () => {
             <Link
               to="/product-list" state={{ products: topPicks, categoryName: "Best Sellers" }}
             >
-              <span {...bestTriggers} className="flex h-[104px] items-center">
+              <span {...bestTriggers} className="flex h-[104px] items-center group">
                 Best Sellers
                 <MenuListItem
                   className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
-                  open={isBestOpen}
                   products={topPicks}
                 />
               </span>
@@ -128,11 +114,10 @@ const Navbar = () => {
                 (product) => product.categoryId === 1
               ), categoryName: "Notebooks & Planners" }}
             >
-              <span {...noteTriggers} className="flex h-[104px] items-center">
+              <span {...noteTriggers} className="flex group h-[104px] items-center">
                 Notebooks & Planners
                 <MenuListItem
                   className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
-                  open={isNoteOpen}
                   products={topPicks.filter(
                     (product) => product.categoryId === 1
                   )}
@@ -144,11 +129,10 @@ const Navbar = () => {
                 (product) => product.categoryId === 2
               ), categoryName: "Desk Supplies" }}
             >
-              <span {...deskTriggers} className="flex h-[104px] items-center">
+              <span {...deskTriggers} className="flex group h-[104px] items-center">
                 Desk Supplies
                 <MenuListItem
                   className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
-                  open={isDeskOpen}
                   products={topPicks.filter(
                     (product) => product.categoryId === 2
                   )}
@@ -160,11 +144,10 @@ const Navbar = () => {
                 (product) => product.categoryId === 3
               ), categoryName: "Home & Lifestyle" }}
             >
-              <span {...homeTriggers} className="flex h-[104px] items-center">
+              <span {...homeTriggers} className="flex group h-[104px] items-center">
                 Home & Lifestyle
                 <MenuListItem
                   className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
-                  open={isHomeSOpen}
                   products={topPicks.filter(
                     (product) => product.categoryId === 3
                   )}
@@ -235,14 +218,15 @@ const Navbar = () => {
               ></path>
             </svg>
           </NavLink>
-          <NavLink className="flex ml-6 items-center gap-4" to="/cart">
+          <NavLink className="flex ml-6 items-center gap-4 relative" to="/cart">
+            <span className="absolute text-[0.6rem] left-[42%] top-[20%] font-bold">0</span>
             <svg
               width="24"
               height="24"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="inline-block"
+              className="inline-block relative"
             >
               <path
                 fill-rule="evenodd"
