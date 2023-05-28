@@ -6,7 +6,7 @@ const login = async (email, password) => {
         const response = await axios.post('/api/login', { email, password });
         const data = response.data;
         if (data.success) {
-            console.log(`save token ${data.data.token} to cookie`);
+            console.log(`save token ${data.data.token} to localStorage`);
             localStorage.setItem('token', data.data.token)
             return true;
         } else {
