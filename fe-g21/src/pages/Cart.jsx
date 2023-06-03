@@ -1,29 +1,36 @@
+// lấy được id vật thu được vào rỏ hàng
 import { useEffect, useState } from "react";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { CiTrash } from "react-icons/ci"
 import cart from "../mocks/cartData";
+import topPicks from "../mocks/top-pick";
 
 const Cart = () => {
 
     //console.log (cart);
+    let ListIteam = JSON.parse(localStorage.getItem("cart")) || [];
+    // const [cart1, setCart] = useState(topPicks.map(topPick => {
+    //     if (ListIteam.includes(topPick)) return topPick;
+    // }));
     const [cart1, setCart] = useState(cart);
-    const [total, setTotal] = useState (0);
+    const [total, setTotal] = useState(0);
     const updateProduct = (e) => {
-        cart1.forEach (product => {
-            if (product.id === e.target.id){
+        cart1.forEach(product => {
+            if (product.id === e.target.id) {
                 product.amount = e.target.value;
             }
         })
-        setCart ([...cart1]);
+        setCart([...cart1]);
     }
     const deleteProduct = (idc) => {
-        setCart (cart1.filter (produce => produce.id !== idc))
-        console.log (cart1)
+        setCart(cart1.filter(produce => produce.id !== idc))
+        console.log(cart1)
     }
-    useEffect (() => {
+    useEffect(() => {
+        console.log(cart1)
         const getTotal = () => {
-            const total1 = cart1.reduce ((prev, produce) => {
+            const total1 = cart1.reduce((prev, produce) => {
                 return prev + (produce.amount * produce.price);
             }, 0)
             setTotal(total1);
@@ -37,7 +44,7 @@ const Cart = () => {
             <div className="md:col-span-4 ">
                 <h2 className="text-3xl font-medium">Your Cart {cart.length}</h2>
                 {
-                    cart1.map((product,index) => (
+                    cart1.map((product, index) => (
                         <div>
                             <div className="grid grid-cols-12 gap-1 mt-6">
                                 <img src={product.imglink} alt="" className="col-span-2" />
@@ -50,7 +57,7 @@ const Cart = () => {
                                             name="amount"
                                             id={product.id}
                                             className="bg-gray-200 w-4/5 mt-3" value={product.amount}
-                                            onChange={(e) => 
+                                            onChange={(e) =>
                                                 updateProduct(e)
                                             } />
                                     </div>
@@ -60,8 +67,8 @@ const Cart = () => {
                                     <p className="text-white relative top-0.5 left-3">Popularl 8 views</p>
                                 </div>
                                 <div className="col-span-3 relative">
-                                    <CiTrash className="absolute top-0 right-0 text-blue-500 text-xl hover:text-blue-400 hover:cursor-grab" 
-                                    onClick={() => deleteProduct(cart1[index].id)}/>
+                                    <CiTrash className="absolute top-0 right-0 text-blue-500 text-xl hover:text-blue-400 hover:cursor-grab"
+                                        onClick={() => deleteProduct(cart1[index].id)} />
                                     <div className="absolute bottom-0 right-0">${product.price}.00</div>
                                 </div>
                             </div>

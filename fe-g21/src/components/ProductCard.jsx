@@ -4,6 +4,9 @@ import ProductOptions from "./ProductOptions";
 const ProductCard = ({ product }) => {
   const [currentImage, setCurrentImage] = useState(product.imgSrc);
   const productCardRef = useRef();
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+
 
   const handleMouseEnter = () => {
     product.onHoverImg !== undefined
@@ -15,6 +18,19 @@ const ProductCard = ({ product }) => {
     setCurrentImage(product.imgSrc);
   };
 
+  const handleAdd = () => {
+    if (cart.length == 0){
+      cart.push(product._id);
+    } else {
+      const res =  cart.find (ele => ele == product._id)
+      if (res === undefined) {
+        cart.push (product._id)
+      }
+    }
+
+    localStorage.setItem ("cart", JSON.stringify (cart))
+  }
+
   return (
     <div className={"w-[85%] h-fit"}>
       <div
@@ -25,7 +41,7 @@ const ProductCard = ({ product }) => {
         style={{ backgroundImage: `url(${currentImage})` }}
       >
         <div className="group-hover/cart:-translate-y-24 transition-all ease-in-out duration-[0.3s] absolute bg-slate-100/70 hover:bg-slate-100 w-[85%] left-[50%] translate-x-[-50%] rounded-full border-solid border-2 border-[#4b995c] -bottom-20">
-          <button className="text-black text-center block w-full uppercase py-4">Add to card</button>
+          <button onClick={handleAdd} className="text-black text-center block w-full uppercase py-4">Add to card</button>
         </div>
       </div>
       <h2 className="mt-3 font-semibold text-gray-900 sm:text-2xl cursor-pointer">

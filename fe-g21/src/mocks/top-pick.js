@@ -1,5 +1,6 @@
 const topPicks = [
   {
+    _id: 1,
     imgSrc:
       "https://cdn.shopify.com/s/files/1/0001/5211/products/Spectrum-Monthly-Wall-Planner_5bd91bd5-9239-4905-8342-74b90c09ae46.gif?v=1673626261&width=720",
     title: "Spectrum Wall Planner",
@@ -28,6 +29,7 @@ const topPicks = [
     },
   },
   {
+    _id:2 ,
     imgSrc:
       "https://cdn.shopify.com/s/files/1/0001/5211/products/2022-gif_e2a31b68-29d9-42c5-954f-b8ea0a60c294.gif?v=1627498807&width=720",
     onHoverImg:
@@ -39,6 +41,7 @@ const topPicks = [
     price: 24,
   },
   {
+    _id:3,
     imgSrc:
       "https://cdn.shopify.com/s/files/1/0001/5211/products/PK-D-PDP-Wallet-Dome-ATF-04-2x.jpg?v=1666990517&width=720",
     onHoverImg:
@@ -88,6 +91,7 @@ const topPicks = [
     },
   },
   {
+    _id:4,
     imgSrc:
       "https://cdn.shopify.com/s/files/1/0001/5211/products/PK-ConceptPlanner-LightBlue-001.jpg?v=1672867255&width=720",
     onHoverImg:
@@ -136,6 +140,7 @@ const topPicks = [
     },
   },
   {
+    _id:5,
     imgSrc:
       "https://cdn.shopify.com/s/files/1/0001/5211/products/Poketo-Colorblock-Cap-Pens-01.jpg?v=1648843737&width=720",
     onHoverImg:
@@ -155,6 +160,7 @@ const topPicks = [
     },
   },
   {
+    _id:6,
     imgSrc:
       "https://cdn.shopify.com/s/files/1/0001/5211/products/Sticky-Roll-Checklist-01.jpg?v=1636585952&width=720",
     onHoverImg:
@@ -167,6 +173,7 @@ const topPicks = [
     outOfStock: true,
   },
   {
+    _id:7 ,
     imgSrc:
       "https://cdn.shopify.com/s/files/1/0001/5211/products/Groovy-Cups-S4.jpg?v=1623267800&width=720",
     onHoverImg:
@@ -201,6 +208,7 @@ const topPicks = [
     },
   },
   {
+    _id:8,
     imgSrc:
       "https://cdn.shopify.com/s/files/1/0001/5211/products/Poketo-Bamboo-Serving-Spoons-01.jpg?v=1648662914&width=720",
     onHoverImg:
