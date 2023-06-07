@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ProductOptions from "./ProductOptions";
+import CartContext from "./CartContext";
 
 const ProductCard = ({ product }) => {
   const [currentImage, setCurrentImage] = useState(product.image);
+  const { addProduct } = useContext(CartContext);
 
   var options = {};
   product.avgRate = 5;
@@ -28,20 +30,6 @@ const ProductCard = ({ product }) => {
     setCurrentImage(product.image);
   };
 
-  const handleAdd = () => {
-    const storedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
-
-    const isProductExist = storedCartItems.some(
-      (item) => item === product.id
-    );
-
-    if (!isProductExist) {
-      const updatedCartItems = [...storedCartItems, product.id];
-
-      localStorage.setItem("cart", JSON.stringify(updatedCartItems));
-    }
-  };
-
   return (
     <div className={"w-[85%] h-fit"}>
       <div
@@ -53,7 +41,7 @@ const ProductCard = ({ product }) => {
       >
         <div className="group-hover/cart:opacity-100 transition-all ease-in-out duration-[0.5s] absolute bg-slate-100/70 hover:bg-slate-100 w-[40%] left-[50%] translate-x-[-50%] border-solid border-1 border-black top-[50%] translate-y-[-50%] opacity-0">
           <button
-            onClick={handleAdd}
+            onClick={() => addProduct(product.id)}
             className="text-black text-center block w-full uppercase py-3 text-sm font-semibold"
           >
             Quick Shop

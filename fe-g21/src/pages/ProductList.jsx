@@ -5,40 +5,6 @@ export default function ProductList() {
   const { state } = useLocation();
   const products = state.products;
   const categoryName = state.categoryName;
-  const imgCategories = {
-    shopAll:
-      "https://cdn.shopify.com/s/files/1/0001/5211/collections/BestSellers-Category-Banner_2400x.jpg?v=1607034510",
-    bestSellers:
-      "https://cdn.shopify.com/s/files/1/0001/5211/collections/BestSellers-Category-Banner_2400x.jpg?v=1607034510",
-    notebooks:
-      "https://cdn.shopify.com/s/files/1/0001/5211/collections/BestSellers-Category-Banner_2400x.jpg?v=1607034510",
-    deskSupplies:
-      "https://cdn.shopify.com/s/files/1/0001/5211/collections/BestSellers-Category-Banner_2400x.jpg?v=1607034510",
-    homeAndLifestyles:
-      "https://cdn.shopify.com/s/files/1/0001/5211/collections/BestSellers-Category-Banner_2400x.jpg?v=1607034510",
-  };
-  let imgUrl = "";
-  switch (categoryName) {
-    case "Shop All":
-      imgUrl = imgCategories.shopAll;
-      break;
-    case "Best Sellers":
-      imgUrl = imgCategories.bestSellers;
-      break;
-    case "Notebooks & Planners":
-      imgUrl = imgCategories.notebooks;
-      break;
-    case "Desk Supplies":
-      imgUrl = imgCategories.deskSupplies;
-      break;
-    case "Home & Lifestyle":
-      imgUrl = imgCategories.homeAndLifestyles;
-      break;
-
-    default:
-      imgUrl = imgCategories.shopAll;
-      break;
-  }
 
   return (
     <>

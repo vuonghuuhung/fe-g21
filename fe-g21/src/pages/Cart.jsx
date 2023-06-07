@@ -1,10 +1,9 @@
 // lấy được id vật thu được vào rỏ hàng
 import { useEffect, useState } from "react";
-import { AiFillExclamationCircle } from "react-icons/ai";
-import { AiOutlineEye } from "react-icons/ai";
+// import { AiFillExclamationCircle } from "react-icons/ai";
+// import { AiOutlineEye } from "react-icons/ai";
 import { CiTrash } from "react-icons/ci";
 import cart from "../mocks/cartData";
-import topPicks from "../mocks/top-pick";
 
 const Cart = () => {
 //   const [cartItems, setCartItems] = useState([]);
