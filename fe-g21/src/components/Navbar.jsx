@@ -1,12 +1,12 @@
-import { Link, NavLink } from "react-router-dom";
-import { useState } from "react";
-import MenuListItem from "./MenuListItem";
-import topPicks from "../mocks/top-pick";
+import { Link, NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import MenuListItem from './MenuListItem';
+import topPicks from '../mocks/top-pick';
 
 const Navbar = () => {
   // State for menu list
   const [isInputOnFocus, setIsInputOnFocus] = useState(false);
-  const [findingPhrase, setFindingPhrase] = useState("");
+  const [findingPhrase, setFindingPhrase] = useState('');
 
   const inputFindTriggers = {
     onFocus: () => {
@@ -14,7 +14,7 @@ const Navbar = () => {
     },
     onBlur: () => {
       setIsInputOnFocus(false);
-      setFindingPhrase("");
+      setFindingPhrase('');
     },
   };
 
@@ -36,11 +36,11 @@ const Navbar = () => {
         </div>
         {isInputOnFocus ? null : (
           <nav className="basis-2/4 gap-10 flex justify-start text-sm font-semibold">
-            <Link to="/product-list" state={{ products: topPicks, categoryName: "Shop All" }}>
-              <span
-                
-                className="group flex h-[104px] items-center"
-              >
+            <Link
+              to="/product-list"
+              state={{ products: topPicks, categoryName: 'Shop All' }}
+            >
+              <span className="group flex h-[104px] items-center">
                 Shop All
                 <MenuListItem
                   className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
@@ -49,7 +49,8 @@ const Navbar = () => {
               </span>
             </Link>
             <Link
-              to="/product-list" state={{ products: topPicks, categoryName: "Best Sellers" }}
+              to="/product-list"
+              state={{ products: topPicks, categoryName: 'Best Sellers' }}
             >
               <span className="flex h-[104px] items-center group">
                 Best Sellers
@@ -60,9 +61,13 @@ const Navbar = () => {
               </span>
             </Link>
             <Link
-              to="/product-list" state={{ products: topPicks.filter(
-                (product) => product.categoryId === 1
-              ), categoryName: "Notebooks & Planners" }}
+              to="/product-list"
+              state={{
+                products: topPicks.filter(
+                  (product) => product.categoryId === 1
+                ),
+                categoryName: 'Notebooks & Planners',
+              }}
             >
               <span className="flex group h-[104px] items-center">
                 Notebooks & Planners
@@ -75,9 +80,13 @@ const Navbar = () => {
               </span>
             </Link>
             <Link
-              to="/product-list" state={{ products: topPicks.filter(
-                (product) => product.categoryId === 2
-              ), categoryName: "Desk Supplies" }}
+              to="/product-list"
+              state={{
+                products: topPicks.filter(
+                  (product) => product.categoryId === 2
+                ),
+                categoryName: 'Desk Supplies',
+              }}
             >
               <span className="flex group h-[104px] items-center">
                 Desk Supplies
@@ -90,9 +99,13 @@ const Navbar = () => {
               </span>
             </Link>
             <Link
-              to="/product-list" state={{ products: topPicks.filter(
-                (product) => product.categoryId === 3
-              ), categoryName: "Home & Lifestyle" }}
+              to="/product-list"
+              state={{
+                products: topPicks.filter(
+                  (product) => product.categoryId === 3
+                ),
+                categoryName: 'Home & Lifestyle',
+              }}
             >
               <span className="flex group h-[104px] items-center">
                 Home & Lifestyle
@@ -108,14 +121,14 @@ const Navbar = () => {
         )}
         <div
           className={
-            "basis-1/4 flex " + (isInputOnFocus ? "basis-3/4 justify-end" : "")
+            'basis-1/4 flex ' + (isInputOnFocus ? 'basis-3/4 justify-end' : '')
           }
         >
           <form action="/" method="get">
             <div
               className={
-                "bg-slate-200 items-center flex w-full " +
-                (isInputOnFocus ? "h-14" : "h-10")
+                'bg-slate-200 items-center flex w-full ' +
+                (isInputOnFocus ? 'h-14' : 'h-10')
               }
             >
               <svg
@@ -135,8 +148,8 @@ const Navbar = () => {
               <input
                 {...inputFindTriggers}
                 className={
-                  "bg-slate-200 font-semibold leading-3 pr-3.5 mr-4 focus:outline-none transition-all ease-in-out duration-500 " +
-                  (isInputOnFocus ? "w-[32rem] text-xl" : "w-full text-sm")
+                  'bg-slate-200 font-semibold leading-3 pr-3.5 mr-4 focus:outline-none transition-all ease-in-out duration-500 ' +
+                  (isInputOnFocus ? 'w-[32rem] text-xl' : 'w-full text-sm')
                 }
                 placeholder="Search..."
                 type="text"
@@ -147,7 +160,7 @@ const Navbar = () => {
               />
             </div>
           </form>
-          <NavLink className="flex ml-6 items-center gap-4" to="/dashboard">
+          <NavLink className="flex ml-6 items-center gap-4" to="/admin/product">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
@@ -169,7 +182,9 @@ const Navbar = () => {
             </svg>
           </NavLink>
           <NavLink className="flex ml-6 items-center gap-4 relative" to="/cart">
-            <span className="absolute text-[0.6rem] left-[42%] top-[20%] font-bold">0</span>
+            <span className="absolute text-[0.6rem] left-[42%] top-[20%] font-bold">
+              0
+            </span>
             <svg
               width="24"
               height="24"
@@ -190,8 +205,8 @@ const Navbar = () => {
       </header>
       <div
         className={
-          "w-full bg-white transition-all ease-in-out duration-500 overflow-hidden " +
-          (findingPhrase !== "" ? "h-[550px] px-20 py-20" : "h-0")
+          'w-full bg-white transition-all ease-in-out duration-500 overflow-hidden ' +
+          (findingPhrase !== '' ? 'h-[550px] px-20 py-20' : 'h-0')
         }
       >
         <h1>Searching...</h1>
