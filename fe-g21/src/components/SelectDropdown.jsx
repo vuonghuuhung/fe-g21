@@ -15,9 +15,9 @@ export default function SelectDropdown({ list }) {
         onChange={handleChange}
         value={selectedValue}
       >
-        <option value="">Set of {list.length}</option>
-        {list.map((item) => {
-          return <option value={item}>{item}</option>;
+        {/* <option value="">Set of {list.length}</option> */}
+        {list.map((item, index) => {
+          return <option key={index} value={item.style_name}>{item.style_name}</option>;
         })}
       </select>
       <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none cursor-pointer">

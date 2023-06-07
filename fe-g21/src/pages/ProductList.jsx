@@ -42,7 +42,7 @@ export default function ProductList() {
 
   return (
     <>
-      <div className={"flex h-96 w-full bg-[url('" + imgUrl + "')]"}>
+      <div className={"flex h-96 w-full bg-[#1990c6]"}>
         <h1 className="m-auto text-white text-8xl font-semibold">
           {categoryName}
         </h1>
@@ -52,7 +52,7 @@ export default function ProductList() {
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {products !== null
               ? products.map((product, index) => (
-                  <ProductCard product={product} />
+                  <ProductCard key={index} product={product} />
                 ))
               : null}
           </div>

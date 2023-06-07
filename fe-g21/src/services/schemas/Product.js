@@ -10,6 +10,7 @@ const ProductSchema = Yup.object().shape({
     relate_to_product: Yup.mixed().nullable(),
     created_at: Yup.date().required(),
     updated_at: Yup.date().required(),
+    status: Yup.boolean().required(),
     category: Yup.object().shape({
         id: Yup.number().required(),
         category_name: Yup.string().required(),
@@ -17,6 +18,8 @@ const ProductSchema = Yup.object().shape({
         created_at: Yup.date().required(),
         updated_at: Yup.date().required(),
     }).required(),
+    colors: Yup.array().required(),
+    styles: Yup.array().required()
 });
 
 export default ProductSchema;
