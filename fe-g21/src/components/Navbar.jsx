@@ -1,12 +1,12 @@
-import { Link, NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
-import MenuListItem from "./MenuListItem";
-import { getProductList } from "../services/apis/product";
+import { Link, NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import MenuListItem from './MenuListItem';
+import topPicks from '../mocks/top-pick';
 
 const Navbar = () => {
   // State for menu list
   const [isInputOnFocus, setIsInputOnFocus] = useState(false);
-  const [findingPhrase, setFindingPhrase] = useState("");
+  const [findingPhrase, setFindingPhrase] = useState('');
   const [products, setProducts] = useState([]);
 
   const [quantityInCart, setQuantityInCart] = useState(0);
@@ -35,7 +35,7 @@ const Navbar = () => {
     },
     onBlur: () => {
       setIsInputOnFocus(false);
-      setFindingPhrase("");
+      setFindingPhrase('');
     },
   };
 
@@ -59,7 +59,7 @@ const Navbar = () => {
           <nav className="basis-2/4 gap-10 flex justify-start text-sm font-semibold">
             <Link
               to="/product-list"
-              state={{ products: products, categoryName: "Shop All" }}
+              state={{ products: products, categoryName: 'Shop All' }}
             >
               <span className="group flex h-[104px] items-center">
                 Shop All
@@ -71,7 +71,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/product-list"
-              state={{ products: products, categoryName: "Best Sellers" }}
+              state={{ products: products, categoryName: 'Best Sellers' }}
             >
               <span className="flex h-[104px] items-center group">
                 Best Sellers
@@ -87,7 +87,7 @@ const Navbar = () => {
                 products: products.filter(
                   (product) => product.category.id === 5
                 ),
-                categoryName: "Notebooks & Planners",
+                categoryName: 'Notebooks & Planners',
               }}
             >
               <span className="flex group h-[104px] items-center">
@@ -106,7 +106,7 @@ const Navbar = () => {
                 products: products.filter(
                   (product) => product.category.id === 3
                 ),
-                categoryName: "Desk Supplies",
+                categoryName: 'Desk Supplies',
               }}
             >
               <span className="flex group h-[104px] items-center">
@@ -125,7 +125,7 @@ const Navbar = () => {
                 products: products.filter(
                   (product) => product.category.id === 4
                 ),
-                categoryName: "Home & Lifestyle",
+                categoryName: 'Home & Lifestyle',
               }}
             >
               <span className="flex group h-[104px] items-center">
@@ -142,14 +142,14 @@ const Navbar = () => {
         )}
         <div
           className={
-            "basis-1/4 flex " + (isInputOnFocus ? "basis-3/4 justify-end" : "")
+            'basis-1/4 flex ' + (isInputOnFocus ? 'basis-3/4 justify-end' : '')
           }
         >
           <form action="/" method="get">
             <div
               className={
-                "bg-slate-200 items-center flex w-full " +
-                (isInputOnFocus ? "h-14" : "h-10")
+                'bg-slate-200 items-center flex w-full ' +
+                (isInputOnFocus ? 'h-14' : 'h-10')
               }
             >
               <svg
@@ -169,8 +169,8 @@ const Navbar = () => {
               <input
                 {...inputFindTriggers}
                 className={
-                  "bg-slate-200 font-semibold leading-3 pr-3.5 mr-4 focus:outline-none transition-all ease-in-out duration-500 " +
-                  (isInputOnFocus ? "w-[32rem] text-xl" : "w-full text-sm")
+                  'bg-slate-200 font-semibold leading-3 pr-3.5 mr-4 focus:outline-none transition-all ease-in-out duration-500 ' +
+                  (isInputOnFocus ? 'w-[32rem] text-xl' : 'w-full text-sm')
                 }
                 placeholder="Search..."
                 type="text"
@@ -181,7 +181,7 @@ const Navbar = () => {
               />
             </div>
           </form>
-          <NavLink className="flex ml-6 items-center gap-4" to="/dashboard">
+          <NavLink className="flex ml-6 items-center gap-4" to="/admin/product">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
@@ -226,8 +226,8 @@ const Navbar = () => {
       </header>
       <div
         className={
-          "w-full bg-white transition-all ease-in-out duration-500 overflow-hidden " +
-          (findingPhrase !== "" ? "h-[550px] px-20 py-20" : "h-0")
+          'w-full bg-white transition-all ease-in-out duration-500 overflow-hidden ' +
+          (findingPhrase !== '' ? 'h-[550px] px-20 py-20' : 'h-0')
         }
       >
         <h1>Searching...</h1>
