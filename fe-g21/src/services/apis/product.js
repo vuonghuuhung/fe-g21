@@ -27,9 +27,9 @@ const getTopPicks = async () => {
 const getProductById = async (id) => {
     try {
         const response = await axios.get(`api/product/${id}`);
-        const data = response.data;
-        console.log(data);
-        // return data;
+        const data = response.data.data;
+        // console.log(data);
+        return data;
     } catch (error) {
         console.log(error);
     }

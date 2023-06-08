@@ -5,7 +5,13 @@ import { useState } from "react";
 import CartContext from "../components/CartContext";
 
 const SharedLayout = () => {
-  const [quantityInCart, setQuantityInCart] = useState(0);
+  const [quantityInCart, setQuantityInCart] = useState(() => {
+    if (JSON.parse(localStorage.getItem("cart"))) {
+      return JSON.parse(localStorage.getItem("cart")).length;
+    } else {
+      return 0;
+    }
+  });
 
   const addProduct = (productId) => {
     const storedCartItems = JSON.parse(localStorage.getItem("cart")) || [];

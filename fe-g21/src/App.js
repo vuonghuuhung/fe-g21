@@ -30,7 +30,7 @@ function App() {
           />
           <Route path="registry" element={<Registry />} />
           <Route path="cart" element={<Cart />} />
-          <Route path="checkout" element={<Checkout />} />
+          <Route path="checkout" element={<Checkout isLogin={isLogin} />} />
           <Route path="product-list" element={<ProductList />} />
           <Route path="*" element={<Error />} />
         </Route>
