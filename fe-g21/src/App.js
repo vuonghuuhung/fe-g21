@@ -29,7 +29,7 @@ function App() {
             element={<Login isLogin={isLogin} setIsLogin={setIsLogin} />}
           />
           <Route path="registry" element={<Registry />} />
-          <Route path="cart" element={<Cart />} />
+          <Route path="cart" element={<Cart isLogin={isLogin} />} />
           <Route path="checkout" element={<Checkout isLogin={isLogin} />} />
           <Route path="product-list" element={<ProductList />} />
           <Route path="*" element={<Error />} />

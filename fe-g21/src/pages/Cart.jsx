@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 // import { AiOutlineEye } from "react-icons/ai";
 import { CiTrash } from "react-icons/ci";
 import { getProductById } from "../services/apis/product";
+import { useNavigate } from "react-router-dom";
 
-const Cart = () => {
+const Cart = ({ isLogin }) => {
   const [cartItems, setCartItems] = useState([]);
   const [products, setProducts] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
+  const [selectedOption, setSelectedOption] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const calculateTotal = () => {
@@ -68,6 +71,10 @@ const Cart = () => {
     setProducts(updatedProducts);
   };
 
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
   return (
     <div className="bg-white md:m-20 grid gap-x-20 grid-rows-2 grid-cols-1 md:grid-rows-1 m-4 md:grid-cols-7">
       <div className="md:col-span-4 ">
@@ -78,7 +85,6 @@ const Cart = () => {
               <img src={product.image} alt="" className="col-span-2" />
               <div className="col-span-7 pl-4">
                 <h4 className="font-medium">{product.product_name}</h4>
-                {/* <p className="text-gray-500">{product.color}</p> */}
                 <div>
                   <input
                     type="number"
@@ -92,6 +98,21 @@ const Cart = () => {
                     }
                   />
                 </div>
+                <div>
+                  <span>Color or Style: </span>
+                  <select
+                    value={selectedOption}
+                    onChange={handleOptionChange}
+                    className="bg-gray-200 w-1/5 mt-3"
+                  >
+                    <option value="">Select an option</option>
+                    {isLogin ? product.type.map((option, optionIndex) => (
+                      <option key={optionIndex} value={option}>
+                        {option}
+                      </option>
+                    )) : ""}
+                  </select>
+                </div>
               </div>
               <div className="col-span-3 relative">
                 <CiTrash
@@ -100,7 +121,6 @@ const Cart = () => {
                 />
                 <div className="absolute bottom-0 right-0">
                   ${product.type.length > 0 ? product.type[0].fixed_price : 0}
-                  .00
                 </div>
               </div>
             </div>
@@ -127,8 +147,11 @@ const Cart = () => {
             <div>${cartTotal}</div>
           </div>
           <div
-             
-            className="h-12 mt-4 bg-blue-500 p-3 flex justify-center text-white rounded-3xl hover:bg-blue-400 cursor-pointer">
+            onClick={() =>
+              isLogin ? navigate("/checkout") : navigate("/login")
+            }
+            className="h-12 mt-4 bg-blue-500 p-3 flex justify-center text-white rounded-3xl hover:bg-blue-400 cursor-pointer"
+          >
             Checkout
           </div>
         </div>
