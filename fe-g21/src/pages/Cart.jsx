@@ -10,7 +10,6 @@ const Cart = ({ isLogin }) => {
   const [cartItems, setCartItems] = useState([]);
   const [products, setProducts] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
-  const [selectedOption, setSelectedOption] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -71,8 +70,23 @@ const Cart = ({ isLogin }) => {
     setProducts(updatedProducts);
   };
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
+  const handleOptionChange = (productId, event) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((product) => {
+        if (product.id === productId) {
+          return {
+            ...product,
+            selectedOption: event.target.value,
+          };
+        }
+        return product;
+      })
+    );
+  };
+
+  const handleCheckout = () => {
+    const productsParam = encodeURIComponent(JSON.stringify(products));
+    navigate(`/checkout?products=${productsParam}`);
   };
 
   return (
@@ -99,16 +113,16 @@ const Cart = ({ isLogin }) => {
                   />
                 </div>
                 <div>
-                  <span>Color or Style: </span>
+                  <span>Color or Style:{" "}</span>
                   <select
-                    value={selectedOption}
-                    onChange={handleOptionChange}
-                    className="bg-gray-200 w-1/5 mt-3"
+                    value={product.selectedOption || ""}
+                    onChange={(e) => handleOptionChange(product.id, e)}
+                    className="bg-gray-200 w-2/5 mt-3"
                   >
                     <option value="">Select an option</option>
-                    {isLogin ? product.type.map((option, optionIndex) => (
-                      <option key={optionIndex} value={option}>
-                        {option}
+                    {product.type.length > 0 ? product.type.map((option, optionIndex) => (
+                      <option key={optionIndex} value={option.style_name || option.color_name}>
+                        {option.style_name || option.color_name}
                       </option>
                     )) : ""}
                   </select>
@@ -148,7 +162,7 @@ const Cart = ({ isLogin }) => {
           </div>
           <div
             onClick={() =>
-              isLogin ? navigate("/checkout") : navigate("/login")
+              isLogin ? handleCheckout() : navigate("/login")
             }
             className="h-12 mt-4 bg-blue-500 p-3 flex justify-center text-white rounded-3xl hover:bg-blue-400 cursor-pointer"
           >
