@@ -60,7 +60,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function CreateProduct() {
+export default function CreateProduct({ isAdmin }) {
   const [loadData, setLoadData] = useState(true);
   const [categorise, setCategorise] = useState([]);
   const [productName, setProductName] = useState(null);
@@ -79,6 +79,12 @@ export default function CreateProduct() {
   ] = useReducer(reducer, {
     loading: true,
     error: '',
+  });
+
+  useEffect(() => {
+    if (!isAdmin) {
+      navigate("/");
+    }
   });
 
   const toggleModal = () => {
@@ -109,7 +115,7 @@ export default function CreateProduct() {
         dispatch({ type: 'FETCH_SUCCESS', payload: cate });
         setCategorise(cate.data);
         setLoadData(false);
-      } catch (err) {}
+      } catch (err) { }
     };
     fetchData();
   }, []);

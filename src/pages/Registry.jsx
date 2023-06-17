@@ -4,7 +4,7 @@ import { getCities, getDistricts, getUrbans } from "../services/apis/address";
 import { ArrowDown } from "../components/svg/Icon";
 import { registry } from "../services/apis/registry";
 
-const Registry = () => {
+const Registry = ({ isLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -16,8 +16,14 @@ const Registry = () => {
   const [cities, setCities] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [urbans, setUrbans] = useState([]);
-  
-  const navigate = useNavigate(); 
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate("/dashboard");
+    }
+  });
 
   useEffect(() => {
     fetchCities();
@@ -115,136 +121,134 @@ const Registry = () => {
   };
 
   return (
-    <div className="w-full">
-      <h2 className="text-4xl font-semibold flex justify-center mt-16 mb-16">
-        Create Account{" "}
-      </h2>
-      <div className="w-full flex justify-center">
-        <input
-          value={firstName}
-          type="text"
-          name="FirstName"
-          id="fname"
-          placeholder="First Name"
-          onChange={(e) => setFirstName(e.target.value)}
-          className="bg-gray-100 rounded-none w-1/3 p-2 mb-8 focus:border-orange-300 focus:border-2 focus:outline-none"
-        />
-      </div>
-      <div className="w-full flex justify-center">
-        <input
-          value={lastName}
-          type="text"
-          name="Lastname"
-          id="lastname"
-          placeholder="Last Name"
-          onChange={(e) => setLastName(e.target.value)}
-          className="bg-gray-100 rounded-none	w-1/3 p-2 mb-8 focus:border-orange-300 focus:border-2 focus:outline-none"
-        />
-      </div>
-      <div className="w-full flex justify-center">
-        <input
-          value={email}
-          type="text"
-          name="Email"
-          id="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-          className="bg-gray-100 rounded-none w-1/3 p-2 mb-8 focus:border-orange-300 focus:border-2 focus:outline-none"
-        />
-      </div>
-      <div className="w-full flex justify-center">
-        <input
-          value={password}
-          type="password"
-          name="Password"
-          id="pass"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          className="bg-gray-100 rounded-none w-1/3 p-2 mb-8 focus:border-orange-300 focus:border-2 focus:outline-none"
-        />
-      </div>
-      <div className="w-full flex justify-center">
-        <input
-          value={phoneNumber}
-          type="tel"
-          name="Phone"
-          id="phone"
-          placeholder="Phone Number"
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          className="bg-gray-100 rounded-none w-1/3 p-2 mb-8 focus:border-orange-300 focus:border-2 focus:outline-none"
-        />
-      </div>
-      <div className="w-1/3 flex m-auto relative">
-        {/* <label>Thành phố:</label> */}
-        <select
-          value={city}
-          onChange={handleCityChange}
-          className="bg-gray-100 rounded-none w-full p-2 mb-8 focus:outline-none"
-        >
-          <option value="">-- Chọn thành phố --</option>
-          {cities.map((city) => (
-            <option key={city.id} value={city.id}>
-              {city.name}
-            </option>
-          ))}
-        </select>
-        <div className="absolute top-3 right-0 flex items-center px-2 pointer-events-none bg-gray-100">
-          <ArrowDown className="w-3 h-4 text-gray-400" />
+    <div className="w-full h-screen flex items-center justify-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+      <div className="w-full max-w-md px-6 py-8 bg-white rounded-lg shadow-md">
+        <div className="flex justify-center">
+          <Link to="/">
+            <img
+              className="h-12 w-auto"
+              src="https://cdn.shopify.com/s/files/1/0001/5211/files/pk-logotype-dark.png?v=1674686921&width=500"
+              alt="logo"
+            />
+          </Link>
         </div>
-      </div>
-
-      {city && (
-        <div className="w-1/3 flex m-auto relative">
-          {/* <label>Quận/Huyện:</label> */}
+        <h2 className="text-4xl font-semibold text-center mt-8 mb-6">
+          Create Account
+        </h2>
+        <div className="mb-6">
+          <input
+            value={firstName}
+            type="text"
+            name="FirstName"
+            id="fname"
+            placeholder="First Name"
+            onChange={(e) => setFirstName(e.target.value)}
+            className="w-full px-4 py-3 rounded-md border-2 focus:outline-none focus:border-orange-300"
+          />
+        </div>
+        <div className="mb-6">
+          <input
+            value={lastName}
+            type="text"
+            name="Lastname"
+            id="lastname"
+            placeholder="Last Name"
+            onChange={(e) => setLastName(e.target.value)}
+            className="w-full px-4 py-3 rounded-md border-2 focus:outline-none focus:border-orange-300"
+          />
+        </div>
+        <div className="mb-6">
+          <input
+            value={email}
+            type="text"
+            name="Email"
+            id="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-4 py-3 rounded-md border-2 focus:outline-none focus:border-orange-300"
+          />
+        </div>
+        <div className="mb-6">
+          <input
+            value={password}
+            type="password"
+            name="Password"
+            id="pass"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full px-4 py-3 rounded-md border-2 focus:outline-none focus:border-orange-300"
+          />
+        </div>
+        <div className="mb-6">
+          <input
+            value={phoneNumber}
+            type="tel"
+            name="Phone"
+            id="phone"
+            placeholder="Phone Number"
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            className="w-full px-4 py-3 rounded-md border-2 focus:outline-none focus:border-orange-300"
+          />
+        </div>
+        <div className="mb-6">
           <select
-            value={district}
-            onChange={handleDistrictChange}
-            className="bg-gray-100 rounded-none w-full p-2 mb-8 focus:outline-none"
+            value={city}
+            onChange={handleCityChange}
+            className="w-full px-4 py-3 rounded-md border-2 focus:outline-none focus:border-orange-300"
           >
-            <option value="">-- Chọn quận/huyện --</option>
-            {districts.map((district) => (
-              <option key={district.id} value={district.id}>
-                {district.name}
+            <option value="">-- Select City --</option>
+            {cities.map((city) => (
+              <option key={city.id} value={city.id}>
+                {city.name}
               </option>
             ))}
           </select>
-          <div className="absolute top-3 right-0 flex items-center px-2 pointer-events-none bg-gray-100">
-            <ArrowDown className="w-3 h-4 text-gray-400" />
-          </div>
         </div>
-      )}
-
-      {district && (
-        <div className="w-1/3 flex m-auto relative">
-          {/* <label>Xã/Phường:</label> */}
-          <select
-            value={urban}
-            onChange={handleUrbanChange}
-            className="bg-gray-100 rounded-none w-full p-2 mb-8 focus:outline-none"
+        {city && (
+          <div className="mb-6">
+            <select
+              value={district}
+              onChange={handleDistrictChange}
+              className="w-full px-4 py-3 rounded-md border-2 focus:outline-none focus:border-orange-300"
+            >
+              <option value="">-- Select District --</option>
+              {districts.map((district) => (
+                <option key={district.id} value={district.id}>
+                  {district.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+        {district && (
+          <div className="mb-6">
+            <select
+              value={urban}
+              onChange={handleUrbanChange}
+              className="w-full px-4 py-3 rounded-md border-2 focus:outline-none focus:border-orange-300"
+            >
+              <option value="">-- Select Urban --</option>
+              {urbans.map((ward) => (
+                <option key={ward.id} value={ward.id}>
+                  {ward.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+        <div className="flex justify-center">
+          <button
+            type="button"
+            onClick={handleCreate}
+            className="w-full px-6 py-3 bg-gray-200 active:bg-gray-300 hover:bg-gray-300 text-black rounded-md"
           >
-            <option value="">-- Chọn xã/phường --</option>
-            {urbans.map((ward) => (
-              <option key={ward.id} value={ward.id}>
-                {ward.name}
-              </option>
-            ))}
-          </select>
-          <div className="absolute top-3 right-0 flex items-center px-2 pointer-events-none bg-gray-100">
-            <ArrowDown className="w-3 h-4 text-gray-400" />
-          </div>
+            Create
+          </button>
         </div>
-      )}
-      <div className="flex justify-center w-full">
-        <input
-          type="button"
-          value="Create"
-          className="cursor-pointer w-1/3 py-2 bg-gray-200 active:bg-gray-200 hover:bg-gray-300 mb-8 border-2 border-black"
-          onClick={(e) => handleCreate(e)}
-        />
+        <p className="text-center underline mt-5">
+          <Link to="/login">Already have an account?</Link>
+        </p>
       </div>
-      <p className="decoration-1 underline flex justify-center my-5">
-        <Link to="/login">Already have account?</Link>
-      </p>
     </div>
   );
 };

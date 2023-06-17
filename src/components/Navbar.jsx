@@ -175,7 +175,7 @@ const Navbar = () => {
               />
             </div>
           </form>
-          <NavLink className="flex ml-6 items-center gap-4" to="/login">
+          <NavLink className="flex ml-6 items-center gap-4" to="/dashboard">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
