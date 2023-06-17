@@ -28,7 +28,7 @@ const Checkout = ({isLogin}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isLogin) {
+    if (!isLogin) {
       navigate("/login");
     }
   });
