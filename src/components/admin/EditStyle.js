@@ -51,7 +51,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function EditStyle() {
+export default function EditStyle({ isAdmin }) {
   const [loadData, setLoadData] = useState(true);
   const [image, setImage] = useState(null);
   const [styleName, setStyleName] = useState(null);
@@ -66,7 +66,11 @@ export default function EditStyle() {
       loading: true,
       error: '',
     });
-
+  useEffect(() => {
+    if (!isAdmin) {
+      navigate("/");
+    }
+  });
   const { id, style } = useParams();
   useEffect(() => {
     const fetchData = async () => {
@@ -80,7 +84,7 @@ export default function EditStyle() {
         setImage(res.data.image);
         setLoadData(false);
         console.log(res.data);
-      } catch (err) {}
+      } catch (err) { }
     };
     fetchData();
   }, [style]);

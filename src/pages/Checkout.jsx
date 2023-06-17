@@ -9,11 +9,11 @@ import { HiArrowRight } from "react-icons/hi";
 import cart from "../mocks/cartData";
 import Select from "react-select";
 import { useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getCities, getDistricts, getUrbans } from "../services/apis/address";
 import { ArrowDown } from "../components/svg/Icon";
 
-const Checkout = () => {
+const Checkout = ({isLogin}) => {
   const [total, setTotal] = useState(0);
   const location = useLocation();
   const [products, setProducts] = useState([]);
@@ -24,6 +24,14 @@ const Checkout = () => {
   const [cities, setCities] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [urbans, setUrbans] = useState([]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate("/login");
+    }
+  });
 
   useEffect(() => {
     fetchCities();

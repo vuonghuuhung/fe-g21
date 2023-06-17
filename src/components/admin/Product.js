@@ -40,7 +40,8 @@ const reducer = (state, action) => {
   }
 };
 
-export default function Product() {
+export default function Product({ isAdmin }) {
+
   const [
     {
       loading,
@@ -58,6 +59,12 @@ export default function Product() {
   });
 
   const navigate = useNavigate();
+  // useEffect(() => {
+  //   console.log(isAdmin);
+  //   if (!isAdmin) {
+  //     navigate("/");
+  //   }
+  // });
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const page = sp.get('page') || 1;
@@ -71,7 +78,7 @@ export default function Product() {
       try {
         const res = await getProductList(page);
         dispatch({ type: 'FETCH_SUCCESS', payload: res });
-      } catch (err) {}
+      } catch (err) { }
     };
     if (successDelete) {
       dispatch({ type: 'DELETE_RESET' });
@@ -155,7 +162,7 @@ export default function Product() {
                 </tr>
               </thead>
               <tbody>
-                {Object.values(products.data).map((product) => (
+                {Object.values(products.data).map((product, index) => (
                   <tr key={product.id} className="rounded-md bg-green-50">
                     <td className="text-center items-center">{product.id}</td>
                     <td className="text-center items-center">
@@ -249,11 +256,11 @@ export default function Product() {
           </div>
           <div className="w-full flex justify-center my-10">
             <div className="w-3/5 flex justify-between items-center">
-              {products.links.map((link) => (
+              {products.links.map((link, index) => (
                 <div
-                  className={`rounded-full w-10 h-10 flex justify-center items-center m-4 cursor-pointer ${
-                    link.active ? 'bg-green-400 text-white' : 'bg-gray-100'
-                  }`}
+                  className={`rounded-full w-10 h-10 flex justify-center items-center m-4 cursor-pointer ${link.active ? 'bg-green-400 text-white' : 'bg-gray-100'
+                    }`}
+                    key={index}
                 >
                   <div
                     onClick={() =>

@@ -98,7 +98,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function EditProduct() {
+export default function EditProduct({ isAdmin }) {
   const [loadData, setLoadData] = useState(true);
   const [categorise, setCategorise] = useState([]);
   const [image, setImage] = useState(null);
@@ -131,7 +131,11 @@ export default function EditProduct() {
     loading: true,
     error: '',
   });
-
+  useEffect(() => {
+    if (!isAdmin) {
+      navigate("/");
+    }
+  });
   const { id } = useParams();
   useEffect(() => {
     const fetchData = async () => {
@@ -145,7 +149,7 @@ export default function EditProduct() {
         setImage(res.data.image);
         setCategorise(cate.data);
         setLoadData(false);
-      } catch (err) {}
+      } catch (err) { }
     };
     fetchData();
   }, [id, loadingCreateCate, loadingCreateStyle, loadingDelete]);
@@ -515,11 +519,11 @@ export default function EditProduct() {
                           onClick={() =>
                             product.option_type === 1
                               ? navigate(
-                                  `/admin/product-color/edit/${product.id}/${st.id}`
-                                )
+                                `/admin/product-color/edit/${product.id}/${st.id}`
+                              )
                               : navigate(
-                                  `/admin/product-style/edit/${product.id}/${st.id}`
-                                )
+                                `/admin/product-style/edit/${product.id}/${st.id}`
+                              )
                           }
                         >
                           <svg
