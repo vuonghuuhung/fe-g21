@@ -6,7 +6,7 @@ import "swiper/css";
 export default function MenuListItem({
   className = "",
   open = false,
-  products = null,
+  products = null
 }) {
   let separatedProducts = null;
   if (products != null) {

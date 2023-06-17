@@ -1,12 +1,27 @@
-import topPicks from "../mocks/top-pick";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import ProductCard from "../components/ProductCard";
 import { NextPointer, PrevPointer } from "../components/svg/Icon";
+import { useEffect, useState } from "react";
+import { getTopPicks } from "../services/apis/product";
 
 const Home = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const productList = await getTopPicks();
+        setProducts(productList);
+      } catch (error) {
+        console.log(error.message); 
+      }
+    }; 
+
+    fetchProducts();
+  }, []);
+
   return (
     <>
       <section>
@@ -47,7 +62,7 @@ const Home = () => {
             <Swiper
               modules={[Pagination, Navigation]}
               navigation={{
-                nextEl: ".swiper-button-next",
+                nextEl: ".swiper-button-next", 
                 prevEl: ".swiper-button-prev",
               }}
               loop={true}
@@ -55,12 +70,12 @@ const Home = () => {
               longSwipesMs={200}
             >
               {/* <div className="swiper-button-prev"></div> */}
-              {topPicks.map((product, index) => (
+              {products.map((product, index) => (
                 <SwiperSlide key={index}>
                   <ProductCard product={product} />
                 </SwiperSlide>
               ))}
-              {topPicks.map((product, index) => (
+              {products.map((product, index) => (
                 <SwiperSlide key={index}>
                   <ProductCard product={product} />
                 </SwiperSlide>

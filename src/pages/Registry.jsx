@@ -84,7 +84,7 @@ const Registry = () => {
     setUrban("");
   };
 
-  const handleWardChange = (event) => {
+  const handleUrbanChange = (event) => {
     const selectedUrban = event.target.value;
     setUrban(selectedUrban);
   };
@@ -219,7 +219,7 @@ const Registry = () => {
           {/* <label>Xã/Phường:</label> */}
           <select
             value={urban}
-            onChange={handleWardChange}
+            onChange={handleUrbanChange}
             className="bg-gray-100 rounded-none w-full p-2 mb-8 focus:outline-none"
           >
             <option value="">-- Chọn xã/phường --</option>

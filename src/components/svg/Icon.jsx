@@ -1,4 +1,4 @@
-export const ArrowDown = ({className = ""}) => {
+export const ArrowDown = ({ className = "" }) => {
   return (
     <svg
       width="12"
@@ -6,11 +6,14 @@ export const ArrowDown = ({className = ""}) => {
       viewBox="0 0 12 8"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      class={"icon-arrow-down inline-block mx-1 transition-all duration-500 ease-in-out " + className}
+      className={
+        "icon-arrow-down inline-block mx-1 transition-all duration-500 ease-in-out " +
+        className
+      }
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M11.3033 2.51037C11.4986 2.31511 11.4986 1.99852 11.3033 1.80326L10.5962 1.09615C10.401 0.900892 10.0844 0.900892 9.88913 1.09615L6.00075 4.98453L2.11095 1.09615C1.91569 0.900891 1.59911 0.900892 1.40385 1.09615L0.69674 1.80326C0.501478 1.99852 0.501477 2.3151 0.696739 2.51037L4.58653 6.39875L4.58583 6.39945L5.64649 7.46011C5.84175 7.65538 6.15833 7.65538 6.35359 7.46011L11.3033 2.51037Z"
         fill="#0085ca"
       ></path>
