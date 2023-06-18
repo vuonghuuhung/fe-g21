@@ -6,7 +6,6 @@ import MessageBox from '../../MessageBox';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getUser, getUserList } from '../../../services/apis/authUser';
-import Map from './Map';
 
 const reducer = (state, action) => {
   switch (action.type) {
