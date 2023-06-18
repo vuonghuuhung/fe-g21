@@ -9,9 +9,12 @@ const headers = {
 
 const getProductList = async (page) => {
   try {
-    const response = await axios.get(`/api/admin/products?page=${page}`, {
-      headers,
-    });
+    const response = await axios.get(
+      `/api/admin/products?page=${page}&perPage=6`,
+      {
+        headers,
+      }
+    );
     return response.data;
   } catch (error) {
     console.log(error);

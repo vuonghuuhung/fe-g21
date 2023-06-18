@@ -4,9 +4,9 @@ import {
   createProduct,
   getCategoryList,
   saveImage,
-} from '../../services/apis/authProduct';
+} from '../../../services/apis/authProduct';
 import { ToastContainer, toast } from 'react-toastify';
-import LoadingBox from '../LoadingBox';
+import LoadingBox from '../../LoadingBox';
 import { useNavigate } from 'react-router-dom';
 
 const reducer = (state, action) => {
@@ -83,7 +83,7 @@ export default function CreateProduct({ isAdmin }) {
 
   useEffect(() => {
     if (!isAdmin) {
-      navigate("/");
+      navigate('/');
     }
   });
 
@@ -115,7 +115,7 @@ export default function CreateProduct({ isAdmin }) {
         dispatch({ type: 'FETCH_SUCCESS', payload: cate });
         setCategorise(cate.data);
         setLoadData(false);
-      } catch (err) { }
+      } catch (err) {}
     };
     fetchData();
   }, []);
