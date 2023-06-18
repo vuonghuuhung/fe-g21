@@ -13,6 +13,18 @@ const getProductList = async () => {
     }
 }
 
+const searchProduct = async (findingPhrase) => {
+    try {
+        const response = await axios.get(`/api/products/?perPage=10&search=${findingPhrase}`);
+        const data = response.data.data.data;
+        data.map(async (data) => await ProductSchema.validate(data, {abortEarly: false}));
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 const getTopPicks = async () => {
     try {
         const response = await axios.get('api/products');
@@ -35,4 +47,4 @@ const getProductById = async (id) => {
     }
 }
 
-export { getProductList, getTopPicks, getProductById };
+export { getProductList, getTopPicks, getProductById, searchProduct};

@@ -1,14 +1,18 @@
 import { Link, NavLink } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import MenuListItem from "./MenuListItem";
-import { getProductList } from "../services/apis/product";
+import { getProductList, searchProduct } from "../services/apis/product";
 import CartContext from "./CartContext";
+import ProductCard from "./ProductCard";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 const Navbar = () => {
   const { quantityInCart } = useContext(CartContext);
   const [isInputOnFocus, setIsInputOnFocus] = useState(false);
   const [findingPhrase, setFindingPhrase] = useState("");
   const [products, setProducts] = useState([]);
+  const [foundProducts, setFoundProducts] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -31,6 +35,16 @@ const Navbar = () => {
       setIsInputOnFocus(false);
       setFindingPhrase("");
     },
+  };
+
+  const handleFinding = async () => {
+    try {
+      const response = await searchProduct(findingPhrase);
+      setFoundProducts((prevState) => prevState = response);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -169,7 +183,8 @@ const Navbar = () => {
                 placeholder="Search..."
                 type="text"
                 onChange={(e) => {
-                  setFindingPhrase(e.target.value);
+                  setFindingPhrase(() => e.target.value);
+                  handleFinding();
                 }}
                 value={findingPhrase}
               />
@@ -221,10 +236,19 @@ const Navbar = () => {
       <div
         className={
           "w-full bg-white transition-all ease-in-out duration-500 overflow-hidden " +
-          (findingPhrase !== "" ? "h-[550px] px-20 py-20" : "h-0")
+          (findingPhrase !== "" ? "h-[550px] px-20 pb-20" : "h-0")
         }
       >
-        <h1>Searching...</h1>
+        <h1>Searching for "{findingPhrase}"</h1>
+        <div>
+          <Swiper loop={false} slidesPerView={5}>
+            {foundProducts.map((product, index) => (
+              <SwiperSlide key={index}>
+                <ProductCard product={product} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </div>
     </>
   );

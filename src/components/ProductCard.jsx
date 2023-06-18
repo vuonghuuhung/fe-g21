@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import ProductOptions from "./ProductOptions";
 import CartContext from "./CartContext";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, option }) => {
   const [currentImage, setCurrentImage] = useState(product.image);
   const { addProduct } = useContext(CartContext);
 
@@ -51,7 +51,7 @@ const ProductCard = ({ product }) => {
       <h2 className="mt-3 font-semibold text-gray-900 sm:text-2xl cursor-pointer">
         {product.product_name}
       </h2>
-      <div className="flex flex-row items-center justify-between">
+      {option && <div className="flex flex-row items-center justify-between">
         <div className="flex flex-row items-center">
           <div className="pr-2 cursor-pointer">
             <svg
@@ -75,10 +75,10 @@ const ProductCard = ({ product }) => {
         <div className="flex mr-0">
           <span>${product.price}</span>
         </div>
-      </div>
-      {options !== null ? (
+      </div>}
+      {(options !== null ? (
         <ProductOptions options={options} productTitle={product.product_name} />
-      ) : null}
+      ) : null)}
     </div>
   );
 };
