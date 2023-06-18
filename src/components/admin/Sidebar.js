@@ -6,7 +6,7 @@ import {
   ListItemPrefix,
   ListItemSuffix,
   Chip,
-} from "@material-tailwind/react";
+} from '@material-tailwind/react';
 import {
   PresentationChartBarIcon,
   ShoppingBagIcon,
@@ -14,17 +14,17 @@ import {
   Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
-} from "@heroicons/react/24/solid";
-import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../../services/apis/auth";
+} from '@heroicons/react/24/solid';
+import { Link, useNavigate } from 'react-router-dom';
+import { logout } from '../../services/apis/auth';
 
-export default function Sidebar({setIsLogin, setIsAdmin}) {
+export default function Sidebar({ setIsLogin, setIsAdmin }) {
   const navigate = useNavigate();
   const handleLogout = () => {
     logout();
     setIsLogin(false);
     setIsAdmin(false);
-    navigate("/");
+    navigate('/');
   };
   return (
     <div className="w-full h-full bg-gray-50 ">
@@ -41,17 +41,23 @@ export default function Sidebar({setIsLogin, setIsAdmin}) {
           </div>
         </div>
         <List>
-          <ListItem onClick={() => navigate("/admin")}>
+          <ListItem onClick={() => navigate('/admin')}>
             <ListItemPrefix>
               <PresentationChartBarIcon className="h-5 w-5" />
             </ListItemPrefix>
             Dashboard
           </ListItem>
-          <ListItem onClick={() => navigate("products")}>
+          <ListItem onClick={() => navigate('products')}>
             <ListItemPrefix>
               <ShoppingBagIcon className="h-5 w-5" />
             </ListItemPrefix>
             Products
+          </ListItem>
+          <ListItem onClick={() => navigate('users')}>
+            <ListItemPrefix>
+              <ShoppingBagIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Users
           </ListItem>
           <ListItem>
             <ListItemPrefix>
@@ -59,7 +65,13 @@ export default function Sidebar({setIsLogin, setIsAdmin}) {
             </ListItemPrefix>
             Inbox
             <ListItemSuffix>
-              <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
+              <Chip
+                value="14"
+                size="sm"
+                variant="ghost"
+                color="blue-gray"
+                className="rounded-full"
+              />
             </ListItemSuffix>
           </ListItem>
           <ListItem>

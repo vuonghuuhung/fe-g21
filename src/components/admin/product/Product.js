@@ -1,12 +1,16 @@
 import React, { useEffect, useReducer } from 'react';
-import { logout } from '../../services/apis/auth';
 import { useNavigate } from 'react-router';
 import { useLocation } from 'react-router-dom';
-import LoadingBox from '../LoadingBox';
-import MessageBox from '../MessageBox';
-import { deleteProduct, getProductList } from '../../services/apis/authProduct';
+import LoadingBox from '../../LoadingBox';
+import MessageBox from '../../MessageBox';
+import {
+  deleteProduct,
+  getProductList,
+} from '../../../services/apis/authProduct';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Input } from '@material-tailwind/react';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -41,7 +45,6 @@ const reducer = (state, action) => {
 };
 
 export default function Product({ isAdmin }) {
-
   const [
     {
       loading,
@@ -59,12 +62,11 @@ export default function Product({ isAdmin }) {
   });
 
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   console.log(isAdmin);
-  //   if (!isAdmin) {
-  //     navigate("/");
-  //   }
-  // });
+  useEffect(() => {
+    if (!isAdmin) {
+      navigate("/");
+    }
+  });
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const page = sp.get('page') || 1;
@@ -108,34 +110,8 @@ export default function Product({ isAdmin }) {
       <ToastContainer />
       <div className="flex relative">
         <div className="w-full text-center">
-          <h1 className="font-bold text-xl">Products</h1>
-        </div>
-        <div className="mb-4">
-          <div className="text-center">
-            <button
-              className="py-2 px-2 mx-6 font-bold bg-green-500 text-white rounded-md flex my-auto"
-              onClick={() => navigate(`/admin/product/create`)}
-            >
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 6v12m6-6H6"
-                ></path>
-              </svg>
-              <div className="flex justify-center items-center mr-2">
-                Create
-              </div>
-            </button>
-          </div>
+          <h1 className="font-bold text-3xl mb-2">Products</h1>
+          <div className="text-xl pb-6">Product infomation</div>
         </div>
       </div>
 
@@ -149,10 +125,45 @@ export default function Product({ isAdmin }) {
       ) : (
         <div>
           {' '}
+          <div className="flex justify-end items-center mr-40 mb-6">
+            <div className="w-full md:w-72 right-0">
+              <Input
+                className=" outline-none border-2 border-gray rounded-md pl-10"
+                icon={<MagnifyingGlassIcon className="h-5 w-5 mt-2 ml-2" />}
+              />
+            </div>
+            <div className="">
+              <div className="text-center">
+                <button
+                  className="py-2 px-2 mx-6 font-bold bg-green-500 text-white rounded-md flex my-auto"
+                  onClick={() => navigate(`/admin/product/create`)}
+                >
+                  <svg
+                    className="w-5 h-5 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 6v12m6-6H6"
+                    ></path>
+                  </svg>
+                  <div className="flex justify-center items-center mr-2">
+                    Create
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
           <div className="flex justify-center items-center">
             <table className="border-collapse border border-slate-500">
               <thead>
-                <tr className="rounded-md bg-green-100">
+                <tr className="rounded-md border-b-2 border-gray">
                   <th className="px-12 py-2">ID</th>
                   <th className="px-12 py-2">NAME</th>
                   <th className="px-12 py-2">TYPE</th>
@@ -163,7 +174,10 @@ export default function Product({ isAdmin }) {
               </thead>
               <tbody>
                 {Object.values(products.data).map((product, index) => (
-                  <tr key={product.id} className="rounded-md bg-green-50">
+                  <tr
+                    key={product.id}
+                    className="rounded-md border-b-2 border-gray"
+                  >
                     <td className="text-center items-center">{product.id}</td>
                     <td className="text-center items-center">
                       {product.product_name}
@@ -181,9 +195,9 @@ export default function Product({ isAdmin }) {
                         className="h-24 w-32 my-2"
                       />
                     </td>
-                    <td className="text-center items-center">
+                    <td className="text-center items-center px-4">
                       <button
-                        className="px-2 py-2 font-semibold text-white bg-yellow-300 rounded-md"
+                        className="px-2 mx-2 py-2 font-semibold text-white bg-yellow-300 rounded-md"
                         onClick={() =>
                           navigate(`/admin/product/edit/${product.id}`)
                         }
@@ -206,7 +220,7 @@ export default function Product({ isAdmin }) {
                       </button>
                       &nbsp;
                       <button
-                        className="px-2 py-2 font-semibold text-white bg-red-400 rounded-md"
+                        className="px-2 mx-2 py-2 font-semibold text-white bg-red-400 rounded-md"
                         onClick={() => deleteHandler(product)}
                       >
                         <svg
@@ -227,7 +241,7 @@ export default function Product({ isAdmin }) {
                       </button>
                       &nbsp;
                       <button
-                        className="px-2 py-2 mr-4 font-semibold text-white bg-green-400 rounded-md"
+                        className="px-2 mx-2 py-2 mr-4 font-semibold text-white bg-green-400 rounded-md"
                         onClick={() =>
                           navigate(`/admin/product/view/${product.id}`)
                         }
@@ -255,12 +269,12 @@ export default function Product({ isAdmin }) {
             </table>
           </div>
           <div className="w-full flex justify-center my-10">
-            <div className="w-3/5 flex justify-between items-center">
+            <div className="w-2/5 flex justify-between items-center">
               {products.links.map((link, index) => (
                 <div
-                  className={`rounded-full w-10 h-10 flex justify-center items-center m-4 cursor-pointer ${link.active ? 'bg-green-400 text-white' : 'bg-gray-100'
+                  className={`rounded-full w-10 h-10 flex justify-center items-center m-2 cursor-pointer ${link.active ? 'bg-green-400 text-white' : 'bg-gray-100'
                     }`}
-                    key={index}
+                  key={index}
                 >
                   <div
                     onClick={() =>
