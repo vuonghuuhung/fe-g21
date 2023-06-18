@@ -3,8 +3,8 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaCartPlus, FaLinkedinIn, FaPinter
 import { BsFillHeartFill } from "react-icons/bs";
 import { FaAngleDown } from "react-icons/fa";
 import {GoTriangleLeft, GoTriangleRight} from 'react-icons/go'
-import imageLinks from "../../datas/images/images";
-import colorImages from "../../datas/images/colorImages";
+import imageLinks from "../css-config/images";
+import colorImages from "../css-config/colorImages";
 const ProductDetail = () => {
 
     const [color, setColor] = useState("Dark Green");
@@ -16,7 +16,8 @@ const ProductDetail = () => {
     }
   
     function prevImage(){
-      setImageIndex(imageIndex => ((imageIndex - 1)% imageLinks.length))
+      if(imageIndex > 0){setImageIndex(imageIndex => ((imageIndex - 1)% imageLinks.length))}
+      
     }
   
     function changColorImage(e){
