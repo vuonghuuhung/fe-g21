@@ -44,7 +44,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function Product() {
+export default function Product({ isAdmin }) {
   const [
     {
       loading,
@@ -62,6 +62,11 @@ export default function Product() {
   });
 
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!isAdmin) {
+      navigate("/");
+    }
+  });
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const page = sp.get('page') || 1;
@@ -75,7 +80,7 @@ export default function Product() {
       try {
         const res = await getProductList(page);
         dispatch({ type: 'FETCH_SUCCESS', payload: res });
-      } catch (err) {}
+      } catch (err) { }
     };
     if (successDelete) {
       dispatch({ type: 'DELETE_RESET' });
@@ -267,9 +272,8 @@ export default function Product() {
             <div className="w-2/5 flex justify-between items-center">
               {products.links.map((link, index) => (
                 <div
-                  className={`rounded-full w-10 h-10 flex justify-center items-center m-2 cursor-pointer ${
-                    link.active ? 'bg-green-400 text-white' : 'bg-gray-100'
-                  }`}
+                  className={`rounded-full w-10 h-10 flex justify-center items-center m-2 cursor-pointer ${link.active ? 'bg-green-400 text-white' : 'bg-gray-100'
+                    }`}
                   key={index}
                 >
                   <div

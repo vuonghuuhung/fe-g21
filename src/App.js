@@ -78,13 +78,13 @@ function App() {
             />
           }
         >
-          <Route path="products" element={<Product />} />
-          <Route path="product/create" element={<CreateProduct />} />
-          <Route path="product/edit/:id" element={<EditProduct />} />
-          <Route path="product-color/edit/:id/:color" element={<EditColor />} />
-          <Route path="product-style/edit/:id/:style" element={<EditStyle />} />
-          <Route path="users" element={<User />} />
-          <Route path="user/view/:id" element={<UserProfile />} />
+          <Route path="products" element={<Product isAdmin={isAdmin} />} />
+          <Route path="product/create" element={<CreateProduct isAdmin={isAdmin} />} />
+          <Route path="product/edit/:id" element={<EditProduct isAdmin={isAdmin} />} />
+          <Route path="product-color/edit/:id/:color" element={<EditColor isAdmin={isAdmin} />} />
+          <Route path="product-style/edit/:id/:style" element={<EditStyle isAdmin={isAdmin} />} />
+          <Route path="users" element={<User isAdmin={isAdmin}/>} />
+          <Route path="user/view/:id" element={<UserProfile isAdmin={isAdmin} />} />
         </Route>
       </Routes>
     </BrowserRouter>

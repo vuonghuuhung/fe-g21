@@ -56,7 +56,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function User() {
+export default function User({ isAdmin }) {
   const [role, setRole] = useState(1);
   const [{ loading, loadingUpdate, error, users, pages }, dispatch] =
     useReducer(reducer, {
@@ -65,6 +65,11 @@ export default function User() {
     });
 
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!isAdmin) {
+      navigate("/");
+    }
+  });
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const page = sp.get('page') || 1;
@@ -78,7 +83,7 @@ export default function User() {
       try {
         const res = await getUserList(page);
         dispatch({ type: 'FETCH_SUCCESS', payload: res });
-      } catch (err) {}
+      } catch (err) { }
     };
     fetchData();
   }, [page, userInfo, loadingUpdate]);
@@ -320,9 +325,8 @@ export default function User() {
             <div className="w-2/5 flex justify-between items-center">
               {users.links.map((link) => (
                 <div
-                  className={`rounded-full w-10 h-10 flex justify-center items-center m-4 cursor-pointer ${
-                    link.active ? 'bg-green-400 text-white' : 'bg-gray-100'
-                  }`}
+                  className={`rounded-full w-10 h-10 flex justify-center items-center m-4 cursor-pointer ${link.active ? 'bg-green-400 text-white' : 'bg-gray-100'
+                    }`}
                 >
                   <div
                     onClick={() =>
