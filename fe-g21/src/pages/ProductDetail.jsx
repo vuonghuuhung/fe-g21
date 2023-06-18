@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../css-config/ProductDetail.css"
 import { FaFacebookF, FaTwitter, FaInstagram, FaCartPlus, FaLinkedinIn, FaPinterest } from "react-icons/fa";
 import { BsFillHeartFill } from "react-icons/bs";
 import { FaAngleDown } from "react-icons/fa";
