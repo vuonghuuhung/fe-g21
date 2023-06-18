@@ -10,9 +10,9 @@ import {
   getProduct,
   saveImage,
   updateProduct,
-} from '../../services/apis/authProduct';
+} from '../../../services/apis/authProduct';
 import { ToastContainer, toast } from 'react-toastify';
-import LoadingBox from '../LoadingBox';
+import LoadingBox from '../../LoadingBox';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -49,7 +49,7 @@ const reducer = (state, action) => {
     case 'UPDATE_FAIL':
       return {
         ...state,
-        loadingCreateCate: false,
+        loadingUpdate: false,
         errorUpload: action.payload,
       };
     case 'CREATECATE_REQUEST':
@@ -133,7 +133,7 @@ export default function EditProduct({ isAdmin }) {
   });
   useEffect(() => {
     if (!isAdmin) {
-      navigate("/");
+      navigate('/');
     }
   });
   const { id } = useParams();
@@ -149,7 +149,7 @@ export default function EditProduct({ isAdmin }) {
         setImage(res.data.image);
         setCategorise(cate.data);
         setLoadData(false);
-      } catch (err) { }
+      } catch (err) {}
     };
     fetchData();
   }, [id, loadingCreateCate, loadingCreateStyle, loadingDelete]);
@@ -519,11 +519,11 @@ export default function EditProduct({ isAdmin }) {
                           onClick={() =>
                             product.option_type === 1
                               ? navigate(
-                                `/admin/product-color/edit/${product.id}/${st.id}`
-                              )
+                                  `/admin/product-color/edit/${product.id}/${st.id}`
+                                )
                               : navigate(
-                                `/admin/product-style/edit/${product.id}/${st.id}`
-                              )
+                                  `/admin/product-style/edit/${product.id}/${st.id}`
+                                )
                           }
                         >
                           <svg

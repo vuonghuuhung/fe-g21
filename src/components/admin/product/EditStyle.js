@@ -1,12 +1,12 @@
 import { useEffect, useReducer, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
-  getColor,
+  getStyle,
   saveImage,
-  updateColor,
-} from '../../services/apis/authProduct';
+  updateStyle,
+} from '../../../services/apis/authProduct';
 import { ToastContainer, toast } from 'react-toastify';
-import LoadingBox from '../LoadingBox';
+import LoadingBox from '../../LoadingBox';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -51,11 +51,10 @@ const reducer = (state, action) => {
   }
 };
 
-export default function EditColor({ isAdmin }) {
+export default function EditStyle({ isAdmin }) {
   const [loadData, setLoadData] = useState(true);
   const [image, setImage] = useState(null);
-  const [colorName, setColorName] = useState(null);
-  const [code, setCode] = useState(null);
+  const [styleName, setStyleName] = useState(null);
   const [standardPrice, setStandardPrice] = useState(0);
   const [fixedPrice, setFixedPrice] = useState(0);
   const [stock, setStock] = useState(0);
@@ -69,35 +68,33 @@ export default function EditColor({ isAdmin }) {
     });
   useEffect(() => {
     if (!isAdmin) {
-      navigate("/");
+      navigate('/');
     }
   });
-  const { id, color } = useParams();
+  const { id, style } = useParams();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await getColor(color);
+        const res = await getStyle(style);
         dispatch({ type: 'FETCH_SUCCESS', payload: res });
-        setColorName(res.data.color_name);
-        setCode(res.data.code);
+        setStyleName(res.data.style_name);
         setStandardPrice(res.data.standard_price);
         setFixedPrice(res.data.fixed_price);
         setStock(res.data.stock);
         setImage(res.data.image);
         setLoadData(false);
         console.log(res.data);
-      } catch (err) { }
+      } catch (err) {}
     };
     fetchData();
-  }, [color]);
+  }, [style]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       dispatch({ type: 'UPDATE_REQUEST' });
-      await updateColor(color, {
-        color_name: colorName,
-        code,
+      await updateStyle(style, {
+        style_name: styleName,
         standard_price: standardPrice,
         fixed_price: fixedPrice,
         stock,
@@ -106,7 +103,7 @@ export default function EditColor({ isAdmin }) {
       dispatch({
         type: 'UPDATE_SUCCESS',
       });
-      toast.success('Product updated successfully');
+      toast.success('Product style updated successfully');
       navigate(`/admin/product/edit/${id}`);
     } catch (err) {
       toast.error('ERROR');
@@ -147,18 +144,18 @@ export default function EditColor({ isAdmin }) {
                   for="base-input"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
-                  Color Name
+                  Style Name
                 </label>
                 <input
                   type="text"
                   id="product_name"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 outline-none"
-                  value={colorName}
-                  onChange={(e) => setColorName(e.target.value)}
+                  value={styleName}
+                  onChange={(e) => setStyleName(e.target.value)}
                   required
                 />
               </div>
-              <div className="mb-6 ml-4 w-1/3">
+              <div className="mb-6 ml-4 w-1/2">
                 <label
                   for="base-input"
                   className="block mb-2 text-sm font-medium text-gray-900"
@@ -171,22 +168,6 @@ export default function EditColor({ isAdmin }) {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 outline-none"
                   value={stock}
                   onChange={(e) => setStock(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="mb-6 ml-4 w-1/6 space-x-2">
-                <label
-                  for="base-input"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Color Hex
-                </label>
-                <input
-                  type="color"
-                  id="product_name"
-                  className="h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-1 outline-none"
-                  value={code}
-                  onChange={(e) => setCode(e.target.value)}
                   required
                 />
               </div>
