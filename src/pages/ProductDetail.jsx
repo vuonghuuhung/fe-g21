@@ -15,8 +15,8 @@ const ProductDetail = () => {
         setProduct(() => {
           if (response.type.length > 0) {
             response.price = response.type[0].fixed_price;
-            return response;
-          }
+          } 
+          return response;
         });
         console.log(response);
       } catch (error) {
