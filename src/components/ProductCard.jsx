@@ -51,7 +51,11 @@ const ProductCard = ({ product, option }) => {
         {option && (
           <div className="group-hover/cart:opacity-100 transition-all ease-in-out duration-[0.5s] absolute bg-slate-100/70 hover:bg-slate-100 w-[40%] left-[50%] translate-x-[-50%] border-solid border-1 border-black top-[50%] translate-y-[-50%] opacity-0">
             <button
-              onClick={() => addProduct(product.id)}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                addProduct(product.id);
+              }}
               className="text-black text-center block w-full uppercase py-3 text-sm font-semibold"
             >
               Quick Shop

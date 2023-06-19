@@ -28,6 +28,7 @@ import ProductDetail from './pages/ProductDetail';
 import OrderDetail from './components/admin/order/OrderDetail';
 import AdminHome from './components/admin/AdminHome';
 import UnAuth from './pages/UnAuth';
+import PaymentSuccess from './pages/PaymentSuccess';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -72,8 +73,9 @@ function App() {
         <Route path="registry" element={<Registry isLogin={isLogin} />} />
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
-          <Route path="cart" element={<Cart />} />
+          <Route path="cart" element={<Cart isLogin={isLogin}/>} />
           <Route path="checkout" element={<Checkout isLogin={isLogin} />} />
+          <Route path="payment-success/:id" element={<PaymentSuccess />} />
           <Route path="products/:id" element={<ProductList />} />
           <Route path="product/:id" element={<ProductDetail />} />
           <Route

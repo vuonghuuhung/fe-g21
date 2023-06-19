@@ -77,6 +77,7 @@ const Cart = ({ isLogin }) => {
           return {
             ...product,
             selectedOption: event.target.value,
+            
           };
         }
         return product;
@@ -121,7 +122,7 @@ const Cart = ({ isLogin }) => {
                   >
                     <option value="">Select an option</option>
                     {product.type.length > 0 ? product.type.map((option, optionIndex) => (
-                      <option key={optionIndex} value={option.style_name || option.color_name}>
+                      <option key={optionIndex} value={optionIndex}>
                         {option.style_name || option.color_name}
                       </option>
                     )) : ""}

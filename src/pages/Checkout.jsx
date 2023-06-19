@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getCities, getDistricts, getUrbans } from "../services/apis/address";
 import { ArrowDown } from "../components/svg/Icon";
+import { createPayment } from "../services/apis/payment";
 
 const Checkout = ({isLogin}) => {
   const [total, setTotal] = useState(0);
@@ -100,7 +101,6 @@ const Checkout = ({isLogin}) => {
     const searchParams = new URLSearchParams(location.search);
     const productsParam = searchParams.get("products");
     const parsedProducts = JSON.parse(decodeURIComponent(productsParam));
-    console.log(parsedProducts);
     setProducts(parsedProducts);
   }, [location.search]);
 
@@ -115,12 +115,35 @@ const Checkout = ({isLogin}) => {
     getTotal();
   }, [products]);
 
+  const handleOrderClick = async () => {
+    try {
+      const userId = JSON.parse(localStorage.getItem('userInfo')).id;
+      const order = {
+        user_id: userId,
+        address: `${urban}, ${district}, ${city}`,
+        total_price: total,
+        status: 1
+      }
+      const orderDetail = products.map((product) => ({
+        product_id: product.id,
+        total_price: product.price,
+        quantity: product.quantity,
+        product_detail_id: product.type[product.selectedOption].id,
+      }));
+      const response = await createPayment(order, orderDetail); 
+      console.log(response);
+      window.location.href = response.redirectUrl;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="w-full px-4 py-4 gap-x-12 md:mt-2 md:grid md:grid-cols-5">
       <div className="order-2 md:grow-2 md:col-start-4 md:col-end-6">
         <div className="mt-24">
-          {products.map((product) => (
-            <div className="my-4 grid grid-cols-5 gap-x-2">
+          {products.map((product, index) => (
+            <div key={index} className="my-4 grid grid-cols-5 gap-x-2">
               <div className="col-span-1 border-1.5 rounded-md relative">
                 <img src={product.image} alt="" />
                 <div className="-top-4 -right-4 border-1.5 block rounded-full absolute w-8 bg-gray-500 text-white mr-auto ml-auto h-8 px-2.5 pb-0.5 min-h-fit">
@@ -128,7 +151,7 @@ const Checkout = ({isLogin}) => {
                 </div>
               </div>
               <div className="col-span-3 mt-auto mb-auto text-base">
-                {product.product_name}<span className="ml-3 text-slate-500">({product.selectedOption}hehe)</span>
+                {product.product_name}<span className="ml-3 text-slate-500">({product.type[product.selectedOption].style_name || product.type[product.selectedOption].color_name})</span>
               </div>
               
               <div className="col-span-1 ml-auto mt-auto mb-auto">
@@ -148,7 +171,7 @@ const Checkout = ({isLogin}) => {
           <div className="inline-block float-right text-sm">Free</div>
         </div>
         <div className="w-full bg-gray-500 h-0 5"></div>
-        <div className="h-12 mt-4 bg-blue-500 p-3 flex justify-center text-white rounded-3xl hover:bg-blue-400 cursor-pointer">
+        <div onClick={handleOrderClick} className="h-12 mt-4 bg-blue-500 p-3 flex justify-center text-white rounded-3xl hover:bg-blue-400 cursor-pointer">
           Order
         </div>
       </div>
