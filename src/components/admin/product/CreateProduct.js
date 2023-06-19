@@ -60,7 +60,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function CreateProduct({ isAdmin }) {
+export default function CreateProduct() {
   const [loadData, setLoadData] = useState(true);
   const [categorise, setCategorise] = useState([]);
   const [productName, setProductName] = useState(null);
@@ -79,12 +79,6 @@ export default function CreateProduct({ isAdmin }) {
   ] = useReducer(reducer, {
     loading: true,
     error: '',
-  });
-
-  useEffect(() => {
-    if (!isAdmin) {
-      navigate('/');
-    }
   });
 
   const toggleModal = () => {

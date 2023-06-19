@@ -51,7 +51,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function EditColor({ isAdmin }) {
+export default function EditColor() {
   const [loadData, setLoadData] = useState(true);
   const [image, setImage] = useState(null);
   const [colorName, setColorName] = useState(null);
@@ -67,11 +67,7 @@ export default function EditColor({ isAdmin }) {
       loading: true,
       error: '',
     });
-  useEffect(() => {
-    if (!isAdmin) {
-      navigate('/');
-    }
-  });
+
   const { id, color } = useParams();
   useEffect(() => {
     const fetchData = async () => {
