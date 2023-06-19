@@ -26,18 +26,12 @@ const reducer = (state, action) => {
   }
 };
 
-export default function UserProfile({ isAdmin }) {
+export default function UserProfile() {
   const [{ loading, error, user, pages }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
   });
 
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!isAdmin) {
-      navigate("/");
-    }
-  });
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const page = sp.get('page') || 1;
@@ -53,7 +47,7 @@ export default function UserProfile({ isAdmin }) {
       try {
         const res = await getUser(id);
         dispatch({ type: 'FETCH_SUCCESS', payload: res });
-      } catch (err) { }
+      } catch (err) {}
     };
     fetchData();
   }, [page, userInfo, id]);

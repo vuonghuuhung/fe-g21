@@ -28,7 +28,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function OrderDetail({ isAdmin }) {
+export default function OrderDetail() {
   const [{ loading, error, user, order, products, pages }, dispatch] =
     useReducer(reducer, {
       loading: true,
@@ -36,11 +36,7 @@ export default function OrderDetail({ isAdmin }) {
     });
 
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!isAdmin) {
-      navigate('/');
-    }
-  });
+
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const page = sp.get('page') || 1;

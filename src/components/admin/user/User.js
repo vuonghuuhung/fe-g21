@@ -56,7 +56,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function User({ isAdmin }) {
+export default function User() {
   const [role, setRole] = useState(1);
   const [query, setQuery] = useState(null);
   const [{ loading, loadingUpdate, error, users, pages }, dispatch] =
@@ -66,11 +66,6 @@ export default function User({ isAdmin }) {
     });
 
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!isAdmin) {
-      navigate('/');
-    }
-  });
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const page = sp.get('page') || 1;
