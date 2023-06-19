@@ -13,7 +13,6 @@ export default function ProductList() {
   const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
-      console.log(id);
       try {
         let response;
         if (id === "0") {
@@ -23,7 +22,6 @@ export default function ProductList() {
           response = await getAllProduct();
         }
         setProducts(response);
-        console.log(response);
       } catch (err) {
         console.log(err);
       }

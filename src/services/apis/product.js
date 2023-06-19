@@ -3,7 +3,7 @@ import ProductSchema from '../schemas/Product';
 
 const getAllProduct = async () => {
     try {
-        const response = await axios.get(`/api/products/?perPage=3000`);
+        const response = await axios.get(`/api/products/?perPage=100`);
         const data = response.data.data;
         return data;
     } catch (error) {
