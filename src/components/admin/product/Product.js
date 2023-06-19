@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Input } from '@material-tailwind/react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { useState } from 'react';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -70,6 +71,7 @@ export default function Product({ isAdmin }) {
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const page = sp.get('page') || 1;
+  const [query, setQuery] = useState(null);
 
   const { userInfo } = localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
@@ -78,7 +80,7 @@ export default function Product({ isAdmin }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await getProductList(page);
+        const res = await getProductList(page, query);
         dispatch({ type: 'FETCH_SUCCESS', payload: res });
       } catch (err) {}
     };
@@ -87,7 +89,7 @@ export default function Product({ isAdmin }) {
     } else {
       fetchData();
     }
-  }, [page, userInfo, successDelete]);
+  }, [page, userInfo, successDelete, query]);
 
   const deleteHandler = async (product) => {
     if (window.confirm('Are you sure to delete?')) {
@@ -130,6 +132,7 @@ export default function Product({ isAdmin }) {
               <Input
                 className=" outline-none border-2 border-gray rounded-md pl-10"
                 icon={<MagnifyingGlassIcon className="h-5 w-5 mt-2 ml-2" />}
+                onChange={(e) => setQuery(e.target.value)}
               />
             </div>
             <div className="">

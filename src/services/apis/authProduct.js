@@ -7,10 +7,10 @@ const headers = {
   Authorization: `Bearer ${token}`,
 };
 
-const getProductList = async (page) => {
+const getProductList = async (page, query) => {
   try {
     const response = await axios.get(
-      `/api/admin/products?page=${page}&perPage=6`,
+      `/api/admin/products?page=${page}&perPage=6&search=${query ? query : ''}`,
       {
         headers,
       }

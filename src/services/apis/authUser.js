@@ -7,10 +7,10 @@ const headers = {
   Authorization: `Bearer ${token}`,
 };
 
-const getUserList = async (page) => {
+const getUserList = async (page, query) => {
   try {
     const response = await axios.get(
-      `/api/admin/users?page=${page}&perPage=5`,
+      `/api/admin/users?page=${page}&perPage=5&search=${query ? query : ''}`,
       {
         headers,
       }
