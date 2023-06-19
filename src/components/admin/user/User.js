@@ -58,6 +58,7 @@ const reducer = (state, action) => {
 
 export default function User({ isAdmin }) {
   const [role, setRole] = useState(1);
+  const [query, setQuery] = useState(null);
   const [{ loading, loadingUpdate, error, users, pages }, dispatch] =
     useReducer(reducer, {
       loading: true,
@@ -67,7 +68,7 @@ export default function User({ isAdmin }) {
   const navigate = useNavigate();
   useEffect(() => {
     if (!isAdmin) {
-      navigate("/");
+      navigate('/');
     }
   });
   const { search } = useLocation();
@@ -81,12 +82,12 @@ export default function User({ isAdmin }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await getUserList(page);
+        const res = await getUserList(page, query);
         dispatch({ type: 'FETCH_SUCCESS', payload: res });
-      } catch (err) { }
+      } catch (err) {}
     };
     fetchData();
-  }, [page, userInfo, loadingUpdate]);
+  }, [page, userInfo, loadingUpdate, query]);
 
   const toggleModal = (id) => {
     document.getElementById('modal-' + id).classList.toggle('hidden');
@@ -133,6 +134,7 @@ export default function User({ isAdmin }) {
               <Input
                 className=" outline-none border-2 border-gray rounded-md pl-10"
                 icon={<MagnifyingGlassIcon className="h-5 w-5 mt-2 ml-2" />}
+                onChange={(e) => setQuery(e.target.value)}
               />
             </div>
           </div>
@@ -325,8 +327,9 @@ export default function User({ isAdmin }) {
             <div className="w-2/5 flex justify-between items-center">
               {users.links.map((link) => (
                 <div
-                  className={`rounded-full w-10 h-10 flex justify-center items-center m-4 cursor-pointer ${link.active ? 'bg-green-400 text-white' : 'bg-gray-100'
-                    }`}
+                  className={`rounded-full w-10 h-10 flex justify-center items-center m-4 cursor-pointer ${
+                    link.active ? 'bg-green-400 text-white' : 'bg-gray-100'
+                  }`}
                 >
                   <div
                     onClick={() =>

@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Input } from '@material-tailwind/react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { deleteOrder, getOrderList } from '../../../services/apis/authOrders';
+import { useState } from 'react';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -59,6 +60,7 @@ export default function Order({ isAdmin }) {
   });
 
   const navigate = useNavigate();
+  const [query, setQuery] = useState(null);
   useEffect(() => {
     if (!isAdmin) {
       navigate('/');
@@ -75,7 +77,7 @@ export default function Order({ isAdmin }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await getOrderList(page);
+        const res = await getOrderList(page, query);
         dispatch({ type: 'FETCH_SUCCESS', payload: res });
       } catch (err) {}
     };
@@ -84,7 +86,7 @@ export default function Order({ isAdmin }) {
     } else {
       fetchData();
     }
-  }, [page, userInfo, successDelete]);
+  }, [page, userInfo, successDelete, query]);
 
   const deleteHandler = async (order) => {
     if (window.confirm('Are you sure to delete?')) {
@@ -127,6 +129,7 @@ export default function Order({ isAdmin }) {
               <Input
                 className=" outline-none border-2 border-gray rounded-md pl-10"
                 icon={<MagnifyingGlassIcon className="h-5 w-5 mt-2 ml-2" />}
+                onChange={(e) => setQuery(e.target.value)}
               />
             </div>
           </div>
