@@ -17,6 +17,7 @@ import CreateProduct from './components/admin/product/CreateProduct';
 import User from './components/admin/user/User';
 import UserDashboard from './pages/UserDashboard';
 import UserProfile from './components/admin/user/UserProfile';
+import ProductDetail from './pages/ProductDetail';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -55,7 +56,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="cart" element={<Cart />} />
           <Route path="checkout" element={<Checkout isLogin={isLogin} />} />
-          <Route path="product-list" element={<ProductList />} />
+          <Route path="products/:id" element={<ProductList />} />
+          <Route path="product/:id" element={<ProductDetail />} />
           <Route
             path="dashboard"
             element={

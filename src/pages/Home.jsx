@@ -72,12 +72,12 @@ const Home = () => {
               {/* <div className="swiper-button-prev"></div> */}
               {products.map((product, index) => (
                 <SwiperSlide key={index}>
-                  <ProductCard product={product} />
+                  <ProductCard product={product} option={true} />
                 </SwiperSlide>
               ))}
               {products.map((product, index) => (
                 <SwiperSlide key={index}>
-                  <ProductCard product={product} />
+                  <ProductCard product={product} option={true} />
                 </SwiperSlide>
               ))}
               {/* <div className="swiper-button-next"></div> */}

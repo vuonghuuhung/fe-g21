@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import MenuListItem from "./MenuListItem";
 import { getProductList, searchProduct } from "../services/apis/product";
@@ -11,34 +11,20 @@ const Navbar = () => {
   const { quantityInCart } = useContext(CartContext);
   const [isInputOnFocus, setIsInputOnFocus] = useState(false);
   const [findingPhrase, setFindingPhrase] = useState("");
-  const [products, setProducts] = useState([]);
   const [foundProducts, setFoundProducts] = useState([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const productList = await getProductList();
-        setProducts(productList);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleFinding = async () => {
       try {
         const response = await searchProduct(findingPhrase);
         setFoundProducts((prevState) => response);
-        console.log(response);
       } catch (error) {
         console.log(error);
       }
     };
     handleFinding();
-  }, [findingPhrase])
+  }, [findingPhrase]);
 
   const inputFindTriggers = {
     onFocus: () => {
@@ -61,94 +47,20 @@ const Navbar = () => {
               alt="logo"
             />
           </Link>
-          {/* <button className="pt-2">
-            Shop the family of brands
-            <ArrowDown />
-          </button> */}
         </div>
         {isInputOnFocus ? null : (
-          <nav className="basis-2/4 gap-10 flex justify-start text-sm font-semibold">
-            <Link
-              to="/product-list"
-              state={{ products: products, categoryName: "Shop All" }}
-            >
-              <span className="group flex h-[104px] items-center">
-                Shop All
-                <MenuListItem
-                  className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
-                  products={products}
-                />
-              </span>
-            </Link>
-            <Link
-              to="/product-list"
-              state={{ products: products, categoryName: "Best Sellers" }}
-            >
-              <span className="flex h-[104px] items-center group">
-                Best Sellers
-                <MenuListItem
-                  className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
-                  products={products}
-                />
-              </span>
-            </Link>
-            <Link
-              to="/product-list"
-              state={{
-                products: products.filter(
-                  (product) => product.category.id === 5
-                ),
-                categoryName: "Notebooks & Planners",
-              }}
-            >
-              <span className="flex group h-[104px] items-center">
-                Notebooks & Planners
-                <MenuListItem
-                  className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
-                  products={products.filter(
-                    (product) => product.category.id === 5
-                  )}
-                />
-              </span>
-            </Link>
-            <Link
-              to="/product-list"
-              state={{
-                products: products.filter(
-                  (product) => product.category.id === 3
-                ),
-                categoryName: "Desk Supplies",
-              }}
-            >
-              <span className="flex group h-[104px] items-center">
-                Desk Supplies
-                <MenuListItem
-                  className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
-                  products={products.filter(
-                    (product) => product.category.id === 3
-                  )}
-                />
-              </span>
-            </Link>
-            <Link
-              to="/product-list"
-              state={{
-                products: products.filter(
-                  (product) => product.category.id === 4
-                ),
-                categoryName: "Home & Lifestyle",
-              }}
-            >
-              <span className="flex group h-[104px] items-center">
-                Home & Lifestyle
-                <MenuListItem
-                  className="bg-white overflow-hidden px-20 transition-all duration-500 ease-in-out absolute top-[104px] w-full left-0"
-                  products={products.filter(
-                    (product) => product.category.id === 4
-                  )}
-                />
-              </span>
-            </Link>
+          <nav className="basis-2/4 gap-10 flex justify-end text-sm font-semibold mr-10">
+            <span onClick={() => navigate("/products/0?page=1")} className="cursor-pointer group flex h-[104px] items-center">Shop All</span>
+            <span onClick={() => navigate("/products/1")} className="cursor-pointer flex group h-[104px] items-center">
+              Notebooks & Planners
+            </span>
+            <span onClick={() => navigate("/products/2")} className="cursor-pointer flex group h-[104px] items-center">
+              Desk Supplies
+            </span>
+
+            <span onClick={() => navigate("/products/3")} className="cursor-pointer flex group h-[104px] items-center">
+              Home & Lifestyle
+            </span>
           </nav>
         )}
         <div

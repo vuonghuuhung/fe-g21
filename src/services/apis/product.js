@@ -1,11 +1,21 @@
 import axios from '../utils/axios';
 import ProductSchema from '../schemas/Product';
 
-const getProductList = async () => {
+const getAllProduct = async () => {
     try {
-        const response = await axios.get('/api/products/?perPage=100');
-        const data = response.data.data.data;
-        data.map(async (data) => await ProductSchema.validate(data, {abortEarly: false}));
+        const response = await axios.get(`/api/products/?perPage=3000`);
+        const data = response.data.data;
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+const getProductList = async (page=1) => {
+    try {
+        const response = await axios.get(`/api/products/?perPage=8&page=${page}`);
+        const data = response.data.data;
         return data;
     } catch (error) {
         console.log(error);
@@ -47,4 +57,4 @@ const getProductById = async (id) => {
     }
 }
 
-export { getProductList, getTopPicks, getProductById, searchProduct};
+export { getProductList, getTopPicks, getProductById, searchProduct, getAllProduct};
