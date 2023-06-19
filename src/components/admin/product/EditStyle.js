@@ -51,7 +51,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function EditStyle({ isAdmin }) {
+export default function EditStyle() {
   const [loadData, setLoadData] = useState(true);
   const [image, setImage] = useState(null);
   const [styleName, setStyleName] = useState(null);
@@ -66,11 +66,7 @@ export default function EditStyle({ isAdmin }) {
       loading: true,
       error: '',
     });
-  useEffect(() => {
-    if (!isAdmin) {
-      navigate('/');
-    }
-  });
+
   const { id, style } = useParams();
   useEffect(() => {
     const fetchData = async () => {

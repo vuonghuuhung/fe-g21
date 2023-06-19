@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import SharedLayout from './pages/SharedLayout';
 import Home from './pages/Home';
@@ -21,6 +27,7 @@ import Order from './components/admin/order/Order';
 import ProductDetail from './pages/ProductDetail';
 import OrderDetail from './components/admin/order/OrderDetail';
 import AdminHome from './components/admin/AdminHome';
+import UnAuth from './pages/UnAuth';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -40,6 +47,14 @@ function App() {
     };
     getStatus();
   }, []);
+
+  const ProtectedRoute = ({ isAdmin, redirectPath = '/unauth' }) => {
+    if (!isAdmin) {
+      return <Navigate to={redirectPath} replace />;
+    }
+
+    return <Outlet />;
+  };
 
   return (
     <BrowserRouter>
@@ -73,45 +88,27 @@ function App() {
           />
           <Route path="*" element={<Error />} />
         </Route>
-        <Route
-          path="admin"
-          element={
-            <AdminDashboard
-              isAdmin={isAdmin}
-              setIsLogin={setIsLogin}
-              setIsAdmin={setIsAdmin}
+        <Route element={<ProtectedRoute isAdmin={isAdmin} />}>
+          <Route path="admin" element={<AdminDashboard />}>
+            <Route path="" element={<AdminHome />} />
+            <Route path="products" element={<Product />} />
+            <Route path="product/create" element={<CreateProduct />} />
+            <Route path="product/edit/:id" element={<EditProduct />} />
+            <Route
+              path="product-color/edit/:id/:color"
+              element={<EditColor />}
             />
-          }
-        >
-          <Route path="" element={<AdminHome isAdmin={isAdmin} />} />
-          <Route path="products" element={<Product isAdmin={isAdmin} />} />
-          <Route
-            path="product/create"
-            element={<CreateProduct isAdmin={isAdmin} />}
-          />
-          <Route
-            path="product/edit/:id"
-            element={<EditProduct isAdmin={isAdmin} />}
-          />
-          <Route
-            path="product-color/edit/:id/:color"
-            element={<EditColor isAdmin={isAdmin} />}
-          />
-          <Route
-            path="product-style/edit/:id/:style"
-            element={<EditStyle isAdmin={isAdmin} />}
-          />
-          <Route path="users" element={<User isAdmin={isAdmin} />} />
-          <Route
-            path="user/view/:id"
-            element={<UserProfile isAdmin={isAdmin} />}
-          />
-          <Route path="orders" element={<Order isAdmin={isAdmin} />} />
-          <Route
-            path="order/view/:id"
-            element={<OrderDetail isAdmin={isAdmin} />}
-          />
+            <Route
+              path="product-style/edit/:id/:style"
+              element={<EditStyle />}
+            />
+            <Route path="users" element={<User />} />
+            <Route path="user/view/:id" element={<UserProfile />} />
+            <Route path="orders" element={<Order />} />
+            <Route path="order/view/:id" element={<OrderDetail />} />
+          </Route>
         </Route>
+        <Route path="unauth" element={<UnAuth />} />
       </Routes>
     </BrowserRouter>
   );

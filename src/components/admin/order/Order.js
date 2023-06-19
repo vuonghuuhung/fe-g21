@@ -42,7 +42,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function Order({ isAdmin }) {
+export default function Order() {
   const [
     {
       loading,
@@ -61,11 +61,7 @@ export default function Order({ isAdmin }) {
 
   const navigate = useNavigate();
   const [query, setQuery] = useState(null);
-  useEffect(() => {
-    if (!isAdmin) {
-      navigate('/');
-    }
-  });
+
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const page = sp.get('page') || 1;

@@ -1,16 +1,8 @@
-import React, { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-import Sidebar from "../components/admin/Sidebar";
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import Sidebar from '../components/admin/Sidebar';
 
-const Dashboard = ({ isAdmin, setIsLogin, setIsAdmin }) => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!isAdmin) {
-      navigate("/");
-    }
-  });
-
+const Dashboard = ({ setIsLogin, setIsAdmin }) => {
   return (
     <div className="w-full">
       <div className="flex">

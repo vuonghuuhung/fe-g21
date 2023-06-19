@@ -28,16 +28,10 @@ const reducer = (state, action) => {
   }
 };
 
-export default function AdminHome({ isAdmin }) {
-  const navigate = useNavigate();
+export default function AdminHome() {
   const [{ loading, error, result, pages }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
-  });
-  useEffect(() => {
-    if (!isAdmin) {
-      navigate('/');
-    }
   });
 
   useEffect(() => {

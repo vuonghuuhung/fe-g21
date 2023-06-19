@@ -45,7 +45,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function Product({ isAdmin }) {
+export default function Product() {
   const [
     {
       loading,
@@ -63,11 +63,7 @@ export default function Product({ isAdmin }) {
   });
 
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!isAdmin) {
-      navigate('/');
-    }
-  });
+
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const page = sp.get('page') || 1;

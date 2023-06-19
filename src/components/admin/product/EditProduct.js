@@ -98,7 +98,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function EditProduct({ isAdmin }) {
+export default function EditProduct() {
   const [loadData, setLoadData] = useState(true);
   const [categorise, setCategorise] = useState([]);
   const [image, setImage] = useState(null);
@@ -131,11 +131,7 @@ export default function EditProduct({ isAdmin }) {
     loading: true,
     error: '',
   });
-  useEffect(() => {
-    if (!isAdmin) {
-      navigate('/');
-    }
-  });
+
   const { id } = useParams();
   useEffect(() => {
     const fetchData = async () => {
