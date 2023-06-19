@@ -6,6 +6,7 @@ import CartContext from "./CartContext";
 import ProductCard from "./ProductCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { createPayment } from "../services/apis/payment";
 
 const Navbar = () => {
   const { quantityInCart } = useContext(CartContext);
@@ -36,6 +37,14 @@ const Navbar = () => {
     },
   };
 
+  const handleCreatePayment = async () => {
+    try {
+      const response = await createPayment();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <header className="relative z-10 w-full font-OpenSan bg-white flex flex-row justify-between items-center px-20 min-h-[104px]">
@@ -61,6 +70,7 @@ const Navbar = () => {
             <span onClick={() => navigate("/products/3")} className="cursor-pointer flex group h-[104px] items-center">
               Home & Lifestyle
             </span>
+            <span onClick={handleCreatePayment} className="cursor-pointer flex group h-[104px] items-center">Create Payment</span>
           </nav>
         )}
         <div
