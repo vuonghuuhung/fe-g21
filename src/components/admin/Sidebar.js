@@ -59,11 +59,11 @@ export default function Sidebar({ setIsLogin, setIsAdmin }) {
             </ListItemPrefix>
             Users
           </ListItem>
-          <ListItem>
+          <ListItem onClick={() => navigate('orders')}>
             <ListItemPrefix>
               <InboxIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Inbox
+            Orders
             <ListItemSuffix>
               <Chip
                 value="14"
@@ -73,18 +73,6 @@ export default function Sidebar({ setIsLogin, setIsAdmin }) {
                 className="rounded-full"
               />
             </ListItemSuffix>
-          </ListItem>
-          <ListItem>
-            <ListItemPrefix>
-              <UserCircleIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Profile
-          </ListItem>
-          <ListItem>
-            <ListItemPrefix>
-              <Cog6ToothIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Settings
           </ListItem>
           <ListItem onClick={handleLogout}>
             <ListItemPrefix>

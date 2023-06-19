@@ -3,14 +3,11 @@ import { useNavigate } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import LoadingBox from '../../LoadingBox';
 import MessageBox from '../../MessageBox';
-import {
-  deleteProduct,
-  getProductList,
-} from '../../../services/apis/authProduct';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Input } from '@material-tailwind/react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { deleteOrder, getOrderList } from '../../../services/apis/authOrders';
 import { useState } from 'react';
 
 const reducer = (state, action) => {
@@ -20,7 +17,7 @@ const reducer = (state, action) => {
     case 'FETCH_SUCCESS':
       return {
         ...state,
-        products: action.payload.data,
+        orders: action.payload.data,
         page: action.payload.page,
         pages: action.payload.pages,
         loading: false,
@@ -45,12 +42,12 @@ const reducer = (state, action) => {
   }
 };
 
-export default function Product({ isAdmin }) {
+export default function Order({ isAdmin }) {
   const [
     {
       loading,
       error,
-      products,
+      orders,
       pages,
       loadingCreate,
       loadingDelete,
@@ -63,6 +60,7 @@ export default function Product({ isAdmin }) {
   });
 
   const navigate = useNavigate();
+  const [query, setQuery] = useState(null);
   useEffect(() => {
     if (!isAdmin) {
       navigate('/');
@@ -71,7 +69,6 @@ export default function Product({ isAdmin }) {
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const page = sp.get('page') || 1;
-  const [query, setQuery] = useState(null);
 
   const { userInfo } = localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
@@ -80,7 +77,7 @@ export default function Product({ isAdmin }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await getProductList(page, query);
+        const res = await getOrderList(page, query);
         dispatch({ type: 'FETCH_SUCCESS', payload: res });
       } catch (err) {}
     };
@@ -91,12 +88,12 @@ export default function Product({ isAdmin }) {
     }
   }, [page, userInfo, successDelete, query]);
 
-  const deleteHandler = async (product) => {
+  const deleteHandler = async (order) => {
     if (window.confirm('Are you sure to delete?')) {
       try {
-        const status = 0;
-        await deleteProduct(product.id, status);
-        toast.success('product deleted successfully');
+        const status = 5;
+        await deleteOrder(order.id, status);
+        toast.success('Order deleted successfully');
         dispatch({ type: 'DELETE_SUCCESS' });
       } catch (err) {
         toast.error('Error');
@@ -112,8 +109,8 @@ export default function Product({ isAdmin }) {
       <ToastContainer />
       <div className="flex relative">
         <div className="w-full text-center">
-          <h1 className="font-bold text-3xl mb-2">Products</h1>
-          <div className="text-xl pb-6">Product infomation</div>
+          <h1 className="font-bold text-3xl mb-2">Orders</h1>
+          <div className="text-xl pb-6">Order infomation</div>
         </div>
       </div>
 
@@ -135,96 +132,69 @@ export default function Product({ isAdmin }) {
                 onChange={(e) => setQuery(e.target.value)}
               />
             </div>
-            <div className="">
-              <div className="text-center">
-                <button
-                  className="py-2 px-2 mx-6 font-bold bg-green-500 text-white rounded-md flex my-auto"
-                  onClick={() => navigate(`/admin/product/create`)}
-                >
-                  <svg
-                    className="w-5 h-5 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 6v12m6-6H6"
-                    ></path>
-                  </svg>
-                  <div className="flex justify-center items-center mr-2">
-                    Create
-                  </div>
-                </button>
-              </div>
-            </div>
           </div>
           <div className="flex justify-center items-center">
             <table className="border-collapse border border-slate-500">
               <thead>
                 <tr className="rounded-md border-b-2 border-gray">
                   <th className="px-12 py-2">ID</th>
-                  <th className="px-12 py-2">NAME</th>
-                  <th className="px-12 py-2">TYPE</th>
-                  <th className="px-12 py-2">CATEGORY</th>
-                  <th className="px-12 py-2">IMAGE</th>
+                  <th className="px-12 py-2">User</th>
+                  <th className="px-12 py-2 w-48">Address</th>
+                  <th className="px-12 py-2">Total</th>
+                  <th className="px-12 py-2">Status</th>
+                  <th className="px-12 py-2">Date</th>
                   <th className="px-12 py-2">ACTIONS</th>
                 </tr>
               </thead>
               <tbody>
-                {Object.values(products.data).map((product, index) => (
+                {Object.values(orders.data).map((order, index) => (
                   <tr
-                    key={product.id}
+                    key={order.id}
                     className="rounded-md border-b-2 border-gray"
                   >
-                    <td className="text-center items-center">{product.id}</td>
+                    <td className="text-center items-center">{order.id}</td>
+                    <td className="text-center items-center cursor-pointer">
+                      <div
+                        onClick={() =>
+                          navigate(`/admin/user/view/${order.user_id}`)
+                        }
+                      >
+                        {order.user_id}
+                      </div>
+                    </td>
+
                     <td className="text-center items-center">
-                      {product.product_name}
+                      {order.address}
                     </td>
                     <td className="text-center items-center">
-                      {product.option_type === 2 ? 'Colors' : 'Styles'}
+                      {order.total_price}
                     </td>
                     <td className="text-center items-center">
-                      {product.category.category_name}
+                      {order.status === 1 ? (
+                        <div className="mx-2 my-1 rounded bg-orange-200 text-orange-600">
+                          Pending
+                        </div>
+                      ) : order.status === 2 ? (
+                        <div className="mx-2 my-1 rounded bg-blue-200 text-blue-600">
+                          Confirmed
+                        </div>
+                      ) : order.status === 3 ? (
+                        <div className="mx-2 my-1 rounded bg-purple-200 text-purple-600">
+                          Shipping
+                        </div>
+                      ) : (
+                        <div className="mx-2 my-1 rounded bg-green-200 text-green-600">
+                          Finished
+                        </div>
+                      )}
                     </td>
                     <td className="text-center items-center">
-                      <img
-                        src={product.image}
-                        alt=""
-                        className="h-24 w-32 my-2"
-                      />
+                      {order.created_at.substring(0, 10)}
                     </td>
                     <td className="text-center items-center px-4">
                       <button
-                        className="px-2 mx-2 py-2 font-semibold text-white bg-yellow-300 rounded-md"
-                        onClick={() =>
-                          navigate(`/admin/product/edit/${product.id}`)
-                        }
-                      >
-                        <svg
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                          aria-hidden="true"
-                          className="w-5 h-5"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                          ></path>
-                        </svg>
-                      </button>
-                      &nbsp;
-                      <button
                         className="px-2 mx-2 py-2 font-semibold text-white bg-red-400 rounded-md"
-                        onClick={() => deleteHandler(product)}
+                        onClick={() => deleteHandler(order)}
                       >
                         <svg
                           className="w-5 h-5"
@@ -245,7 +215,9 @@ export default function Product({ isAdmin }) {
                       &nbsp;
                       <button
                         className="px-2 mx-2 py-2 mr-4 font-semibold text-white bg-green-400 rounded-md"
-                        onClick={() => navigate(`/product/${product.id}`)}
+                        onClick={() =>
+                          navigate(`/admin/order/view/${order.id}`)
+                        }
                       >
                         <svg
                           className="w-5 h-5"
@@ -271,7 +243,7 @@ export default function Product({ isAdmin }) {
           </div>
           <div className="w-full flex justify-center my-10">
             <div className="w-2/5 flex justify-between items-center">
-              {products.links.map((link, index) => (
+              {orders.links.map((link, index) => (
                 <div
                   className={`rounded-full w-10 h-10 flex justify-center items-center m-2 cursor-pointer ${
                     link.active ? 'bg-green-400 text-white' : 'bg-gray-100'
@@ -281,9 +253,7 @@ export default function Product({ isAdmin }) {
                   <div
                     onClick={() =>
                       navigate(
-                        link.url
-                          ? `/admin/products${link.url}`
-                          : '/admin/products'
+                        link.url ? `/admin/orders${link.url}` : '/admin/orders'
                       )
                     }
                     className=""
