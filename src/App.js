@@ -91,7 +91,7 @@ function App() {
           <Route path="*" element={<Error />} />
         </Route>
         <Route element={<ProtectedRoute isAdmin={isAdmin} />}>
-          <Route path="admin" element={<AdminDashboard />}>
+          <Route path="admin" element={<AdminDashboard setIsLogin={setIsLogin} setIsAdmin={setIsAdmin} />}>
             <Route path="" element={<AdminHome />} />
             <Route path="products" element={<Product />} />
             <Route path="product/create" element={<CreateProduct />} />
