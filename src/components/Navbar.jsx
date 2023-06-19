@@ -27,6 +27,19 @@ const Navbar = () => {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    const handleFinding = async () => {
+      try {
+        const response = await searchProduct(findingPhrase);
+        setFoundProducts((prevState) => response);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    handleFinding();
+  }, [findingPhrase])
+
   const inputFindTriggers = {
     onFocus: () => {
       setIsInputOnFocus(true);
@@ -35,16 +48,6 @@ const Navbar = () => {
       setIsInputOnFocus(false);
       setFindingPhrase("");
     },
-  };
-
-  const handleFinding = async () => {
-    try {
-      const response = await searchProduct(findingPhrase);
-      setFoundProducts((prevState) => prevState = response);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
@@ -183,8 +186,7 @@ const Navbar = () => {
                 placeholder="Search..."
                 type="text"
                 onChange={(e) => {
-                  setFindingPhrase(() => e.target.value);
-                  handleFinding();
+                  setFindingPhrase((prevState) => e.target.value);
                 }}
                 value={findingPhrase}
               />
