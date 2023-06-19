@@ -59,11 +59,11 @@ export default function Sidebar({ setIsLogin, setIsAdmin }) {
             </ListItemPrefix>
             Users
           </ListItem>
-          <ListItem>
+          <ListItem onClick={() => navigate('orders')}>
             <ListItemPrefix>
               <InboxIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Inbox
+            Orders
             <ListItemSuffix>
               <Chip
                 value="14"

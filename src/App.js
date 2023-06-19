@@ -17,7 +17,9 @@ import CreateProduct from './components/admin/product/CreateProduct';
 import User from './components/admin/user/User';
 import UserDashboard from './pages/UserDashboard';
 import UserProfile from './components/admin/user/UserProfile';
+import Order from './components/admin/order/Order';
 import ProductDetail from './pages/ProductDetail';
+import OrderDetail from './components/admin/order/OrderDetail';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -81,12 +83,32 @@ function App() {
           }
         >
           <Route path="products" element={<Product isAdmin={isAdmin} />} />
-          <Route path="product/create" element={<CreateProduct isAdmin={isAdmin} />} />
-          <Route path="product/edit/:id" element={<EditProduct isAdmin={isAdmin} />} />
-          <Route path="product-color/edit/:id/:color" element={<EditColor isAdmin={isAdmin} />} />
-          <Route path="product-style/edit/:id/:style" element={<EditStyle isAdmin={isAdmin} />} />
-          <Route path="users" element={<User isAdmin={isAdmin}/>} />
-          <Route path="user/view/:id" element={<UserProfile isAdmin={isAdmin} />} />
+          <Route
+            path="product/create"
+            element={<CreateProduct isAdmin={isAdmin} />}
+          />
+          <Route
+            path="product/edit/:id"
+            element={<EditProduct isAdmin={isAdmin} />}
+          />
+          <Route
+            path="product-color/edit/:id/:color"
+            element={<EditColor isAdmin={isAdmin} />}
+          />
+          <Route
+            path="product-style/edit/:id/:style"
+            element={<EditStyle isAdmin={isAdmin} />}
+          />
+          <Route path="users" element={<User isAdmin={isAdmin} />} />
+          <Route
+            path="user/view/:id"
+            element={<UserProfile isAdmin={isAdmin} />}
+          />
+          <Route path="orders" element={<Order isAdmin={isAdmin} />} />
+          <Route
+            path="order/view/:id"
+            element={<OrderDetail isAdmin={isAdmin} />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
