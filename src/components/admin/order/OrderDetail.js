@@ -224,9 +224,6 @@ export default function OrderDetail({ isAdmin }) {
                               : product.type.style_name}
                           </div>
                           <div className="ml-8">
-                            Price: {product.type.fixed_price}
-                          </div>
-                          <div className="ml-8">
                             Quantity: {product.quantity}
                           </div>
                         </div>

@@ -20,6 +20,7 @@ import UserProfile from './components/admin/user/UserProfile';
 import Order from './components/admin/order/Order';
 import ProductDetail from './pages/ProductDetail';
 import OrderDetail from './components/admin/order/OrderDetail';
+import AdminHome from './components/admin/AdminHome';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -82,6 +83,7 @@ function App() {
             />
           }
         >
+          <Route path="" element={<AdminHome isAdmin={isAdmin} />} />
           <Route path="products" element={<Product isAdmin={isAdmin} />} />
           <Route
             path="product/create"
