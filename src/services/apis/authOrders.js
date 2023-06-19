@@ -51,4 +51,16 @@ const getOrder = async (id) => {
   }
 };
 
-export { getOrderList, deleteOrder, getOrder };
+const analysis = async (id) => {
+  try {
+    const response = await axios.get(`/api/admin/analysis`, {
+      headers,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export { getOrderList, deleteOrder, getOrder, analysis };
