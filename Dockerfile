@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Sử dụng image nginx
-FROM nginx:latest 
+FROM nginx:1.24.0
 
 # Sao chép tệp build của React vào thư mục mặc định của Nginx
 COPY --from=build /app/build /usr/share/nginx/html
