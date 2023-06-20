@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
-import ProductOptions from "./ProductOptions";
-import CartContext from "./CartContext";
-import { useNavigate } from "react-router";
+import { useContext, useState } from 'react';
+import ProductOptions from './ProductOptions';
+import CartContext from './CartContext';
+import { useNavigate } from 'react-router';
 
 const ProductCard = ({ product, option }) => {
   const [currentImage, setCurrentImage] = useState(product.image);
@@ -9,8 +9,8 @@ const ProductCard = ({ product, option }) => {
   const navigate = useNavigate();
 
   var options = {};
-  product.avgRate = 5;
-  product.totalRates = 15;
+  product.avgRate = product.rate.toFixed(2);
+  product.totalRates = product.countRate;
   if (product.option_type === 1 && product.colors.length > 0) {
     product.onHoverImg = product.colors[0].image;
     product.price = product.colors[0].fixed_price;
@@ -34,7 +34,7 @@ const ProductCard = ({ product, option }) => {
 
   return (
     <div
-      className={"w-[85%] h-fit"}
+      className={'w-[85%] h-fit'}
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
