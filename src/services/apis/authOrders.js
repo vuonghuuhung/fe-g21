@@ -7,6 +7,38 @@ const headers = {
   Authorization: `Bearer ${token}`,
 };
 
+const getOrderListById = async (id) => {
+  try {
+    const response = await axios.get(
+      `/api/user/order-list/${id}`,
+      {
+        headers,
+      }
+    );
+    console.log(response);
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+const rate = async (orderDetailId, rate) => {
+  try {
+    const response = await axios.post(
+      `/api/user/product-rate/${orderDetailId}`,
+      {
+        rate,
+      }
+    );
+    console.log(response);
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 const getOrderList = async (page, query) => {
   try {
     const response = await axios.get(
@@ -63,4 +95,4 @@ const analysis = async (id) => {
   }
 };
 
-export { getOrderList, deleteOrder, getOrder, analysis };
+export { getOrderList, deleteOrder, getOrder, analysis, getOrderListById, rate };
