@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getPaymentInfo } from "../services/apis/payment";
 
 const PaymentSuccess = () => {
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const id = queryParams.get("payment_id");
+  const { id } = useParams();
   const [paymentInfo, setPaymentInfo] = useState(null);
   const navigate = useNavigate();
 
