@@ -26,6 +26,7 @@ import UserProfile from './components/admin/user/UserProfile';
 import Order from './components/admin/order/Order';
 import ProductDetail from './pages/ProductDetail';
 import OrderDetail from './components/admin/order/OrderDetail';
+import UserOrderDetail from './pages/OrderDetail';
 import AdminHome from './components/admin/AdminHome';
 import UnAuth from './pages/UnAuth';
 import PaymentSuccess from './pages/PaymentSuccess';
@@ -78,6 +79,7 @@ function App() {
           <Route path="payment-success/:id" element={<PaymentSuccess />} />
           <Route path="products/:id" element={<ProductList />} />
           <Route path="product/:id" element={<ProductDetail />} />
+          <Route path="order-detail/:id" element={<UserOrderDetail />} />
           <Route
             path="dashboard"
             element={

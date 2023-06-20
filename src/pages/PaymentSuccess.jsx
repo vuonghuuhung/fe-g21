@@ -21,7 +21,7 @@ const PaymentSuccess = () => {
       }
     };
     fetchPayment();
-  }, []);
+  }, [id]);
 
   return (
     <div className="w-full bg-gradient-to-r from-blue-400 to-purple-500 min-h-screen flex items-center justify-center">
