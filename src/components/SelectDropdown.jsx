@@ -12,7 +12,11 @@ export default function SelectDropdown({ list }) {
     <div className="py-4 relative flex w-[90%] m-auto cursor-pointer">
       <select
         className="ring-2 ring-blue-500 border rounded-full appearance-none form-select px-4 py-3 pl-3 w-full border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer"
-        onChange={handleChange}
+        onChange={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          handleChange(e);
+        }}
         value={selectedValue}
       >
         {/* <option value="">Set of {list.length}</option> */}
