@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../services/apis/auth";
+import { Loading } from "../components/svg/Icon";
 
 const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [isPressLogin, setIsPressLogin] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,7 +30,9 @@ const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
       email,
       password,
     });
+    setIsPressLogin(true);
     const role = await login(email, password);
+    setIsPressLogin(false);
     if (role) {
       if (role === 2) {
         setIsAdmin(true);
@@ -55,9 +59,8 @@ const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
           </Link>
         </div>
         <h2 className="text-4xl font-semibold text-center mt-8 mb-6">LOGIN</h2>
-        {error && (
-          <div className="text-red-500 text-center mb-4">{error}</div>
-        )}
+        {isPressLogin && <span>Log in ...</span>}
+        {error && <div className="text-red-500 text-center mb-4">{error}</div>}
         <div className="mb-6">
           <input
             value={email}
@@ -67,7 +70,7 @@ const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
             placeholder="Email"
             onChange={(e) => {
               setEmail(e.target.value);
-              setError('');
+              setError("");
             }}
             className="w-full px-4 py-3 rounded-md border-2 focus:outline-none focus:border-orange-300"
           />
@@ -81,7 +84,7 @@ const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
             placeholder="Password"
             onChange={(e) => {
               setPassword(e.target.value);
-              setError('');
+              setError("");
             }}
             className="w-full px-4 py-3 rounded-md border-2 focus:outline-none focus:border-orange-300"
           />

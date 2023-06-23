@@ -90,7 +90,7 @@ function App() {
               />
             }
           />
-          <Route path="*" element={<Error />} />
+          <Route path="*/:error" element={<Error />} />
         </Route>
         <Route element={<ProtectedRoute isAdmin={isAdmin} />}>
           <Route path="admin" element={<AdminDashboard setIsLogin={setIsLogin} setIsAdmin={setIsAdmin} />}>

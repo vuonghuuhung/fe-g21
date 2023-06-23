@@ -10,6 +10,7 @@ const Cart = ({ isLogin }) => {
   const [cartItems, setCartItems] = useState([]);
   const [products, setProducts] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
+  const [isFetchingData, setIsFetchingData] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,19 +33,25 @@ const Cart = ({ isLogin }) => {
   }, []);
 
   useEffect(() => {
-    const fetchProduct = async (itemId) => {
-      try {
-        const product = await getProductById(itemId);
-        product.quantity = 1;
-        setProducts((prevProducts) => [...prevProducts, product]);
-      } catch (error) {
-        console.log(error);
+    const fetchProducts = async () => {
+      setIsFetchingData(true);
+      const fetchedProducts = [];
+  
+      for (const itemId of cartItems) {
+        try {
+          const product = await getProductById(itemId);
+          product.quantity = 1;
+          fetchedProducts.push(product);
+        } catch (error) {
+          console.log(error);
+        }
       }
+  
+      setProducts(fetchedProducts);
+      setIsFetchingData(false);
     };
-
-    cartItems.forEach((itemId) => {
-      fetchProduct(itemId);
-    });
+  
+    fetchProducts();
   }, [cartItems]);
 
   const deleteProduct = (productId) => {
@@ -77,7 +84,6 @@ const Cart = ({ isLogin }) => {
           return {
             ...product,
             selectedOption: event.target.value,
-            
           };
         }
         return product;
@@ -93,7 +99,10 @@ const Cart = ({ isLogin }) => {
   return (
     <div className="bg-white md:m-20 grid gap-x-20 grid-rows-2 grid-cols-1 md:grid-rows-1 m-4 md:grid-cols-7">
       <div className="md:col-span-4 ">
-        <h2 className="text-3xl font-medium">Your Cart ({products.length})</h2>
+        <h2 className="text-3xl font-medium">
+          Your Cart ({products.length}){" "}
+          {isFetchingData && <span>Getting your cart ...</span>}
+        </h2>
         {products.map((product, index) => (
           <div key={index}>
             <div className="grid grid-cols-12 gap-1 mt-6">
@@ -114,18 +123,20 @@ const Cart = ({ isLogin }) => {
                   />
                 </div>
                 <div>
-                  <span>Color or Style:{" "}</span>
+                  <span>Color or Style: </span>
                   <select
                     value={product.selectedOption || ""}
                     onChange={(e) => handleOptionChange(product.id, e)}
                     className="bg-gray-200 w-2/5 mt-3"
                   >
                     <option value="">Select an option</option>
-                    {product.type.length > 0 ? product.type.map((option, optionIndex) => (
-                      <option key={optionIndex} value={optionIndex}>
-                        {option.style_name || option.color_name}
-                      </option>
-                    )) : ""}
+                    {product.type.length > 0
+                      ? product.type.map((option, optionIndex) => (
+                          <option key={optionIndex} value={optionIndex}>
+                            {option.style_name || option.color_name}
+                          </option>
+                        ))
+                      : ""}
                   </select>
                 </div>
               </div>
@@ -162,9 +173,7 @@ const Cart = ({ isLogin }) => {
             <div>${cartTotal}</div>
           </div>
           <div
-            onClick={() =>
-              isLogin ? handleCheckout() : navigate("/login")
-            }
+            onClick={() => (isLogin ? handleCheckout() : navigate("/login"))}
             className="h-12 mt-4 bg-blue-500 p-3 flex justify-center text-white rounded-3xl hover:bg-blue-400 cursor-pointer"
           >
             Checkout

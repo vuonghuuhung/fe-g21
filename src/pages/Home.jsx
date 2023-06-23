@@ -5,9 +5,11 @@ import ProductCard from "../components/ProductCard";
 import { NextPointer, PrevPointer } from "../components/svg/Icon";
 import { useEffect, useState } from "react";
 import { getTopPicks } from "../services/apis/product";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -15,7 +17,7 @@ const Home = () => {
         const productList = await getTopPicks();
         setProducts(productList);
       } catch (error) {
-        console.log(error.message); 
+        navigate("*/500");
       }
     }; 
 

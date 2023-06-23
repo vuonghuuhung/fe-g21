@@ -7,6 +7,7 @@ import { async } from "q";
 export default function ProductList() {
   const { id } = useParams();
   const [products, setProducts] = useState(null);
+  const [isGettingProducts, setIsGettingProducts] = useState(false);
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const page = sp.get("page") || 1;
@@ -14,6 +15,7 @@ export default function ProductList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsGettingProducts(true);
         let response;
         if (id === "0") {
           console.log(page);
@@ -22,6 +24,7 @@ export default function ProductList() {
           response = await getAllProduct();
         }
         setProducts(response);
+        setIsGettingProducts(false);
       } catch (err) {
         console.log(err);
       }
@@ -37,6 +40,7 @@ export default function ProductList() {
         </h1>
       </div>
       <div className="bg-white">
+        {isGettingProducts && <span>Getting Products...</span>}
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-full lg:px-8">
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {products !== null &&
