@@ -1,7 +1,7 @@
-import { useContext, useState } from 'react';
-import ProductOptions from './ProductOptions';
-import CartContext from './CartContext';
-import { useNavigate } from 'react-router';
+import { useContext, useState } from "react";
+import ProductOptions from "./ProductOptions";
+import CartContext from "./CartContext";
+import { useNavigate } from "react-router";
 
 const ProductCard = ({ product, option }) => {
   const [currentImage, setCurrentImage] = useState(product.image);
@@ -33,15 +33,13 @@ const ProductCard = ({ product, option }) => {
   };
 
   return (
-    <div
-      className={'w-[85%] h-fit'}
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        navigate(`/product/${product.id}`);
-      }}
-    >
+    <div className={"w-[85%] h-fit"}>
       <div
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          navigate(`/product/${product.id}`);
+        }}
         className="group/cart relative h-fit w-full object-cover sm:h-80 lg:h-96 block bg-cover bg-center bg-no-repeat transition-[background-image] duration-[0.3s] ease-in-out cursor-pointer overflow-hidden"
         // ref={productCardRef}
         onMouseEnter={handleMouseEnter}
@@ -63,7 +61,14 @@ const ProductCard = ({ product, option }) => {
           </div>
         )}
       </div>
-      <h2 className="mt-3 font-semibold text-gray-900 sm:text-2xl cursor-pointer">
+      <h2
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          navigate(`/product/${product.id}`);
+        }}
+        className="mt-3 font-semibold text-gray-900 sm:text-2xl cursor-pointer"
+      >
         {product.product_name}
       </h2>
       {option && (
