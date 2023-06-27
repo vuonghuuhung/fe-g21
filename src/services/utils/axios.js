@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: "http://localhost:8000/",
+    baseURL: "https://g21-be.azurewebsites.net/",
     headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
