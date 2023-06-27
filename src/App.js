@@ -57,14 +57,15 @@ function App() {
     if (!isAdmin) {
       return <Navigate to={redirectPath} replace />;
     }
-
+    const userInfo = JSON.parse(localStorage.getItem('userInfo')) || null;
+    toast.success("Welcome, " + userInfo.firstname + " " + userInfo.lastname);
     return <Outlet />;
   };
 
   return (
     <>
-      <ToastContainer />
       <BrowserRouter>
+        <ToastContainer />
         <Routes>
           <Route
             path="login"

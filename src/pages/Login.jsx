@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
   const [isPressLogin, setIsPressLogin] = useState(false);
   const navigate = useNavigate();
 
@@ -33,8 +33,8 @@ const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
         navigate("/");
       }
     } else {
-      console.log("sai");
-      setError("Sai email hoặc mật khẩu! Hãy thử lại");
+      setError(() => true);
+      toast.error("Sai email hoặc mật khẩu! Hãy thử lại");
     }
   };
 
@@ -51,7 +51,7 @@ const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
           </Link>
         </div>
         <h2 className="text-4xl font-semibold text-center mt-8 mb-6">LOGIN</h2>
-        {isPressLogin && <ToastContainer />} {error && toast.error(error)}
+        {isPressLogin && <ToastContainer />} 
         <div className="mb-6">
           <input
             value={email}
@@ -61,7 +61,6 @@ const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
             placeholder="Email"
             onChange={(e) => {
               setEmail(e.target.value);
-              setError("");
             }}
             className="w-full px-4 py-3 rounded-md border-2 focus:outline-none focus:border-orange-300"
           />
@@ -75,7 +74,6 @@ const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
             placeholder="Password"
             onChange={(e) => {
               setPassword(e.target.value);
-              setError("");
             }}
             className="w-full px-4 py-3 rounded-md border-2 focus:outline-none focus:border-orange-300"
           />

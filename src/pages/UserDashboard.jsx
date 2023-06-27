@@ -94,7 +94,7 @@ const UserDashboard = ({ isLogin, isAdmin, setIsLogin }) => {
               ))
             )}
           </div>
-          <div className="basis-1/2">
+          <div className="basis-1/2 pb-10">
             <h1 className="text-2xl font-semibold">Account Details</h1>
             <hr className="w-10 my-4" />
             <p>{address}</p>

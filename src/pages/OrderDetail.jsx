@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { rate } from "../services/apis/authOrders";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const OrderDetail = () => {
   const location = useLocation();
@@ -21,8 +23,8 @@ const OrderDetail = () => {
       const rating = ratings[productId];
       await rate(productId, rating);
     }
-    alert("Thank you for you response!");
-    navigate("/dashboard");
+    toast.success("Cảm ơn vì đã phản hồi cho chúng tôi!");
+    navigate('/dashboard');
   };
 
   return (
