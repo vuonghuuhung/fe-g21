@@ -1,17 +1,8 @@
 import { useState } from "react";
 import { AiOutlineRight } from "react-icons/ai";
-import {
-  AiOutlineShoppingCart,
-  AiOutlineDown,
-  AiOutlineUp,
-} from "react-icons/ai";
-import { HiArrowRight } from "react-icons/hi";
-import cart from "../mocks/cartData";
-import Select from "react-select";
 import { useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getCities, getDistricts, getUrbans } from "../services/apis/address";
-import { ArrowDown } from "../components/svg/Icon";
 import { createPayment } from "../services/apis/payment";
 
 const Checkout = ({isLogin}) => {
@@ -117,10 +108,10 @@ const Checkout = ({isLogin}) => {
 
   const handleOrderClick = async () => {
     try {
-      const userId = JSON.parse(localStorage.getItem('userInfo')).id;
+      const user = JSON.parse(localStorage.getItem('userInfo'));
       const order = {
-        user_id: userId,
-        address: `${urban}, ${district}, ${city}`,
+        user_id: user.id,
+        address: `${user.firstname} ${user.lastname}, ${user.phone} , ${urban}, ${district}, ${city}`,
         total_price: total,
         status: 1
       }

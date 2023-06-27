@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { getCities, getDistricts, getUrbans } from "../services/apis/address";
 import { ArrowDown } from "../components/svg/Icon";
 import { registry } from "../services/apis/registry";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Registry = ({ isLogin }) => {
   const [email, setEmail] = useState("");
@@ -99,6 +101,7 @@ const Registry = ({ isLogin }) => {
     e.preventDefault();
     console.log(validateEmail(email));
     try {
+      toast.info("Đang đăng ký...")
       const response = await registry({
         email: email,
         password: password,
@@ -110,10 +113,10 @@ const Registry = ({ isLogin }) => {
         phone: phoneNumber,
       });
       if (response) {
-        alert("User register successfully!");
+        toast.success("Đăng ký thành công!");
         navigate("/login");
       } else {
-        alert("User register failed! Try again.");
+        toast.error("Đăng ký thất bại, vui lòng thử lại!");
       }
     } catch (error) {
       alert(error);
@@ -122,6 +125,7 @@ const Registry = ({ isLogin }) => {
 
   return (
     <div className="w-full h-screen flex items-center justify-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+      <ToastContainer />
       <div className="w-full max-w-md px-6 py-8 bg-white rounded-lg shadow-md">
         <div className="flex justify-center">
           <Link to="/">
