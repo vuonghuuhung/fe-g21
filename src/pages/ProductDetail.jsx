@@ -1,7 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import { getProductById } from '../services/apis/product';
-import CartContext from '../components/CartContext';
+import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router";
+import { getProductById } from "../services/apis/product";
+import CartContext from "../components/CartContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -68,6 +70,7 @@ const ProductDetail = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
+      <ToastContainer />
       <div className="max-w-7xl mx-auto px-8 py-12 bg-white rounded-lg shadow-lg">
         <div className="grid grid-cols-2 gap-12">
           <div>
@@ -104,7 +107,10 @@ const ProductDetail = () => {
             <p className="text-lg mb-8">Description: {product.description}</p>
             <button
               className="w-full py-3 px-6 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-lg"
-              onClick={() => addProduct(product.id)}
+              onClick={() => {
+                addProduct(product.id);
+                toast.success("Đã thêm vào giỏ hàng thành công!");
+              }}
             >
               Add to Cart
             </button>

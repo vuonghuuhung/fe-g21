@@ -28,8 +28,7 @@ const rate = async (orderDetailId, rate) => {
     const response = await axios.post(
       `/api/user/product-rate/${orderDetailId}`,
       {
-        rate,
-        headers
+        rate
       }
     );
     console.log(response);

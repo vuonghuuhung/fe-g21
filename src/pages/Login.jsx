@@ -20,7 +20,7 @@ const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsPressLogin(true);
-    toast.info("Đang đăng nhập...", { autoClose: false }); // Hiển thị toast "Đang đăng nhập..."
+    toast.info("Đang đăng nhập...", { autoClose: true }); // Hiển thị toast "Đang đăng nhập..."
     const role = await login(email, password);
     setIsPressLogin(false);
     console.log(role);

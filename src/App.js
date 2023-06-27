@@ -30,6 +30,8 @@ import UserOrderDetail from './pages/OrderDetail';
 import AdminHome from './components/admin/AdminHome';
 import UnAuth from './pages/UnAuth';
 import PaymentSuccess from './pages/PaymentSuccess';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -42,13 +44,14 @@ function App() {
         const role = userInfo.role;
         setIsLogin(() => true);
         if (role === 2) setIsAdmin(() => true);
+        toast.success("Welcome, " + userInfo.firstname + " " + userInfo.lastname);
       } else {
         setIsLogin(() => false);
         setIsAdmin(() => false);
       }
     };
     getStatus();
-  }, []);
+  }, [isLogin]);
 
   const ProtectedRoute = ({ isAdmin, redirectPath = '/unauth' }) => {
     if (!isAdmin) {
@@ -59,62 +62,65 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="login"
-          element={
-            <Login
-              isLogin={isLogin}
-              setIsLogin={setIsLogin}
-              setIsAdmin={setIsAdmin}
-            />
-          }
-        />
-        <Route path="registry" element={<Registry isLogin={isLogin} />} />
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<Home />} />
-          <Route path="cart" element={<Cart isLogin={isLogin}/>} />
-          <Route path="checkout" element={<Checkout isLogin={isLogin} />} />
-          <Route path="payment-success/:id" element={<PaymentSuccess />} />
-          <Route path="products/:id" element={<ProductList />} />
-          <Route path="product/:id" element={<ProductDetail />} />
-          <Route path="order-detail/:id" element={<UserOrderDetail />} />
+    <>
+      <ToastContainer />
+      <BrowserRouter>
+        <Routes>
           <Route
-            path="dashboard"
+            path="login"
             element={
-              <UserDashboard
-                isAdmin={isAdmin}
+              <Login
                 isLogin={isLogin}
                 setIsLogin={setIsLogin}
+                setIsAdmin={setIsAdmin}
               />
             }
           />
-          <Route path="*/:error" element={<Error />} />
-        </Route>
-        <Route element={<ProtectedRoute isAdmin={isAdmin} />}>
-          <Route path="admin" element={<AdminDashboard setIsLogin={setIsLogin} setIsAdmin={setIsAdmin} />}>
-            <Route path="" element={<AdminHome />} />
-            <Route path="products" element={<Product />} />
-            <Route path="product/create" element={<CreateProduct />} />
-            <Route path="product/edit/:id" element={<EditProduct />} />
+          <Route path="registry" element={<Registry isLogin={isLogin} />} />
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={<Home />} />
+            <Route path="cart" element={<Cart isLogin={isLogin} />} />
+            <Route path="checkout" element={<Checkout isLogin={isLogin} />} />
+            <Route path="payment-success/:id" element={<PaymentSuccess />} />
+            <Route path="products/:id" element={<ProductList />} />
+            <Route path="product/:id" element={<ProductDetail />} />
+            <Route path="order-detail/:id" element={<UserOrderDetail />} />
             <Route
-              path="product-color/edit/:id/:color"
-              element={<EditColor />}
+              path="dashboard"
+              element={
+                <UserDashboard
+                  isAdmin={isAdmin}
+                  isLogin={isLogin}
+                  setIsLogin={setIsLogin}
+                />
+              }
             />
-            <Route
-              path="product-style/edit/:id/:style"
-              element={<EditStyle />}
-            />
-            <Route path="users" element={<User />} />
-            <Route path="user/view/:id" element={<UserProfile />} />
-            <Route path="orders" element={<Order />} />
-            <Route path="order/view/:id" element={<OrderDetail />} />
+            <Route path="*/:error" element={<Error />} />
           </Route>
-        </Route>
-        <Route path="unauth" element={<UnAuth />} />
-      </Routes>
-    </BrowserRouter>
+          <Route element={<ProtectedRoute isAdmin={isAdmin} />}>
+            <Route path="admin" element={<AdminDashboard setIsLogin={setIsLogin} setIsAdmin={setIsAdmin} />}>
+              <Route path="" element={<AdminHome />} />
+              <Route path="products" element={<Product />} />
+              <Route path="product/create" element={<CreateProduct />} />
+              <Route path="product/edit/:id" element={<EditProduct />} />
+              <Route
+                path="product-color/edit/:id/:color"
+                element={<EditColor />}
+              />
+              <Route
+                path="product-style/edit/:id/:style"
+                element={<EditStyle />}
+              />
+              <Route path="users" element={<User />} />
+              <Route path="user/view/:id" element={<UserProfile />} />
+              <Route path="orders" element={<Order />} />
+              <Route path="order/view/:id" element={<OrderDetail />} />
+            </Route>
+          </Route>
+          <Route path="unauth" element={<UnAuth />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
