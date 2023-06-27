@@ -2,7 +2,6 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import { useEffect, useState } from "react";
 import { getProductList, getAllProduct } from "../services/apis/product";
-import { async } from "q";
 
 export default function ProductList() {
   const { id } = useParams();

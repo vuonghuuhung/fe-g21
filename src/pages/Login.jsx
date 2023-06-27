@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../services/apis/auth";
-import { Loading } from "../components/svg/Icon";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
   const [email, setEmail] = useState("");
@@ -16,23 +17,13 @@ const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
     }
   });
 
-  const validateEmail = (str) => {
-    if (!(str.slice(str.length - 10, str.length) === "@gmail.com")) {
-      return false;
-    }
-    return true;
-  };
-
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log(validateEmail(email));
-    console.log({
-      email,
-      password,
-    });
     setIsPressLogin(true);
+    toast.info("Đang đăng nhập...", { autoClose: false }); // Hiển thị toast "Đang đăng nhập..."
     const role = await login(email, password);
     setIsPressLogin(false);
+    console.log(role);
     if (role) {
       if (role === 2) {
         setIsAdmin(true);
@@ -42,7 +33,8 @@ const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
         navigate("/");
       }
     } else {
-      setError("Invalid username or password");
+      console.log("sai");
+      setError("Sai email hoặc mật khẩu! Hãy thử lại");
     }
   };
 
@@ -59,8 +51,7 @@ const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
           </Link>
         </div>
         <h2 className="text-4xl font-semibold text-center mt-8 mb-6">LOGIN</h2>
-        {isPressLogin && <span>Log in ...</span>}
-        {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+        {isPressLogin && <ToastContainer />} {error && toast.error(error)}
         <div className="mb-6">
           <input
             value={email}

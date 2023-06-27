@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import ProductOptions from "./ProductOptions";
 import CartContext from "./CartContext";
 import { useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductCard = ({ product, option }) => {
   const [currentImage, setCurrentImage] = useState(product.image);
@@ -32,8 +34,16 @@ const ProductCard = ({ product, option }) => {
     setCurrentImage(product.image);
   };
 
+  const handleQuickShop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addProduct(product.id);
+    toast.success("Đã thêm vào giỏ hàng thành công!");
+  };
+
   return (
     <div className={"w-[85%] h-fit"}>
+      <ToastContainer />
       <div
         onClick={(e) => {
           e.preventDefault();
@@ -41,7 +51,6 @@ const ProductCard = ({ product, option }) => {
           navigate(`/product/${product.id}`);
         }}
         className="group/cart relative h-fit w-full object-cover sm:h-80 lg:h-96 block bg-cover bg-center bg-no-repeat transition-[background-image] duration-[0.3s] ease-in-out cursor-pointer overflow-hidden"
-        // ref={productCardRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         style={{ backgroundImage: `url(${currentImage})` }}
@@ -49,11 +58,7 @@ const ProductCard = ({ product, option }) => {
         {option && (
           <div className="group-hover/cart:opacity-100 transition-all ease-in-out duration-[0.5s] absolute bg-slate-100/70 hover:bg-slate-100 w-[40%] left-[50%] translate-x-[-50%] border-solid border-1 border-black top-[50%] translate-y-[-50%] opacity-0">
             <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                addProduct(product.id);
-              }}
+              onClick={handleQuickShop}
               className="text-black text-center block w-full uppercase py-3 text-sm font-semibold"
             >
               Quick Shop

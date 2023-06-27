@@ -16,9 +16,7 @@ const SharedLayout = () => {
   const addProduct = (productId) => {
     const storedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
 
-    const isProductExist = storedCartItems.some(
-      (item) => item === productId
-    );
+    const isProductExist = storedCartItems.some((item) => item === productId);
 
     if (!isProductExist) {
       const updatedCartItems = [...storedCartItems, productId];
@@ -26,12 +24,22 @@ const SharedLayout = () => {
       localStorage.setItem("cart", JSON.stringify(updatedCartItems));
       setQuantityInCart(updatedCartItems.length);
     }
-  }
+  };
+
+  const removeProduct = (productId) => {
+    const storedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const updatedCartItems = storedCartItems.filter((item) => item !== productId);
+
+    localStorage.setItem("cart", JSON.stringify(updatedCartItems));
+    setQuantityInCart(updatedCartItems.length);
+  };
 
   const contextData = {
     quantityInCart,
-    addProduct
-  }
+    addProduct,
+    removeProduct,
+  };
 
   return (
     <>
@@ -43,4 +51,5 @@ const SharedLayout = () => {
     </>
   );
 };
+
 export default SharedLayout;

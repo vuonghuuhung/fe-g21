@@ -29,6 +29,7 @@ const rate = async (orderDetailId, rate) => {
       `/api/user/product-rate/${orderDetailId}`,
       {
         rate,
+        headers
       }
     );
     console.log(response);
