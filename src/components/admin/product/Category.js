@@ -11,6 +11,7 @@ import { useState } from 'react';
 import {
   deleteCategory,
   getCategoryList,
+  updateCategory,
 } from '../../../services/apis/authCategory';
 import { createCategory } from '../../../services/apis/authProduct';
 
@@ -55,6 +56,20 @@ const reducer = (state, action) => {
         loadingCreateCate: false,
         errorUpload: action.payload,
       };
+    case 'EDITCATE_REQUEST':
+      return { ...state, loadingEditCate: true, errorUpload: '' };
+    case 'EDITCATE_SUCCESS':
+      return {
+        ...state,
+        loadingEditCate: false,
+        errorUpload: '',
+      };
+    case 'EDITCATE_FAIL':
+      return {
+        ...state,
+        loadingEditCate: false,
+        errorUpload: action.payload,
+      };
     default:
       return state;
   }
@@ -63,6 +78,7 @@ const reducer = (state, action) => {
 export default function Category() {
   const [descriptionCate, setDescriptionCate] = useState(null);
   const [categoryName, setCategoryName] = useState(null);
+  const [edit, setEdit] = useState(null);
   const [
     {
       loading,
@@ -73,6 +89,7 @@ export default function Category() {
       loadingDelete,
       successDelete,
       loadingCreateCate,
+      loadingEditCate,
     },
     dispatch,
   ] = useReducer(reducer, {
@@ -95,7 +112,7 @@ export default function Category() {
       } catch (err) {}
     };
     fetchData();
-  }, [successDelete, loadingCreateCate]);
+  }, [successDelete, loadingCreateCate, loadingEditCate]);
 
   const deleteHandler = async (category) => {
     if (window.confirm('Are you sure to delete?')) {
@@ -134,8 +151,35 @@ export default function Category() {
     }
   };
 
+  const handleEditCate = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch({ type: 'EDITCATE_REQUEST' });
+      await updateCategory(edit, {
+        category_name: categoryName,
+        description: descriptionCate,
+      });
+      dispatch({
+        type: 'EDITCATE_SUCCESS',
+      });
+      toast.success('Category edited successfully');
+      setCategoryName(null);
+      setDescriptionCate(null);
+      setEdit(null);
+      toggleModalEdit();
+    } catch (err) {
+      toast.error('ERROR');
+      dispatch({ type: 'EDITCATE_FAIL' });
+    }
+  };
+
   const toggleModal = () => {
     document.getElementById('modal').classList.toggle('hidden');
+  };
+
+  const toggleModalEdit = (id) => {
+    setEdit(id);
+    document.getElementById('modal-edit').classList.toggle('hidden');
   };
 
   return (
@@ -262,6 +306,80 @@ export default function Category() {
                         </svg>
                       </button>
                     </td>
+                    <div
+                      class="fixed z-10 overflow-y-auto top-0 w-full left-0 hidden"
+                      id="modal-edit"
+                    >
+                      <div class="flex items-center justify-center min-height-100vh pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                        <div class="fixed inset-0 transition-opacity">
+                          <div class="absolute inset-0 bg-gray-900 opacity-75" />
+                        </div>
+                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen">
+                          &#8203;
+                        </span>
+                        <div
+                          class="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                          role="dialog"
+                          aria-modal="true"
+                          aria-labelledby="modal-headline"
+                        >
+                          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div className="mb-6 mr-4 w-1/2">
+                              <label
+                                for="base-input"
+                                className="block mb-2 text-sm font-medium text-gray-900"
+                              >
+                                Category Name
+                              </label>
+                              <input
+                                type="text"
+                                id="base-input"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 outline-none"
+                                value={categoryName}
+                                onChange={(e) =>
+                                  setCategoryName(e.target.value)
+                                }
+                              />
+                            </div>
+                            <div className="mb-6">
+                              <label
+                                for="base-input"
+                                className="block mb-2 text-sm font-medium text-gray-900"
+                              >
+                                Description
+                              </label>
+                              <textarea
+                                id="message"
+                                rows="4"
+                                className="block px-4 py-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                placeholder="Write your description here..."
+                                value={descriptionCate}
+                                onChange={(e) =>
+                                  setDescriptionCate(e.target.value)
+                                }
+                              ></textarea>
+                            </div>
+                          </div>
+                          <div class="bg-gray-200 px-4 py-3 text-right">
+                            <button
+                              type="button"
+                              class="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 mr-2"
+                              onClick={toggleModalEdit}
+                            >
+                              <i class="fas fa-times"></i> Cancel
+                            </button>
+                            <button
+                              type="button"
+                              class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 mr-2"
+                              onClick={handleEditCate}
+                            >
+                              <i class="fas fa-plus"></i>{' '}
+                              {loadingCreateCate ? ' Loading...' : 'Create'}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </tr>
                 ))}
               </tbody>
