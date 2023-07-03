@@ -107,12 +107,12 @@ export default function Category() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const cate = await getCategoryList();
+        const cate = await getCategoryList(page, query);
         dispatch({ type: 'FETCH_SUCCESS', payload: cate });
       } catch (err) {}
     };
     fetchData();
-  }, [successDelete, loadingCreateCate, loadingEditCate]);
+  }, [successDelete, loadingCreateCate, loadingEditCate, page, query]);
 
   const deleteHandler = async (category) => {
     if (window.confirm('Are you sure to delete?')) {
