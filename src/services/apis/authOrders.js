@@ -30,6 +30,7 @@ const rate = async (orderDetailId, rate) => {
     const response = await axios.post(
       `/api/user/productrate/${orderDetailId}`,
       {
+        headers,
         rate
       }
     );
@@ -47,7 +48,7 @@ const getOrderList = async (page, query) => {
     const response = await axios.get(
       `/api/admin/orders?page=${page}&perPage=5&search=${query ? query : ''}`,
       {
-        headers,
+        headers
       }
     );
     return response.data;
