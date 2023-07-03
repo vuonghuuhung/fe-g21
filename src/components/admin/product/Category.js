@@ -12,6 +12,7 @@ import {
   deleteCategory,
   getCategoryList,
 } from '../../../services/apis/authCategory';
+import { createCategory } from '../../../services/apis/authProduct';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -40,12 +41,28 @@ const reducer = (state, action) => {
 
     case 'DELETE_RESET':
       return { ...state, loadingDelete: false, successDelete: false };
+    case 'CREATECATE_REQUEST':
+      return { ...state, loadingCreateCate: true, errorUpload: '' };
+    case 'CREATECATE_SUCCESS':
+      return {
+        ...state,
+        loadingCreateCate: false,
+        errorUpload: '',
+      };
+    case 'CREATECATE_FAIL':
+      return {
+        ...state,
+        loadingCreateCate: false,
+        errorUpload: action.payload,
+      };
     default:
       return state;
   }
 };
 
 export default function Category() {
+  const [descriptionCate, setDescriptionCate] = useState(null);
+  const [categoryName, setCategoryName] = useState(null);
   const [
     {
       loading,
@@ -55,6 +72,7 @@ export default function Category() {
       loadingCreate,
       loadingDelete,
       successDelete,
+      loadingCreateCate,
     },
     dispatch,
   ] = useReducer(reducer, {
@@ -76,8 +94,8 @@ export default function Category() {
         dispatch({ type: 'FETCH_SUCCESS', payload: cate });
       } catch (err) {}
     };
-    fetchData(successDelete);
-  }, []);
+    fetchData();
+  }, [successDelete, loadingCreateCate]);
 
   const deleteHandler = async (category) => {
     if (window.confirm('Are you sure to delete?')) {
@@ -93,6 +111,31 @@ export default function Category() {
         });
       }
     }
+  };
+
+  const handleCreateCate = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch({ type: 'CREATECATE_REQUEST' });
+      await createCategory({
+        category_name: categoryName,
+        description: descriptionCate,
+      });
+      dispatch({
+        type: 'CREATECATE_SUCCESS',
+      });
+      toast.success('Category created successfully');
+      setCategoryName(null);
+      setDescriptionCate(null);
+      toggleModal();
+    } catch (err) {
+      toast.error('ERROR');
+      dispatch({ type: 'CREATECATE_FAIL' });
+    }
+  };
+
+  const toggleModal = () => {
+    document.getElementById('modal').classList.toggle('hidden');
   };
 
   return (
@@ -126,11 +169,11 @@ export default function Category() {
             <div className="">
               <div className="text-center">
                 <button
-                  className="py-2 px-2 mx-6 font-bold bg-green-500 text-white rounded-md flex my-auto"
-                  onClick={() => navigate(`/admin/category/create`)}
+                  className="p-3 mx-6 font-bold bg-green-500 text-white rounded-md"
+                  onClick={toggleModal}
                 >
                   <svg
-                    className="w-5 h-5 mr-2"
+                    className="w-5 h-5"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="1.5"
@@ -251,6 +294,76 @@ export default function Category() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+          <div
+            class="fixed z-10 overflow-y-auto top-0 w-full left-0 hidden"
+            id="modal"
+          >
+            <div class="flex items-center justify-center min-height-100vh pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+              <div class="fixed inset-0 transition-opacity">
+                <div class="absolute inset-0 bg-gray-900 opacity-75" />
+              </div>
+              <span class="hidden sm:inline-block sm:align-middle sm:h-screen">
+                &#8203;
+              </span>
+              <div
+                class="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="modal-headline"
+              >
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                  <div className="mb-6 mr-4 w-1/2">
+                    <label
+                      for="base-input"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Category Name
+                    </label>
+                    <input
+                      type="text"
+                      id="base-input"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 outline-none"
+                      value={categoryName}
+                      onChange={(e) => setCategoryName(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-6">
+                    <label
+                      for="base-input"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Description
+                    </label>
+                    <textarea
+                      id="message"
+                      rows="4"
+                      className="block px-4 py-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      placeholder="Write your description here..."
+                      value={descriptionCate}
+                      onChange={(e) => setDescriptionCate(e.target.value)}
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="bg-gray-200 px-4 py-3 text-right">
+                  <button
+                    type="button"
+                    class="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 mr-2"
+                    onClick={toggleModal}
+                  >
+                    <i class="fas fa-times"></i> Cancel
+                  </button>
+                  <button
+                    type="button"
+                    class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 mr-2"
+                    onClick={handleCreateCate}
+                  >
+                    <i class="fas fa-plus"></i>{' '}
+                    {loadingCreateCate ? ' Loading...' : 'Create'}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
