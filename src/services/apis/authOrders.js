@@ -11,7 +11,7 @@ const getOrderListById = async (id) => {
   try {
     await axios.get('/sanctum/csrf-cookie');
     const response = await axios.get(
-      `/api/user/order-list/${id}`,
+      `/api/user/orderlist/${id}`,
       {
         headers,
       }
@@ -28,7 +28,7 @@ const rate = async (orderDetailId, rate) => {
   try {
     await axios.get('/sanctum/csrf-cookie');
     const response = await axios.post(
-      `/api/user/product-rate/${orderDetailId}`,
+      `/api/user/productrate/${orderDetailId}`,
       {
         rate
       }
