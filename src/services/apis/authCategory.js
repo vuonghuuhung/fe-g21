@@ -41,4 +41,21 @@ const deleteCategory = async (id, status) => {
   }
 };
 
-export { getCategoryList, deleteCategory };
+const updateCategory = async (id, data) => {
+  try {
+    await axios.get('/sanctum/csrf-cookie');
+    const response = await axios.post(
+      `/api/admin/category/update/${id}`,
+      data,
+      {
+        headers,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export { getCategoryList, deleteCategory, updateCategory };
