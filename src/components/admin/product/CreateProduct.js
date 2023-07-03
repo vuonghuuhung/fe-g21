@@ -127,7 +127,7 @@ export default function CreateProduct() {
       });
       toast.success('Category created successfully');
       setCategoryName(null);
-      setDescription(null);
+      setDescriptionCate(null);
       toggleModal();
     } catch (err) {
       toast.error('ERROR');
