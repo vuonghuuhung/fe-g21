@@ -30,8 +30,9 @@ import UserOrderDetail from './pages/OrderDetail';
 import AdminHome from './components/admin/AdminHome';
 import UnAuth from './pages/UnAuth';
 import PaymentSuccess from './pages/PaymentSuccess';
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Category from './components/admin/product/Category';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -44,7 +45,9 @@ function App() {
         const role = userInfo.role;
         setIsLogin(() => true);
         if (role === 2) setIsAdmin(() => true);
-        toast.success("Welcome, " + userInfo.firstname + " " + userInfo.lastname);
+        toast.success(
+          'Welcome, ' + userInfo.firstname + ' ' + userInfo.lastname
+        );
       } else {
         setIsLogin(() => false);
         setIsAdmin(() => false);
@@ -58,7 +61,7 @@ function App() {
       return <Navigate to={redirectPath} replace />;
     }
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || null;
-    toast.success("Welcome, " + userInfo.firstname + " " + userInfo.lastname);
+    toast.success('Welcome, ' + userInfo.firstname + ' ' + userInfo.lastname);
     return <Outlet />;
   };
 
@@ -99,8 +102,17 @@ function App() {
             <Route path="*/:error" element={<Error />} />
           </Route>
           <Route element={<ProtectedRoute isAdmin={isAdmin} />}>
-            <Route path="admin" element={<AdminDashboard setIsLogin={setIsLogin} setIsAdmin={setIsAdmin} />}>
+            <Route
+              path="admin"
+              element={
+                <AdminDashboard
+                  setIsLogin={setIsLogin}
+                  setIsAdmin={setIsAdmin}
+                />
+              }
+            >
               <Route path="" element={<AdminHome />} />
+              <Route path="categories" element={<Category />} />
               <Route path="products" element={<Product />} />
               <Route path="product/create" element={<CreateProduct />} />
               <Route path="product/edit/:id" element={<EditProduct />} />
