@@ -112,7 +112,7 @@ export default function CreateProduct() {
       } catch (err) {}
     };
     fetchData();
-  }, []);
+  }, [loadingCreateCate]);
 
   const handleCreateCate = async (e) => {
     e.preventDefault();
