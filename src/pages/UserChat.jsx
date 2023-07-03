@@ -46,16 +46,16 @@ const UserChat = () => {
       console.log("Channels current state is " + states.current);
     });
     pusher.connection.bind("error", function (err) {
-      console.log(err);
+      // console.log(err);
     });
     try {
       pusher.signin();
       const chanel = pusher.subscribe("presence-chat");
       chanel.bind("new-message", (data) => {
-        console.log(data);
+        // console.log(data);
       });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   }, []);
 

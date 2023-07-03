@@ -92,7 +92,7 @@ export default function Product() {
       try {
         const status = 0;
         await deleteProduct(product.id, status);
-        toast.success('product deleted successfully');
+        toast.success('product deleted successfully', { autoClose: 1000});
         dispatch({ type: 'DELETE_SUCCESS' });
       } catch (err) {
         toast.error('Error');

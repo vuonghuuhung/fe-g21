@@ -49,9 +49,10 @@ const InternalServerError = () => {
     </section>
   );
 };
-
-export default Error = () => {
+const ErrorPage = () => {
   const {error} = useParams();
   if (error === "500") return <InternalServerError />; 
   return <NotFoundError />;
 }
+
+export default ErrorPage;

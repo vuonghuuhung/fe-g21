@@ -38,7 +38,7 @@ const ProductCard = ({ product, option }) => {
     e.preventDefault();
     e.stopPropagation();
     addProduct(product.id);
-    toast.success("Đã thêm vào giỏ hàng thành công!");
+    toast.success("Đã thêm vào giỏ hàng thành công!", { autoClose: 1000});
   };
 
   return (

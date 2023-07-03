@@ -79,7 +79,7 @@ export default function User() {
       try {
         const res = await getUserList(page, query);
         dispatch({ type: 'FETCH_SUCCESS', payload: res });
-      } catch (err) {}
+      } catch (err) { }
     };
     fetchData();
   }, [page, userInfo, loadingUpdate, query]);
@@ -98,7 +98,7 @@ export default function User() {
       dispatch({
         type: 'UPDATE_SUCCESS',
       });
-      toast.success('User updated successfully');
+      toast.success('User updated successfully', { autoClose: 1000});
       toggleModal(id);
       navigate(`/admin/users?page=${page}`);
     } catch (err) {
@@ -235,78 +235,78 @@ export default function User() {
                       </button>
                     </td>
                     <div
-                      class="fixed z-10 overflow-y-auto top-0 w-full left-0 hidden"
+                      className="fixed z-10 overflow-y-auto top-0 w-full left-0 hidden"
                       id={`modal-${user.id}`}
                     >
-                      <div class="flex items-center justify-center min-height-100vh pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                        <div class="fixed inset-0 transition-opacity">
-                          <div class="absolute inset-0 bg-gray-900 opacity-75" />
+                      <div className="flex items-center justify-center min-height-100vh pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                        <div className="fixed inset-0 transition-opacity">
+                          <div className="absolute inset-0 bg-gray-900 opacity-75" />
                         </div>
-                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen">
+                        <span className="hidden sm:inline-block sm:align-middle sm:h-screen">
                           &#8203;
                         </span>
                         <div
-                          class="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                          className="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
                           role="dialog"
                           aria-modal="true"
                           aria-labelledby="modal-headline"
                         >
-                          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                          <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <label
-                              for="base-input"
+                              htmlFor="base-input"
                               className="block mb-4 font-medium text-gray-900 text-lg"
                             >
                               Role
                             </label>
                             <div className="mb-6 mr-4 w-1/2 flex text-lg">
-                              <div class="flex items-center pl-4 border border-gray-200 rounded mr-4">
+                              <div className="flex items-center pl-4 border border-gray-200 rounded mr-4">
                                 <input
                                   id="role-1"
                                   type="radio"
                                   value="1"
                                   name="role"
-                                  class="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                                  className="w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                                   onChange={(e) => setRole(e.target.value)}
                                 />
                                 <label
-                                  for="role-1"
-                                  class="w-full px-10 py-2 ml-2 font-medium text-green-600  bg-green-300 rounded"
+                                  htmlFor="role-1"
+                                  className="w-full px-10 py-2 ml-2 font-medium text-green-600  bg-green-300 rounded"
                                 >
                                   User
                                 </label>
                               </div>
-                              <div class="flex items-center pl-4 border border-gray-200 rounded">
+                              <div className="flex items-center pl-4 border border-gray-200 rounded">
                                 <input
                                   id="role-2"
                                   type="radio"
                                   value="2"
                                   name="role"
-                                  class="w-8 h-8 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500"
+                                  className="w-8 h-8 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500"
                                   onChange={(e) => setRole(e.target.value)}
                                 />
                                 <label
-                                  for="role-2"
-                                  class="w-full px-10 py-2 ml-2 font-medium text-purple-600 bg-purple-300 rounded"
+                                  htmlFor="role-2"
+                                  className="w-full px-10 py-2 ml-2 font-medium text-purple-600 bg-purple-300 rounded"
                                 >
                                   Admin
                                 </label>
                               </div>
                             </div>
                           </div>
-                          <div class="bg-gray-200 px-4 py-3 text-right">
+                          <div className="bg-gray-200 px-4 py-3 text-right">
                             <button
                               type="button"
-                              class="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 mr-2"
+                              className="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 mr-2"
                               onClick={() => toggleModal(user.id)}
                             >
-                              <i class="fas fa-times"></i> Cancel
+                              <i className="fas fa-times"></i> Cancel
                             </button>
                             <button
                               type="button"
-                              class="py-2 px-4 bg-purple-500 text-white rounded hover:bg-purple-700 mr-2"
+                              className="py-2 px-4 bg-purple-500 text-white rounded hover:bg-purple-700 mr-2"
                               onClick={(e) => handleUpdate(e, user.id)}
                             >
-                              <i class="fas fa-plus"></i>{' '}
+                              <i className="fas fa-plus"></i>{' '}
                               {loadingUpdate ? ' Loading...' : 'Update'}
                             </button>
                           </div>
@@ -322,9 +322,8 @@ export default function User() {
             <div className="w-2/5 flex justify-between items-center">
               {users.links.map((link) => (
                 <div
-                  className={`rounded-full w-10 h-10 flex justify-center items-center m-4 cursor-pointer ${
-                    link.active ? 'bg-green-400 text-white' : 'bg-gray-100'
-                  }`}
+                  className={`rounded-full w-10 h-10 flex justify-center items-center m-4 cursor-pointer ${link.active ? 'bg-green-400 text-white' : 'bg-gray-100'
+                    }`}
                 >
                   <div
                     onClick={() =>

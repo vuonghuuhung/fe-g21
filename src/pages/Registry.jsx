@@ -101,7 +101,7 @@ const Registry = ({ isLogin }) => {
     e.preventDefault();
     console.log(validateEmail(email));
     try {
-      toast.info("Đang đăng ký...")
+      toast.info("Đang đăng ký...", {autoClose: 1000});
       const response = await registry({
         email: email,
         password: password,
@@ -113,7 +113,7 @@ const Registry = ({ isLogin }) => {
         phone: phoneNumber,
       });
       if (response) {
-        toast.success("Đăng ký thành công!");
+        toast.success("Đăng ký thành công!", { autoClose: 1000});
         navigate("/login");
       } else {
         toast.error("Đăng ký thất bại, vui lòng thử lại!");

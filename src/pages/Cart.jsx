@@ -58,7 +58,7 @@ const Cart = ({ isLogin }) => {
   const deleteProduct = (productId) => {
     setProducts(products.filter((product) => product.id !== productId));
     removeProduct(productId);
-    toast.success("Đã xóa sản phẩm khỏi giỏ hàng!");
+    toast.success("Đã xóa sản phẩm khỏi giỏ hàng!", { autoClose: 1000});
   };
 
   const handleQuantityChange = (productId, newQuantity) => {

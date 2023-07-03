@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: "https://g21-be.azurewebsites.net/",
+    baseURL: "http://localhost:8000/",
     headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
     },
-    timeout: 10000000,
+    timeout: 1000000,
     withCredentials: true
 });
 

@@ -89,7 +89,7 @@ export default function Order() {
       try {
         const status = 5;
         await deleteOrder(order.id, status);
-        toast.success('Order deleted successfully');
+        toast.success('Order deleted successfully', { autoClose: 1000});
         dispatch({ type: 'DELETE_SUCCESS' });
       } catch (err) {
         toast.error('Error');

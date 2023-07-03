@@ -80,7 +80,7 @@ export default function EditStyle() {
         setImage(res.data.image);
         setLoadData(false);
         console.log(res.data);
-      } catch (err) {}
+      } catch (err) { }
     };
     fetchData();
   }, [style]);
@@ -99,7 +99,7 @@ export default function EditStyle() {
       dispatch({
         type: 'UPDATE_SUCCESS',
       });
-      toast.success('Product style updated successfully');
+      toast.success('Product style updated successfully', { autoClose: 1000});
       navigate(`/admin/product/edit/${id}`);
     } catch (err) {
       toast.error('ERROR');
@@ -115,7 +115,7 @@ export default function EditStyle() {
       dispatch({ type: 'UPLOAD_REQUEST' });
       const { data } = await saveImage(bodyFormData);
       dispatch({ type: 'UPLOAD_SUCCESS' });
-      toast.success('Image uploaded successfully');
+      toast.success('Image uploaded successfully', { autoClose: 1000});
       setImage(data.secure_url);
     } catch (err) {
       toast.error('ERROR');
@@ -137,7 +137,7 @@ export default function EditStyle() {
             <div className="w-full flex">
               <div className="mb-6 mr-4 w-1/2">
                 <label
-                  for="base-input"
+                  htmlFor="base-input"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Style Name
@@ -153,7 +153,7 @@ export default function EditStyle() {
               </div>
               <div className="mb-6 ml-4 w-1/2">
                 <label
-                  for="base-input"
+                  htmlFor="base-input"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Stock
@@ -171,7 +171,7 @@ export default function EditStyle() {
             <div className="w-full flex">
               <div className="mb-6 mr-4 w-1/2">
                 <label
-                  for="base-input"
+                  htmlFor="base-input"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Standard Price
@@ -187,7 +187,7 @@ export default function EditStyle() {
               </div>
               <div className="mb-6 ml-4 w-1/2">
                 <label
-                  for="base-input"
+                  htmlFor="base-input"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Fixed Price
@@ -203,7 +203,7 @@ export default function EditStyle() {
               </div>
             </div>
             <label
-              for="base-input"
+              htmlFor="base-input"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
               Product Color Image
@@ -211,7 +211,7 @@ export default function EditStyle() {
             <div className="w-full flex mb-6">
               <div className="flex items-center justify-center w-1/2">
                 <label
-                  for="dropzone-file"
+                  htmlFor="dropzone-file"
                   className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100"
                 >
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">

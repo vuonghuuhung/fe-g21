@@ -1,7 +1,7 @@
 import axios from '../utils/axios';
 
-const token = localStorage.getItem('token')
-  ? localStorage.getItem('token')
+const token = localStorage.getItem("token")
+  ? localStorage.getItem("token")
   : null;
 const headers = {
   Authorization: `Bearer ${token}`,
@@ -9,6 +9,7 @@ const headers = {
 
 const getOrderListById = async (id) => {
   try {
+    await axios.get('/sanctum/csrf-cookie');
     const response = await axios.get(
       `/api/user/order-list/${id}`,
       {
@@ -25,6 +26,7 @@ const getOrderListById = async (id) => {
 
 const rate = async (orderDetailId, rate) => {
   try {
+    await axios.get('/sanctum/csrf-cookie');
     const response = await axios.post(
       `/api/user/product-rate/${orderDetailId}`,
       {
@@ -41,6 +43,7 @@ const rate = async (orderDetailId, rate) => {
 
 const getOrderList = async (page, query) => {
   try {
+    await axios.get('/sanctum/csrf-cookie');
     const response = await axios.get(
       `/api/admin/orders?page=${page}&perPage=5&search=${query ? query : ''}`,
       {
@@ -73,6 +76,7 @@ const deleteOrder = async (id, status) => {
 
 const getOrder = async (id) => {
   try {
+    await axios.get('/sanctum/csrf-cookie');
     const response = await axios.get(`/api/admin/order/${id}`, {
       headers,
     });
@@ -85,6 +89,13 @@ const getOrder = async (id) => {
 
 const analysis = async (id) => {
   try {
+    const token = localStorage.getItem("token")
+      ? localStorage.getItem("token")
+      : null;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    await axios.get('/sanctum/csrf-cookie');
     const response = await axios.get(`/api/admin/analysis`, {
       headers,
     });

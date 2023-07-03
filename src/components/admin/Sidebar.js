@@ -17,6 +17,8 @@ import {
 } from '@heroicons/react/24/solid';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../services/apis/auth';
+import { useEffect } from 'react';
+import { analysis } from '../../services/apis/authOrders';
 
 export default function Sidebar({ setIsLogin, setIsAdmin }) {
   const navigate = useNavigate();

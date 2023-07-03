@@ -23,7 +23,7 @@ const OrderDetail = () => {
       const rating = ratings[productId];
       await rate(productId, rating);
     }
-    toast.success("Cảm ơn vì đã phản hồi cho chúng tôi!");
+    toast.success("Cảm ơn vì đã phản hồi cho chúng tôi!", { autoClose: 1000});
     navigate('/dashboard');
   };
 

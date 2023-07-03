@@ -145,7 +145,7 @@ export default function EditProduct() {
         setImage(res.data.image);
         setCategorise(cate.data);
         setLoadData(false);
-      } catch (err) {}
+      } catch (err) { }
     };
     fetchData();
   }, [id, loadingCreateCate, loadingCreateStyle, loadingDelete]);
@@ -166,7 +166,7 @@ export default function EditProduct() {
       dispatch({ type: 'UPLOAD_REQUEST' });
       const { data } = await saveImage(bodyFormData);
       dispatch({ type: 'UPLOAD_SUCCESS' });
-      toast.success('Image uploaded successfully');
+      toast.success('Image uploaded successfully', { autoClose: 1000});
       setImage(data.secure_url);
     } catch (err) {
       toast.error('ERROR');
@@ -182,7 +182,7 @@ export default function EditProduct() {
       dispatch({ type: 'UPLOAD_REQUEST' });
       const { data } = await saveImage(bodyFormData);
       dispatch({ type: 'UPLOAD_SUCCESS' });
-      toast.success('Image uploaded successfully');
+      toast.success('Image uploaded successfully', { autoClose: 1000});
       setStyleImage(data.secure_url);
     } catch (err) {
       toast.error('ERROR');
@@ -202,7 +202,7 @@ export default function EditProduct() {
       dispatch({
         type: 'UPDATE_SUCCESS',
       });
-      toast.success('Product updated successfully');
+      toast.success('Product updated successfully', { autoClose: 1000});
       navigate('/admin/products');
     } catch (err) {
       toast.error('ERROR');
@@ -221,7 +221,7 @@ export default function EditProduct() {
       dispatch({
         type: 'CREATECATE_SUCCESS',
       });
-      toast.success('Category created successfully');
+      toast.success('Category created successfully', { autoClose: 1000});
       setCategoryName(null);
       setDescription(null);
       toggleModal();
@@ -259,7 +259,7 @@ export default function EditProduct() {
       dispatch({
         type: 'CREATEST_SUCCESS',
       });
-      toast.success('Category style successfully');
+      toast.success('Category style successfully', { autoClose: 1000});
       setStyleName(null);
       setCode(null);
       setStandardPrice(0);
@@ -279,10 +279,10 @@ export default function EditProduct() {
         const status = 0;
         if (product.option_type === 1) {
           await deleteColor(style.id, status);
-          toast.success('Product color deleted successfully');
+          toast.success('Product color deleted successfully', { autoClose: 1000});
         } else {
           await deleteStyle(style.id, status);
-          toast.success('Product style deleted successfully');
+          toast.success('Product style deleted successfully', { autoClose: 1000});
         }
         dispatch({ type: 'DELETE_SUCCESS' });
       } catch (err) {
@@ -308,7 +308,7 @@ export default function EditProduct() {
             <div className="w-full flex">
               <div className="mb-6 mr-4 w-1/2">
                 <label
-                  for="base-input"
+                  htmlFor="base-input"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Product Name
@@ -326,7 +326,7 @@ export default function EditProduct() {
                 <div className="w-5/6">
                   <label
                     className="block mb-2 text-sm font-medium text-gray-900"
-                    for="grid-state"
+                    htmlFor="grid-state"
                   >
                     Category
                   </label>
@@ -380,7 +380,7 @@ export default function EditProduct() {
             </div>
             <div className="mb-6">
               <label
-                for="base-input"
+                htmlFor="base-input"
                 className="block mb-2 text-sm font-medium text-gray-900"
               >
                 Description
@@ -396,7 +396,7 @@ export default function EditProduct() {
               ></textarea>
             </div>
             <label
-              for="base-input"
+              htmlFor="base-input"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
               Product Image
@@ -404,7 +404,7 @@ export default function EditProduct() {
             <div className="w-full flex mb-6">
               <div className="flex items-center justify-center w-1/2">
                 <label
-                  for="dropzone-file"
+                  htmlFor="dropzone-file"
                   className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100"
                 >
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -454,7 +454,7 @@ export default function EditProduct() {
               </div>
             </div>
             <label
-              for="base-input"
+              htmlFor="base-input"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
               Product Type
@@ -471,7 +471,7 @@ export default function EditProduct() {
                   checked={product.option_type === 2 ?? 'true'}
                 />
                 <label
-                  for="default-radio-1"
+                  htmlFor="default-radio-1"
                   className="ml-2 text-sm font-medium text-gray-900"
                 >
                   Color
@@ -488,7 +488,7 @@ export default function EditProduct() {
                   checked={product.option_type === 1 ?? 'true'}
                 />
                 <label
-                  for="default-radio-2"
+                  htmlFor="default-radio-2"
                   className="ml-2 text-sm font-medium text-gray-900"
                 >
                   Style
@@ -497,7 +497,7 @@ export default function EditProduct() {
             </div>
             <div>
               <label
-                for="base-input"
+                htmlFor="base-input"
                 className="block mb-2 text-sm font-medium text-gray-900"
               >
                 List style
@@ -515,11 +515,11 @@ export default function EditProduct() {
                           onClick={() =>
                             product.option_type === 1
                               ? navigate(
-                                  `/admin/product-color/edit/${product.id}/${st.id}`
-                                )
+                                `/admin/product-color/edit/${product.id}/${st.id}`
+                              )
                               : navigate(
-                                  `/admin/product-style/edit/${product.id}/${st.id}`
-                                )
+                                `/admin/product-style/edit/${product.id}/${st.id}`
+                              )
                           }
                         >
                           <svg
@@ -586,26 +586,26 @@ export default function EditProduct() {
           </div>
 
           <div
-            class="fixed z-10 overflow-y-auto top-0 w-full left-0 hidden"
+            className="fixed z-10 overflow-y-auto top-0 w-full left-0 hidden"
             id="modal"
           >
-            <div class="flex items-center justify-center min-height-100vh pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-              <div class="fixed inset-0 transition-opacity">
-                <div class="absolute inset-0 bg-gray-900 opacity-75" />
+            <div className="flex items-center justify-center min-height-100vh pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+              <div className="fixed inset-0 transition-opacity">
+                <div className="absolute inset-0 bg-gray-900 opacity-75" />
               </div>
-              <span class="hidden sm:inline-block sm:align-middle sm:h-screen">
+              <span className="hidden sm:inline-block sm:align-middle sm:h-screen">
                 &#8203;
               </span>
               <div
-                class="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                className="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="modal-headline"
               >
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <div className="mb-6 mr-4 w-1/2">
                     <label
-                      for="base-input"
+                      htmlFor="base-input"
                       className="block mb-2 text-sm font-medium text-gray-900"
                     >
                       Category Name
@@ -620,7 +620,7 @@ export default function EditProduct() {
                   </div>
                   <div className="mb-6">
                     <label
-                      for="base-input"
+                      htmlFor="base-input"
                       className="block mb-2 text-sm font-medium text-gray-900"
                     >
                       Description
@@ -635,20 +635,20 @@ export default function EditProduct() {
                     ></textarea>
                   </div>
                 </div>
-                <div class="bg-gray-200 px-4 py-3 text-right">
+                <div className="bg-gray-200 px-4 py-3 text-right">
                   <button
                     type="button"
-                    class="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 mr-2"
+                    className="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 mr-2"
                     onClick={toggleModal}
                   >
-                    <i class="fas fa-times"></i> Cancel
+                    <i className="fas fa-times"></i> Cancel
                   </button>
                   <button
                     type="button"
-                    class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 mr-2"
+                    className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 mr-2"
                     onClick={handleCreateCate}
                   >
-                    <i class="fas fa-plus"></i>{' '}
+                    <i className="fas fa-plus"></i>{' '}
                     {loadingCreateCate ? ' Loading...' : 'Create'}
                   </button>
                 </div>
@@ -657,27 +657,27 @@ export default function EditProduct() {
           </div>
 
           <div
-            class="fixed z-10 overflow-y-auto top-0 w-full left-0 hidden"
+            className="fixed z-10 overflow-y-auto top-0 w-full left-0 hidden"
             id="modal-add"
           >
-            <div class="flex items-center justify-center min-height-100vh pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-              <div class="fixed inset-0 transition-opacity">
-                <div class="absolute inset-0 bg-gray-900 opacity-75" />
+            <div className="flex items-center justify-center min-height-100vh pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+              <div className="fixed inset-0 transition-opacity">
+                <div className="absolute inset-0 bg-gray-900 opacity-75" />
               </div>
-              <span class="hidden sm:inline-block sm:align-middle sm:h-screen">
+              <span className="hidden sm:inline-block sm:align-middle sm:h-screen">
                 &#8203;
               </span>
               <div
-                class="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                className="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="modal-headline"
               >
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <div className="w-full flex">
                     <div className="mb-6 mr-4 w-1/2">
                       <label
-                        for="base-input"
+                        htmlFor="base-input"
                         className="block mb-2 text-sm font-medium text-gray-900"
                       >
                         {product.option_type === 1
@@ -695,7 +695,7 @@ export default function EditProduct() {
                     </div>
                     <div className="mb-6 ml-4 w-1/3">
                       <label
-                        for="base-input"
+                        htmlFor="base-input"
                         className="block mb-2 text-sm font-medium text-gray-900"
                       >
                         Stock
@@ -712,7 +712,7 @@ export default function EditProduct() {
                     {product.option_type === 1 && (
                       <div className="mb-6 w-1/6 space-x-2">
                         <label
-                          for="base-input"
+                          htmlFor="base-input"
                           className="block mb-2 text-sm font-medium text-gray-900"
                         >
                           Color Hex
@@ -732,7 +732,7 @@ export default function EditProduct() {
                   <div className="w-full flex">
                     <div className="mb-6 mr-4 w-1/2">
                       <label
-                        for="base-input"
+                        htmlFor="base-input"
                         className="block mb-2 text-sm font-medium text-gray-900"
                       >
                         Standard Price
@@ -748,7 +748,7 @@ export default function EditProduct() {
                     </div>
                     <div className="mb-6 ml-4 w-1/2">
                       <label
-                        for="base-input"
+                        htmlFor="base-input"
                         className="block mb-2 text-sm font-medium text-gray-900"
                       >
                         Fixed Price
@@ -764,7 +764,7 @@ export default function EditProduct() {
                     </div>
                   </div>
                   <label
-                    for="base-input"
+                    htmlFor="base-input"
                     className="block mb-2 text-sm font-medium text-gray-900"
                   >
                     Product Color Image
@@ -772,7 +772,7 @@ export default function EditProduct() {
                   <div className="w-full flex mb-1">
                     <div className="flex items-center justify-center w-1/2">
                       <label
-                        for="dropzone-file-add"
+                        htmlFor="dropzone-file-add"
                         className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100"
                       >
                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -824,20 +824,20 @@ export default function EditProduct() {
                     </div>
                   </div>
                 </div>
-                <div class="bg-gray-200 px-4 py-3 text-right">
+                <div className="bg-gray-200 px-4 py-3 text-right">
                   <button
                     type="button"
-                    class="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 mr-2"
+                    className="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 mr-2"
                     onClick={toggleModalAdd}
                   >
-                    <i class="fas fa-times"></i> Cancel
+                    <i className="fas fa-times"></i> Cancel
                   </button>
                   <button
                     type="button"
-                    class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 mr-2"
+                    className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 mr-2"
                     onClick={handleCreateStyle}
                   >
-                    <i class="fas fa-plus"></i>{' '}
+                    <i className="fas fa-plus"></i>{' '}
                     {loadingCreateStyle ? ' Loading...' : 'Create'}
                   </button>
                 </div>

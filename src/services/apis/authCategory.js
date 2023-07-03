@@ -10,8 +10,7 @@ const headers = {
 const getCategoryList = async (page, query) => {
   try {
     const response = await axios.get(
-      `/api/admin/categories?page=${page}&perPage=6&search=${
-        query ? query : ''
+      `/api/admin/categories?page=${page}&perPage=6&search=${query ? query : ''
       }`,
       {
         headers,
@@ -37,7 +36,7 @@ const deleteCategory = async (id, status) => {
     return response.data;
   } catch (error) {
     console.log(error);
-    throw error;
+    return error;
   }
 };
 
@@ -54,7 +53,7 @@ const updateCategory = async (id, data) => {
     return response.data;
   } catch (error) {
     console.log(error);
-    throw error;
+    return error;
   }
 };
 

@@ -33,6 +33,7 @@ import PaymentSuccess from './pages/PaymentSuccess';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Category from './components/admin/product/Category';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -44,26 +45,20 @@ function App() {
       if (userInfo !== null) {
         const role = userInfo.role;
         setIsLogin(() => true);
-        if (role === 2) setIsAdmin(() => true);
+        if (role === 2) {
+          setIsAdmin(() => true);
+          localStorage.setItem("isAdmin", true);
+        }
         toast.success(
           'Welcome, ' + userInfo.firstname + ' ' + userInfo.lastname
-        );
+        , { autoClose: 1000});
       } else {
-        setIsLogin(() => false);
-        setIsAdmin(() => false);
+        setIsLogin(false);
+        setIsAdmin(false);
       }
     };
     getStatus();
   }, [isLogin]);
-
-  const ProtectedRoute = ({ isAdmin, redirectPath = '/unauth' }) => {
-    if (!isAdmin) {
-      return <Navigate to={redirectPath} replace />;
-    }
-    const userInfo = JSON.parse(localStorage.getItem('userInfo')) || null;
-    toast.success('Welcome, ' + userInfo.firstname + ' ' + userInfo.lastname);
-    return <Outlet />;
-  };
 
   return (
     <>
@@ -101,7 +96,7 @@ function App() {
             />
             <Route path="*/:error" element={<Error />} />
           </Route>
-          <Route element={<ProtectedRoute isAdmin={isAdmin} />}>
+          <Route element={<ProtectedRoute />}>
             <Route
               path="admin"
               element={
@@ -111,7 +106,7 @@ function App() {
                 />
               }
             >
-              <Route path="" element={<AdminHome />} />
+              <Route index element={<AdminHome />} />
               <Route path="categories" element={<Category />} />
               <Route path="products" element={<Product />} />
               <Route path="product/create" element={<CreateProduct />} />

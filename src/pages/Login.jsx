@@ -20,17 +20,17 @@ const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsPressLogin(true);
-    toast.info("Đang đăng nhập...", { autoClose: true }); // Hiển thị toast "Đang đăng nhập..."
+    toast.info("Đang đăng nhập...", { autoClose: 1000 }); // Hiển thị toast "Đang đăng nhập..."
     const role = await login(email, password);
     setIsPressLogin(false);
     console.log(role);
     if (role) {
+      setIsLogin((prev) => prev = true);
+      navigate("/");
       if (role === 2) {
-        setIsAdmin(true);
+        setIsAdmin((prev) => prev = true);
+        localStorage.setItem("isAdmin", true);
         navigate("/admin");
-      } else {
-        setIsLogin(true);
-        navigate("/");
       }
     } else {
       setError(() => true);
@@ -51,7 +51,7 @@ const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
           </Link>
         </div>
         <h2 className="text-4xl font-semibold text-center mt-8 mb-6">LOGIN</h2>
-        {isPressLogin && <ToastContainer />} 
+        {isPressLogin && <ToastContainer />}
         <div className="mb-6">
           <input
             value={email}

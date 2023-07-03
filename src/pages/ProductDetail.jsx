@@ -39,7 +39,7 @@ const ProductDetail = () => {
       result.push(
         <svg
           aria-hidden="true"
-          class="w-5 h-5 text-yellow-400"
+          className="w-5 h-5 text-yellow-400"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@ const ProductDetail = () => {
       result.push(
         <svg
           aria-hidden="true"
-          class="w-5 h-5 text-gray-300 dark:text-gray-500"
+          className="w-5 h-5 text-gray-300 dark:text-gray-500"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -81,9 +81,9 @@ const ProductDetail = () => {
             />
             <div className="mt-4">
               Rate:
-              <div class="flex items-center">
+              <div className="flex items-center">
                 {renderRate(product.rate)}
-                <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
                   {product.rate} out of 5
                 </p>
               </div>
@@ -109,7 +109,7 @@ const ProductDetail = () => {
               className="w-full py-3 px-6 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-lg"
               onClick={() => {
                 addProduct(product.id);
-                toast.success("Đã thêm vào giỏ hàng thành công!");
+                toast.success("Đã thêm vào giỏ hàng thành công!", { autoClose: 1000});
               }}
             >
               Add to Cart

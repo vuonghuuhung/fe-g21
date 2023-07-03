@@ -33,13 +33,17 @@ export default function AdminHome() {
     loading: true,
     error: '',
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await analysis();
         dispatch({ type: 'FETCH_SUCCESS', payload: res });
-      } catch (err) {}
+      } catch (err) {
+        console.log(err);
+        navigate("/unauth");
+      }
     };
     fetchData();
   }, []);

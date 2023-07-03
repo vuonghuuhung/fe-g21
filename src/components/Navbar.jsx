@@ -7,6 +7,7 @@ import ProductCard from "./ProductCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { createPayment } from "../services/apis/payment";
+import { ToastContainer } from "react-toastify";
 
 const Navbar = () => {
   const { quantityInCart } = useContext(CartContext);

@@ -20,6 +20,7 @@ const login = async (email, password) => {
 const logout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('userInfo');
+  localStorage.removeItem('isAdmin');
 };
 
 const getToken = () => {
