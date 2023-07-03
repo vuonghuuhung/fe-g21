@@ -468,7 +468,7 @@ export default function EditProduct() {
                   name="default-radio"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
                   disabled="true"
-                  checked={product.option_type === 1 ?? 'true'}
+                  checked={product.option_type === 2 ?? 'true'}
                 />
                 <label
                   for="default-radio-1"
@@ -485,7 +485,7 @@ export default function EditProduct() {
                   name="default-radio"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
                   disabled="true"
-                  checked={product.option_type === 2 ?? 'true'}
+                  checked={product.option_type === 1 ?? 'true'}
                 />
                 <label
                   for="default-radio-2"
