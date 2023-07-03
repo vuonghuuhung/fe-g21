@@ -112,7 +112,7 @@ export default function CreateProduct() {
       } catch (err) {}
     };
     fetchData();
-  }, []);
+  }, [loadingCreateCate]);
 
   const handleCreateCate = async (e) => {
     e.preventDefault();
@@ -127,7 +127,7 @@ export default function CreateProduct() {
       });
       toast.success('Category created successfully');
       setCategoryName(null);
-      setDescription(null);
+      setDescriptionCate(null);
       toggleModal();
     } catch (err) {
       toast.error('ERROR');

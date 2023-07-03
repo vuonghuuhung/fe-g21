@@ -47,6 +47,12 @@ export default function Sidebar({ setIsLogin, setIsAdmin }) {
             </ListItemPrefix>
             Dashboard
           </ListItem>
+          <ListItem onClick={() => navigate('categories')}>
+            <ListItemPrefix>
+              <ShoppingBagIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Categories
+          </ListItem>
           <ListItem onClick={() => navigate('products')}>
             <ListItemPrefix>
               <ShoppingBagIcon className="h-5 w-5" />
