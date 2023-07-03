@@ -97,7 +97,7 @@ const Cart = ({ isLogin }) => {
 
   return (
     <>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <div className="bg-white md:m-20 grid gap-x-20 grid-rows-2 grid-cols-1 md:grid-rows-1 m-4 md:grid-cols-7">
         <div className="md:col-span-4 ">
           <h2 className="text-3xl font-medium">
