@@ -79,6 +79,8 @@ export default function Category() {
   const [descriptionCate, setDescriptionCate] = useState(null);
   const [categoryName, setCategoryName] = useState(null);
   const [edit, setEdit] = useState(null);
+  const [descriptionCateEdit, setDescriptionCateEdit] = useState(null);
+  const [categoryNameEdit, setCategoryNameEdit] = useState(null);
   const [
     {
       loading,
@@ -109,7 +111,7 @@ export default function Category() {
       try {
         const cate = await getCategoryList(page, query);
         dispatch({ type: 'FETCH_SUCCESS', payload: cate });
-      } catch (err) { }
+      } catch (err) {}
     };
     fetchData();
   }, [successDelete, loadingCreateCate, loadingEditCate, page, query]);
@@ -119,7 +121,7 @@ export default function Category() {
       try {
         const status = 0;
         await deleteCategory(category.id, status);
-        toast.success('category deleted successfully', { autoClose: 1000});
+        toast.success('category deleted successfully', { autoClose: 1000 });
         dispatch({ type: 'DELETE_SUCCESS' });
       } catch (err) {
         toast.error('Error');
@@ -141,12 +143,12 @@ export default function Category() {
       dispatch({
         type: 'CREATECATE_SUCCESS',
       });
-      toast.success('Category created successfully', { autoClose: 1000});
+      toast.success('Category created successfully', { autoClose: 1000 });
       setCategoryName(null);
       setDescriptionCate(null);
       toggleModal();
     } catch (err) {
-      toast.error('ERROR');
+      toast.error('CREATECATE_FAIL');
       dispatch({ type: 'CREATECATE_FAIL' });
     }
   };
@@ -156,17 +158,14 @@ export default function Category() {
     try {
       dispatch({ type: 'EDITCATE_REQUEST' });
       await updateCategory(edit, {
-        category_name: categoryName,
-        description: descriptionCate,
+        category_name: categoryNameEdit,
+        description: descriptionCateEdit,
       });
       dispatch({
         type: 'EDITCATE_SUCCESS',
       });
-      toast.success('Category edited successfully', { autoClose: 1000});
-      setCategoryName(null);
-      setDescriptionCate(null);
-      setEdit(null);
-      toggleModalEdit();
+      toast.success('Category edited successfully', { autoClose: 1000 });
+      toggleModalEditClose();
     } catch (err) {
       toast.error('ERROR');
       dispatch({ type: 'EDITCATE_FAIL' });
@@ -177,8 +176,18 @@ export default function Category() {
     document.getElementById('modal').classList.toggle('hidden');
   };
 
-  const toggleModalEdit = (id) => {
-    setEdit(id);
+  const toggleModalEdit = (cate) => {
+    document.getElementById('modal-edit').classList.toggle('hidden');
+    setEdit(cate.id);
+    setDescriptionCateEdit(cate.description);
+    setCategoryNameEdit(cate.category_name);
+  };
+
+  const toggleModalEditClose = () => {
+    setEdit(null);
+    setDescriptionCateEdit(null);
+    setCategoryNameEdit(null);
+    console.log(categoryName, descriptionCate);
     document.getElementById('modal-edit').classList.toggle('hidden');
   };
 
@@ -210,7 +219,7 @@ export default function Category() {
                 onChange={(e) => setQuery(e.target.value)}
               />
             </div>
-            <div className="">
+            <div className="w-10">
               <div className="text-center">
                 <button
                   className="p-3 mx-6 font-bold bg-green-500 text-white rounded-md"
@@ -231,9 +240,6 @@ export default function Category() {
                       d="M12 6v12m6-6H6"
                     ></path>
                   </svg>
-                  <div className="flex justify-center items-center mr-2">
-                    Create
-                  </div>
                 </button>
               </div>
             </div>
@@ -244,7 +250,7 @@ export default function Category() {
                 <tr className="rounded-md border-b-2 border-gray">
                   <th className="px-12 py-2">ID</th>
                   <th className="px-12 py-2">NAME</th>
-                  <th className="px-12 py-2"> DESCRIPTION</th>
+                  <th className="px-12 py-2 w-[400px]"> DESCRIPTION</th>
                   <th className="px-12 py-2">ACTIONS</th>
                 </tr>
               </thead>
@@ -264,9 +270,7 @@ export default function Category() {
                     <td className="text-center items-center px-4">
                       <button
                         className="px-2 mx-2 py-2 font-semibold text-white bg-yellow-300 rounded-md"
-                        onClick={() =>
-                          navigate(`/admin/category/edit/${category.id}`)
-                        }
+                        onClick={() => toggleModalEdit(category)}
                       >
                         <svg
                           fill="none"
@@ -306,7 +310,7 @@ export default function Category() {
                         </svg>
                       </button>
                     </td>
-                    <span
+                    <div
                       className="fixed z-10 overflow-y-auto top-0 w-full left-0 hidden"
                       id="modal-edit"
                     >
@@ -318,7 +322,7 @@ export default function Category() {
                           &#8203;
                         </span>
                         <span
-                          className="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                          className="p-4 inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full"
                           role="dialog"
                           aria-modal="true"
                           aria-labelledby="modal-headline"
@@ -335,9 +339,9 @@ export default function Category() {
                                 type="text"
                                 id="base-input"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 outline-none"
-                                value={categoryName}
+                                value={categoryNameEdit}
                                 onChange={(e) =>
-                                  setCategoryName(e.target.value)
+                                  setCategoryNameEdit(e.target.value)
                                 }
                               />
                             </span>
@@ -353,14 +357,14 @@ export default function Category() {
                                 rows="4"
                                 className="block px-4 py-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 outline-none"
                                 placeholder="Write your description here..."
-                                value={descriptionCate}
+                                value={descriptionCateEdit}
                                 onChange={(e) =>
-                                  setDescriptionCate(e.target.value)
+                                  setDescriptionCateEdit(e.target.value)
                                 }
                               ></textarea>
                             </span>
                           </span>
-                          <span className="bg-gray-200 px-4 py-3 text-right">
+                          <span className="mt-4 px-4 py-3 text-right">
                             <button
                               type="button"
                               className="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 mr-2"
@@ -374,12 +378,12 @@ export default function Category() {
                               onClick={handleEditCate}
                             >
                               <i className="fas fa-plus"></i>{' '}
-                              {loadingCreateCate ? ' Loading...' : 'Create'}
+                              {loadingEditCate ? ' Loading...' : 'Update'}
                             </button>
                           </span>
                         </span>
                       </span>
-                    </span>
+                    </div>
                   </tr>
                 ))}
               </tbody>
@@ -389,8 +393,9 @@ export default function Category() {
             <div className="w-2/5 flex justify-between items-center">
               {categorise.links.map((link, index) => (
                 <div
-                  className={`rounded-full w-10 h-10 flex justify-center items-center m-2 cursor-pointer ${link.active ? 'bg-green-400 text-white' : 'bg-gray-100'
-                    }`}
+                  className={`rounded-full w-10 h-10 flex justify-center items-center m-2 cursor-pointer ${
+                    link.active ? 'bg-green-400 text-white' : 'bg-gray-100'
+                  }`}
                   key={index}
                 >
                   <div
