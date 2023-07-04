@@ -34,6 +34,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Category from './components/admin/product/Category';
 import ProtectedRoute from './components/ProtectedRoute';
+import UserChat from './pages/UserChat';
+import AdminChat from './pages/AdminChat';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -45,13 +47,14 @@ function App() {
       if (userInfo !== null) {
         const role = userInfo.role;
         setIsLogin(() => true);
+        localStorage.setItem("isLogin", true);
         if (role === 2) {
           setIsAdmin(() => true);
           localStorage.setItem("isAdmin", true);
         }
         toast.success(
           'Welcome, ' + userInfo.firstname + ' ' + userInfo.lastname
-        , { autoClose: 1000});
+          , { autoClose: 1000 });
       } else {
         setIsLogin(false);
         setIsAdmin(false);
@@ -78,6 +81,7 @@ function App() {
           <Route path="registry" element={<Registry isLogin={isLogin} />} />
           <Route path="/" element={<SharedLayout />}>
             <Route index element={<Home />} />
+            <Route path="chat" element={<UserChat isLogin={isLogin} />} />
             <Route path="cart" element={<Cart isLogin={isLogin} />} />
             <Route path="checkout" element={<Checkout isLogin={isLogin} />} />
             <Route path="payment-success/:id" element={<PaymentSuccess />} />
@@ -107,6 +111,7 @@ function App() {
               }
             >
               <Route index element={<AdminHome />} />
+              <Route path="chat" element={<AdminChat />} />
               <Route path="categories" element={<Category />} />
               <Route path="products" element={<Product />} />
               <Route path="product/create" element={<CreateProduct />} />

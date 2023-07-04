@@ -3,7 +3,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useState } from "react";
 import CartContext from "../components/CartContext";
-// import UserChat from "./UserChat";
 
 const SharedLayout = () => {
   const [quantityInCart, setQuantityInCart] = useState(() => {
@@ -45,7 +44,6 @@ const SharedLayout = () => {
   return (
     <>
       <CartContext.Provider value={contextData}>
-        {/* <UserChat /> */}
         <Navbar />
         <Outlet />
         <Footer />
