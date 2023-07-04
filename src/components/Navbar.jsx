@@ -62,6 +62,9 @@ const Navbar = () => {
             <span onClick={() => navigate("/products/3")} className="cursor-pointer flex group h-[104px] items-center">
               Home & Lifestyle
             </span>
+            <span onClick={() => navigate("/chat")} className="cursor-pointer flex group h-[104px] items-center">
+              Chat with us
+            </span>
           </nav>
         )}
         <div

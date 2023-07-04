@@ -26,6 +26,7 @@ const Login = ({ isLogin, setIsLogin, setIsAdmin }) => {
     console.log(role);
     if (role) {
       setIsLogin((prev) => prev = true);
+      localStorage.setItem("isLogin", true);
       navigate("/");
       if (role === 2) {
         setIsAdmin((prev) => prev = true);

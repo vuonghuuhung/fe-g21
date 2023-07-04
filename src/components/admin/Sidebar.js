@@ -14,11 +14,13 @@ import {
   Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
+  BackwardIcon,
 } from '@heroicons/react/24/solid';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../services/apis/auth';
 import { useEffect } from 'react';
 import { analysis } from '../../services/apis/authOrders';
+import { ArchiveBoxIcon, ChartBarIcon, ChatBubbleBottomCenterIcon, ClipboardDocumentCheckIcon, FolderOpenIcon, UsersIcon } from '@heroicons/react/24/solid';
 
 export default function Sidebar({ setIsLogin, setIsAdmin }) {
   const navigate = useNavigate();
@@ -45,31 +47,37 @@ export default function Sidebar({ setIsLogin, setIsAdmin }) {
         <List>
           <ListItem onClick={() => navigate('/admin')}>
             <ListItemPrefix>
-              <PresentationChartBarIcon className="h-5 w-5" />
+              <ChartBarIcon className="h-5 w-5" />
             </ListItemPrefix>
             Dashboard
           </ListItem>
           <ListItem onClick={() => navigate('categories')}>
             <ListItemPrefix>
-              <ShoppingBagIcon className="h-5 w-5" />
+              <FolderOpenIcon className="h-5 w-5" />
             </ListItemPrefix>
             Categories
           </ListItem>
           <ListItem onClick={() => navigate('products')}>
             <ListItemPrefix>
-              <ShoppingBagIcon className="h-5 w-5" />
+              <ArchiveBoxIcon className="h-5 w-5" />
             </ListItemPrefix>
             Products
           </ListItem>
           <ListItem onClick={() => navigate('users')}>
             <ListItemPrefix>
-              <ShoppingBagIcon className="h-5 w-5" />
+              <UsersIcon className="h-5 w-5" />
             </ListItemPrefix>
             Users
           </ListItem>
+          <ListItem onClick={() => navigate('chat')}>
+            <ListItemPrefix>
+              <ChatBubbleBottomCenterIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Chat with user
+          </ListItem>
           <ListItem onClick={() => navigate('orders')}>
             <ListItemPrefix>
-              <InboxIcon className="h-5 w-5" />
+              <ClipboardDocumentCheckIcon className="h-5 w-5" />
             </ListItemPrefix>
             Orders
             <ListItemSuffix>
@@ -84,7 +92,7 @@ export default function Sidebar({ setIsLogin, setIsAdmin }) {
           </ListItem>
           <ListItem onClick={handleLogout}>
             <ListItemPrefix>
-              <PowerIcon className="h-5 w-5" />
+              <BackwardIcon className="h-5 w-5" />
             </ListItemPrefix>
             Log Out
           </ListItem>
