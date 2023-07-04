@@ -17,7 +17,7 @@ const pusher = new Pusher("d78816008ab4abe53329", {
     cluster: "ap1",
     forceTLS: true,
     userAuthentication: {
-        endpoint: "http://localhost:8000/api/pusherauth",
+        endpoint: "https://g21-be.azurewebsites.net/api/pusherauth",
         transport: "ajax",
         params: {
             Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ const pusher = new Pusher("d78816008ab4abe53329", {
         customHandler: null,
     },
     channelAuthorization: {
-        endpoint: "http://localhost:8000/api/pusherauthchannel",
+        endpoint: "https://g21-be.azurewebsites.net/api/pusherauthchannel",
         transport: "ajax",
         params: {},
         headers,
